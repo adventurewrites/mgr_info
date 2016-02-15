@@ -1,10 +1,9 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: report.aux
 The style file: plplain.bst
 Database file #1: references.bib
-I was expecting a `,' or a `}'---line 24 of file references.bib
+Illegal end of database file---line 40 of file references.bib
  : 
- : title = {ISO/IEC 9126-1:2001, Software engineering -- Product quality -- Part 1: Quality model},
+ : 
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--to sort, need author or key in bib:iso_9126
 (There was 1 error message)

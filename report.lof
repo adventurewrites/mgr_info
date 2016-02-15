@@ -4,3 +4,11 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Android \IeC {\textendash } udzia\IeC {\l } w rynku urz\IeC {\k a}dze\IeC {\'n} mobilnych na \IeC {\'s}wiecie. (\IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: portal android.com.pl, 09/2015)}}{4}{figure.2.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Podej\IeC {\'s}cie \IeC {\quotedblbase }standardowe\IeC {\textquotedblright } przy tworzeniu aplikacji dla systemu Android}}{7}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Idealna piramida testowania wed\IeC {\l }ug Mike'a Cohna\cite {bib:cohn:agile}}}{9}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Software Testing Ice Cream AntiPatern. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: watirmelon.com}}{10}{figure.4.3}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Zmodyfikowana struktura aplikacji Android: Clean Architecture}}{11}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Clean architecture of Android wed\IeC {\l }ug Uncle Ben. \IeC {\'Z}r\IeC {\'o}d\IeC {\l }o: http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html}}{12}{figure.5.2}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
