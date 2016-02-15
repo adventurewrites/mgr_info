@@ -1,0 +1,15 @@
+*.pdf
+*.bat
+*.log
+*.swp
+.DS_Store
+*.aux
+*.tks
+*.gz
+*.lot
+*.lof
+*.loc
+*.toc
+*.bbl
+*.blg
+*.out

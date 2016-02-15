@@ -1,0 +1,53 @@
+\documentclass[12pt]{report}
+
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{polski}
+\usepackage{paralist}
+\usepackage{floatrow}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{lmodern}
+\usepackage{upgreek}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{enumitem}
+\usepackage{verbatim}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\floatsetup[table]{capposition=top}
+\clubpenalty=10000 %to kara za sierotki
+\widowpenalty=10000 %nie pozostawia wdow
+\brokenpenalty=10000 %nie dzieli wyrazow pomiedzy stronami
+\usepackage[left=1.0in, right=1.0in, top=1.0in, bottom=1.0in]{geometry} %marginesy
+\newcommand{\chapinclude}[1]{\clearpage\input{#1}\clearpage} %workaround na input i chapter
+%moje dodatki - Rafał Sowiak
+\usepackage{indentfirst}
+
+\begin{document}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{title.tex}
+
+\tableofcontents
+\newpage
+
+\chapinclude{introduction.tex}
+\chapinclude{chapter_1.tex}
+\chapinclude{chapter_2.tex}
+\chapinclude{conclusions.tex}
+
+\bibliographystyle{plplain}
+\bibliography{references}
+
+\listoffigures
+
+\listoftables
+
+\end{document}

@@ -1,0 +1,58 @@
+\chapter{Testowalność oprogramowania}
+
+Jako analityk testowy z pojęciem testowalności oprogramowania spotykam się od początku mojej pracy w branży. Termin „testowalność oprogramowania” \cite{bib:iso_9126}  według definicji ISTQB\footnote{International Software Qualification Board}  i ISO9126, to najkrócej mówiąc właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. A pielęgnowalność , to łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
+
+Po co tak w ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej pracy, ale ja w skrócie postaram się na nie odpowiedzieć w tym rozdziale.
+
+Człowiek, jako istota żywa i omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w kodzie programu, bądź w dokumencie. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego wymagamy, lub wykonać to niezgodnie z założeniami, czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
+
+Defekty powstają, ponieważ jak już wspomniałem wcześniej, ludzie są omylni. Ale pomyłka człowieka, to nie jedyny powód awarii systemów. Mogą one być również spowodowane przez warunki środowiskowe, takie jak promieniowanie, pole magnetyczne i elektryczne, czy nawet zanieczyszczenia środowiska.
+
+Czy testowanie pomaga nam w całkowitym uniknięciu awarii systemów? Na pewno nie, ale pozwala je drastycznie ograniczyć. Za pomocą zestawu testów możemy zmierzyć jakość oprogramowania wyrażoną przez ilość znalezionych usterek oraz możemy budować zaufanie do jakości oprogramowania, jeżeli jako osoby testujące znajdujemy ich mało, bądź nie znajdujemy ich wcale.
+
+I tutaj najważniejsze zdanie: Testowanie samo w sobie nie poprawia jakości oprogramowania! Dopiero znalezienie, gdzie defekt znajduje się w kodzie programu (zdebugowanie) oraz naprawa tego błędu przez programistę, poprawi nam tą jakość. Poniżej na rysunku widzimy tabelę (słynną już, gdyż korzysta z niej wielu trenerów prowadzących kursy z testowania oprogramowania), jak testowanie na poszczególnych etapach wytwarzania oprogramowania wpływa na koszty projektu.
+
+\begin{table}[]
+\centering
+\caption{Koszty znalezienia błędu na poszczególnych etapach projektu}
+\label{tab:sample_table}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Błąd znaleziony podczas} & \textbf{Szacowany koszt} \\ \hline
+Projektowania & 1 PLN	\\ \hline
+Inspekcji (przeglądu) & 10 PLN	\\ \hline
+W początkowej fazie produkcji & 100 PLN	\\ \hline
+Podczas testów systemowych & 1000 PLN	\\ \hline
+Po dostarczeniu produktu na rynek & 10000 PLN	\\ \hline
+Kiedy produkt musi zostać wycofany z rynku & 100000 PLN	\\ \hline
+Kiedy produkt musi zostać wycofany z rynku po wyroku sądowym & 1000000 PLN	\\ \hline
+\end{tabular}
+\end{table}
+
+Z zestawienia jasno wynika, że praca testerów nie zaczyna się gdy program już jest napisany przez programistów, a zaczyna się już w najwcześniejszej fazie projektu, na etapie projektowania.
+
+Jak to jest więc z tą testowalnością oprogramowania dla Android? Czy aktualna struktura stosowana w większości aplikacji jest testowalna? Czy, o ile nie jest, da się tak poprawić strukturę programów, aby były bardziej testowalne niż obecnie? Jak nie psuć wcześniej działających części aplikacji wprowadzanymi zmianami w kodzie? Jak w ogóle wykrywać takie sytuacje, gdy coś przypadkowo zepsuliśmy? Jak dzielić odpowiedzialność pomiędzy częściami naszego oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w naszym kodzie, jak i pomiędzy naszym kodem i frameworkiem androidowym ? No i w ogóle, jak testować aplikacje dla Androida poprawnie?
+
+Na te pytania postaram się odpowiedzieć w drugiej części mojej pracy.
+%tutaj przykłady jak użyć poszczególnych konstrukcji
+%Przykładowy rysunek \ref{fig:sample_figure}. Prztykładowa tabela %\ref{tab:sample_table}. Przykładowy odnośnik do bibliografi \cite{bib:kowalski_2015}. \textbf{Powodzenia!}
+
+
+%\begin{figure}[!htb]
+%    \centering
+%    \includegraphics[width=10cm]{imgs/sample_figure.jpg}
+%    \caption{Przykłady rysunek}
+%    \label{fig:sample_figure}
+%\end{figure} 
+
+%\begin{table}[]
+%\centering
+%\caption{Przykładowa tabela}
+%\label{tab:sample_table}
+%\begin{tabular}{|l|l|}
+%\hline
+%\textbf{Nazwa} & \textbf{Wartość} \\ \hline
+%Test           & 1.2              \\ \hline
+%Kwiatek        & 5                \\ \hline
+%\end{tabular}
+%\end{table}
