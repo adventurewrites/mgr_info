@@ -1,16 +1,17 @@
 \chapter{Testowalność oprogramowania}
+\section{Pojęcie testowalności i pielęgnowalności oprogramowania}
+Jako analityk testowy z pojęciem testowalności oprogramowania autor spotyka się już od początku pracy w branży. Termin „testowalność oprogramowania” \footnote{Definicja testowalności według standardu ISO9126}  według definicji ISTQB \footnote{International Software Qualification Board}  i ISO9126, to najkrócej mówiąc właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. A pielęgnowalność \footnote{Definicja pielęgnowalności według ISTQB} , to łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
 
-Jako analityk testowy z pojęciem testowalności oprogramowania spotykam się od początku mojej pracy w branży. Termin „testowalność oprogramowania” \footnote{Definicja testowalności według standardu ISO9126}  według definicji ISTQB \footnote{International Software Qualification Board}  i ISO9126, to najkrócej mówiąc właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. A pielęgnowalność \footnote{Definicja pielęgnowalności według ISTQB} , to łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
-
-Po co tak w ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej pracy, ale ja w skrócie postaram się na nie odpowiedzieć w tym rozdziale.
+\section{Czy testowanie jest potrzebne?}
+Po co tak w ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej pracy, w tym rozdziale poruszymy tylko pojęcia, które zaostaną wykorzystane w dalszej części tej pracy.
 
 Człowiek, jako istota żywa i omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w kodzie programu, bądź w dokumencie. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego wymagamy, lub wykonać to niezgodnie z założeniami, czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
 
-Defekty powstają, ponieważ jak już wspomniałem wcześniej, ludzie są omylni. Ale pomyłka człowieka, to nie jedyny powód awarii systemów. Mogą one być również spowodowane przez warunki środowiskowe, takie jak promieniowanie, pole magnetyczne i elektryczne, czy nawet zanieczyszczenia środowiska.
+Defekty powstają, ponieważ jak już wspomnieliśmy wcześniej, ludzie są omylni. Ale pomyłka człowieka, to nie jedyny powód awarii systemów. Mogą one być również spowodowane przez warunki środowiskowe, takie jak promieniowanie, pole magnetyczne i elektryczne, czy nawet zanieczyszczenia środowiska.
 
 Czy testowanie pomaga nam w całkowitym uniknięciu awarii systemów? Na pewno nie, ale pozwala je drastycznie ograniczyć. Za pomocą zestawu testów możemy zmierzyć jakość oprogramowania wyrażoną przez ilość znalezionych usterek oraz możemy budować zaufanie do jakości oprogramowania, jeżeli jako osoby testujące znajdujemy ich mało, bądź nie znajdujemy ich wcale.
 
-I tutaj najważniejsze zdanie: Testowanie samo w sobie nie poprawia jakości oprogramowania! Dopiero znalezienie, gdzie defekt znajduje się w kodzie programu (zdebugowanie) oraz naprawa tego błędu przez programistę, poprawi nam tą jakość. Poniżej na rysunku widzimy tabelę (słynną już, gdyż korzysta z niej wielu trenerów prowadzących kursy z testowania oprogramowania), jak testowanie na poszczególnych etapach wytwarzania oprogramowania wpływa na koszty projektu.
+I tutaj najważniejsza teza: \textbf{Testowanie samo w sobie nie poprawia jakości oprogramowania!} Dopiero umiejscowienie defektu w kodzie programu (zdebugowanie) oraz naprawa tego błędu przez programistę poprawi nam tą jakość. Poniżej na rysunku widzimy tabelę (słynną już, gdyż korzysta z niej wielu trenerów prowadzących kursy z testowania oprogramowania), jak testowanie na poszczególnych etapach wytwarzania oprogramowania wpływa na koszty projektu.
 
 \begin{table}[]
 \centering
@@ -31,6 +32,43 @@ Kiedy produkt musi zostać wycofany z rynku po wyroku sądowym & 1000000 PLN	\\ 
 
 Z zestawienia jasno wynika, że praca testerów nie zaczyna się gdy program już jest napisany przez programistów, a zaczyna się już w najwcześniejszej fazie projektu, na etapie projektowania.
 
+\section{Obszary testowe}
+Idealnie byłoby mieć możliwość przetestować każdą linijkę kodu. Autor zdaje sobie sprawę, że w wielu przypadkach jest to niemożliwe, a nawet bezcelowe, więc dopuszcza się możliwość ograniczenia testowania do kluczowych elementów kodu źródłowego, czy kluczowych funkcjonalności. Zwykle nie jest potrzebne testowanie \textit{setterów}, \textit{getterów}, czy funkcji należących do standardowych bibliotek (zapewne zostały przetestowane już podczas ich tworzenia). 
+
+Generalnie podczas tworzenia aplikacji w Androidzie powinno się testować następujące elementy:
+
+\begin{itemize}
+\item{Cykle życia aktywności}
+
+Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle życia. Jeżeli od tworzonej aplikacji wymagamy, żeby zachowywała swój stan podczas \texttt{onPause()} albo \texttt{onDestroy()} i poźniej odtwarzała zachowany stan podczas wykonywania funkcji \texttt{onCreate()}, wtedy powinniśmy napisać testy pokrywające wszystkie te przypadki i sprawdzające, czy zachowany status został odtworzony poprawnie.
+
+\item{Dostęp do baz danych i do systemu plików}
+
+Należy sprawdzić, czy operacje dostępowe przeprowadzane są poprawnie, a jeżeli nie, to czy również poprawnie działa obsługa błędów. Testować to można na kilka sposobów: albo na niskim poziomie, izolując warstwę użytkownika, albo bezpośrednio z aplikacji. Do testowania na niskim poziomie możemy wykorzystywać dostarczane przez framework Androida w pakiecie \texttt{android.test.mock} \textit{zaślepki}\footnote{Zaślepka (stub) - szkieletowa albo specjalna implementacja modułu używana podczas produkcji lub testów innego modułu, który tę zaślepkę wywołuje albo jest w inny sposób od niej zależny. Zaślepka zastępuje wywoływany moduł. [wg. IEEE 610]}
+
+\item{Fizyczną charakterystykę urządzenia}
+
+Należy sprawdzić, czy aplikacja działa poprawnie na wszystkich urządzeniach, na których można ją uruchomić. To, że działa świetnie na smartfonie, nie zanczy że działa poprawnie na tablecie, a to że działa na smartfonie jednej firmy nie wyklucza awarii na tym samym urządzeniu wyprodukowanym przez kogoś innego. Elementy, które powinniśmy testować w tym zakresie, to:
+- możliwości sieciowe,
+- rozdzielczość ekranu,
+- gęstość ekranu,
+- rozmiar ekranu,
+- czułość sensorów,
+- klawiaturę i inne urządzenia wejściowe,
+- lokalizację GPS,
+- zewnętrzne karty pamięci.
+
+\end{itemize}
+
+\section{Rodzaje testów}
+
+\section{Test Driven Development}
+
+\section{Behaviour Driven Development}
+
+\section{Alternative testing tactics}
+
+\section{Testowalność aplikacji androidowych}
 Jak to jest więc z tą testowalnością oprogramowania dla Android? Czy aktualna struktura stosowana w większości aplikacji jest testowalna? Czy, o ile nie jest, da się tak poprawić strukturę programów, aby były bardziej testowalne niż obecnie? Jak nie psuć wcześniej działających części aplikacji wprowadzanymi zmianami w kodzie? Jak w ogóle wykrywać takie sytuacje, gdy coś przypadkowo zepsuliśmy? Jak dzielić odpowiedzialność pomiędzy częściami naszego oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w naszym kodzie, jak i pomiędzy naszym kodem i frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? No i w ogóle, jak testować aplikacje dla Androida poprawnie?
 
 Na te pytania postaram się odpowiedzieć w drugiej części mojej pracy.

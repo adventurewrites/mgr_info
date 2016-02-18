@@ -1,5 +1,25 @@
 \chapter{Opis problemu}
 
+\section{Architektura Android}
+Architektura Android przez wielu opisywana jest jako \textit{Java on Linux}, czyli programowanie w Javie pod Linuksem. Jednakże jest to stwierdzenie zbyt ogólne, biorąc pod uwagę złożoność całej platformy. Całość systemu zawiera bowiem w sobie komponenty, które układają się w pięć głównych warstw: \textit{Android applications}, \textit{the Android Framework}, \textit{the Dalvik virtual machine}, \textit{user-space native code} oraz \textit{Linux kernel}\cite{bib:hacker:handbook}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=15cm]{imgs/ch3_android_architecture_1.jpg}
+    \caption
+{Przegląd architektury Android. Źródło: Karim Yaghmour of Opersys Inc., \url{http://http://www.slideshare.net/opersys/inside-androids-ui}}
+    \label{fig:ch3_android_architecture_1}
+\end{figure} 
+
+Aplikacje Android pozwalają developerom rozszerzać i ulepszać funkcjonalność urządzeń, bez konieczności sięgania do niższych warstw systemu. W zamian framework Androida dostarcza developerom bogate środowisko użytkownika, które pozwala na dostęp do różnych udogodnień, jakie urządzenie z tym systemem jest w stanie programiście zaoferować. Jest to swoiste połączenie pomiędzy aplikacjami a wirtualną maszyną Dalvika, które zezwala na konfigurowanie interfejsu użytkownika (UI\footnote{User Interface}), dostęp do baz danych oraz przekazywanie informacji pomiędzy poszczególnymi komponentami aplikacji.
+
+Zarówno aplikacje jak i opisywany \textit{framework} napisane są w Javie i wykonywane na wirtualnej maszynie Dalvika (\textit{DalvikVM}). Jest to specjalnie zaprojektowana wirtualna maszyna Javy, zoptymalizowana pod jądro Linuxa. Niestety, nie wszystkie biblioteki wykorzystane przy jej tworzeniu udostępnione są na zasadzie wolnych licencji.
+
+Natywne elementy kodu Androida zawierają usługi systemowe, usługi sieciowe (takie jak \textit{DHCP} i \textit{wpa\_supplicant}) oraz różnego rodzaju biblioteki, między innymi \textit{WebKit} i \textit{OpenSSL}. 
+
+Najniższą warstwą, a zarazem podstawą systemu Android jest jądro Linuxa. Android dokonał licznych uzupełnień i zmian w jego źródłach, z których niektóre mają swoje negatywne konsekwencje dla bezpieczeństwa (ale nie będziemy zajmować się tym w ramach tej publikacji). Sterowniki znajdujące się w jądrze systemu zapewniają również dodatkowe funkcje, takie jak dostęp do kamery, sieci Wi-Fi oraz dostęp do innych urządzeń sieciowych. Szczególnie godny uwagi jest sterownik \textit{Binder}, który realizuje komunikację między procesami\cite{bib:hacker:handbook} (IPC\footnote{Inter-Process Communication}).
+
+\section{Standardowe podejście przy tworzeniu aplikacji}
 W większości przypadków aplikacje z przeznaczeniem dla systemu Android pisane są według następującego schematu:
 
 \begin{figure}[!htb]
@@ -10,7 +30,7 @@ W większości przypadków aplikacje z przeznaczeniem dla systemu Android pisane
     \label{fig:opis_problemu}
 \end{figure} 
 
-Czyli, na najniższej warstwie mamy Android SDK (Software Development Kit) i na niej budujemy kolejne warstwy. Każda z kolejnych warstw naszego oprogramowania korzysta z warstwy poniżej, a co za tym idzie, dziedziczy również zależności z warstwy Android SDK. Analizując taką strukturę aplikacji dostępnych pod Androidem możemy zaobserwować, że w wielu z nich:
+Czyli, na najniższej warstwie mamy Android SDK\footnote{Software Development Kit}  i na niej budujemy kolejne warstwy. Każda z kolejnych warstw naszego oprogramowania korzysta z warstwy poniżej, a co za tym idzie, dziedziczy również zależności z warstwy Android SDK. Analizując taką strukturę aplikacji dostępnych pod Androidem możemy zaobserwować, że w wielu z nich:
 \begin{itemize}
 \item
 nie jest zachowana zasada pojedynczej odpowiedzialności,
@@ -23,7 +43,7 @@ funkcje callback możemy znaleźć dosłownie wszędzie,
 \item
 elementy warstwy UI: Activity i Fragmenty potrafią mieć tysiące linii kodu,
 \item
-w większości plików aplikacji na każdej warstwie odwołujemy się do środowiska Android (import android.*)
+w większości plików aplikacji na każdej warstwie odwołujemy się do środowiska Android (\texttt{import android.*})
 \item
 i ostatnie, ale najważniejsze z punktu widzenia tej pracy: jeżeli w kodzie źródłowym szukamy zestawu unit testów – możemy się rozczarować.
 \end{itemize}
@@ -35,7 +55,7 @@ Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą ko
 \colorbox{red}{(dodać rysunki i ilustracje przedstawiające szerzej przykład)}
 
 \newpage
-Z doświadczenia własnego oraz kolegów testerów wiem, że jeżeli chcemy aplikację przetestować zaczynając od testów integracyjnych zamiast od unit testu, nakład pracy będzie zdecydowanie większy, niż gdy zastosujemy schemat standardowy, czyli zaczynając od unit testów, kontynuując poprzez testy integracyjne, następnie systemowe, a kończąc na akceptacyjnych (etapów może być więcej). Pozbawiając się możliwości zastosowania unit testów we wczesnym etapie projektu z powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a co za tym idzie - utratę zaufania klientów do naszego oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i technik Agile.}  w książce „Succeeding with Agile” \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
+Z doświadczenia własnego autora oraz jego kolegów testerów można wywnioskować, że jeżeli chcemy aplikację przetestować zaczynając od testów integracyjnych zamiast od unit testu, nakład pracy będzie zdecydowanie większy, niż gdy zastosujemy schemat standardowy, czyli zaczynając od unit testów, kontynuując poprzez testy integracyjne, następnie systemowe, a kończąc na akceptacyjnych (etapów może być więcej). Pozbawiając się możliwości zastosowania unit testów we wczesnym etapie projektu z powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a co za tym idzie - utratę zaufania klientów do naszego oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i technik Agile.}  w książce „Succeeding with Agile” \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
 
 \begin{figure}[!htb]
     \centering
