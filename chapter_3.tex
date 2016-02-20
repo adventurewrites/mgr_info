@@ -81,4 +81,14 @@ Na rysunku \ref{fig:odwrocona_piramida} widać, że z powodu zbyt dużego \texti
 
 Autor nie zaprzecza, że tym sposobem nie da się dobrze przetestować aplikacji, szczególnie że według podręczników testerskich testowanie gruntowne nie jest możliwe, jakiejkolwiek metody nie użylibyśmy. Lecz ryzyko znalezienia błędu na dalszym etapie projektu jest w tym przypadku znacznie większe niż w przypadku oprogramowania o usystematyzowanej strukturze, a co za tym idzie – koszty jego usunięcia są również znacznie wyższe.
 
-Propozycję rozwiązania problemu autor przybliży w kolejnym rozdziale.
+Propozycja zmiany struktury aplikacji Android zaproponowana została w rozdziale \ref{clean_architecture}
+
+\section{Pielęgnowalność aplikacji Android}
+\label{pielegnowalnosc_aplikacji}
+W realnym świecie niestety bardzo rzadko mamy możliwość tworzenia aplikacji od początku. W większości przypadków programiści muszą borykać się z kodem, który ktoś już kiedyś napisał, a dotyczy to w zasadzie wszystkich większych projektów informatycznych. Weźmy na przykład taką aplikację jak \textit{Gmail}. Wychodzą ciągle nowe wersje, ale trudno wyobrazić sobie sytuację, że któraś z nich została po prostu napisana od nowa. W takich przypadkach mamy do czynienia z tzw. kodem zastanym.
+
+O ile kod pisany był w sposób przejrzysty, dobrzy programiści są w stanie dobudować nowe części aplikacji, nawet nie mając dokumentacji do starszej części. Wiele firm programistycznych stosuje podejście, że sam kod programu jest zarówno jego dokumentacją. Rozsądne nadawanie nazw zmiennym oraz umieszczanie rzeczowych komentarzy pozwala programistom zrozumieć swoich poprzedników, a automatycznym narzędziom w stylu \textit{JavaDoc\footnote{Javadoc – narzędzie automatycznie generujące dokumentację na podstawie zamieszczonych w kodzie źródłowym znaczników w komentarzach. Javadoc został stworzony specjalnie na potrzeby języka programowania Java przez firmę Sun Microsystems. Źródło: Wikipedia}} wygenerować całkiem wyczerpującą dokumentację.
+
+Gorsza sytuacja jest z testowaniem. Jeżeli produkt nie był tworzony z zastosowaniem TDD, praca jaką należałoby wykonać przy pisaniu unit testów do gotowego kodu może być ogromna. Ponadto istnieje ryzyko, że tester chcąc sprostać wymaganiom osób zarządzających projektem będzie tak pisał testy jednostkowe, aby pokrywały jak największą część kodu, niekoniecznie przy tym wnosząc jakoś wartość w sprawdzenie niezawodności aplikacji.
+
+Jedno z możliwych rozwiązań zaproponowane zostało w rozdziale \ref{legacy_code}

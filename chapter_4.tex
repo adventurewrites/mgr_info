@@ -1,5 +1,7 @@
 \chapter{Propozycja rozwiązania}
 
+\section{Tworzenie aplikacji od podstaw}
+\label{clean_architecture}
 Największą przeszkodą w testowaniu aplikacji androidowych jest niestety sam Android. Im większy \textit{coupling} między warstwami, tym trudniej jest pisać testy jednostkowe. Rozważmy więc przekształcenie modelu aplikacji Android opisanego na początku poprzedniego rozdziału w następujący sposób:
 
 \begin{figure}[!htb]
@@ -51,3 +53,44 @@ jest testowalna, w oderwaniu od warstwy zawierającej interfejsy wymienione powy
 \end{itemize}
 
 Jeżeli ułożymy naszą strukturę aplikacji w powyższy sposób – testowanie powinno odbywać się jak w przypadku kodu napisanego w czystej Javie czy C++.
+
+\section{Praca z kodem zastanym}
+\label{legacy_code}
+W rozdziale \ref{pielegnowalnosc_aplikacji} nawiązaliśmy już do problemu pracy z kodem zastanym, tak zwanym \textit{Legacy Code}.
+Co więc zrobić, aby zaimplementować testy do już napisanego kodu? Godfrey Nolan\footnote{Godfrey Nolan - założyciel i prezes RIIS LLC, firmy zajmującej się rozwojem oprogramowania dla platform przenośnych. Autor książek o Androidzie: "Agile Android", "Booletproof android", "Android Best Practices" i "Decompiling Android"} w swojej książce "Agile Android"\cite{bib:agile:android} proponuje następujące rozwiązanie:
+
+\begin{itemize}
+\item 
+Wprowadzić metodę ciągłej integracji w procesie budowania kodu -  (\textit{Continuous Integration (CI)}).
+
+Jest to należąca do metodologii zwinnych praktyka polegająca na regularniej integracji zmian w kodzie do bieżącego repozytorium. Warunkiem koniecznym umieszczenia kodu w repozytorium jest upewnienie się, że dany kod działa.
+
+\item
+Przy projektowaniu nowych funkcjonalności używać metody TDD.
+
+\item
+Skorzystać z serwera CI (dobrym przykładem jest tutaj \textit{Jenkins}\footnote{http://jenkins-ci.org/}), który będzie wykonywał unit testy, do których mamy przekonanie, że ich implementacja nie powinna się zmieniać. Oczywiście tylko na tym etapie, bo testy automatyczne muszą również podlegać przeglądom.
+
+\item
+Uświadomić zespół programistów na czym polegają testy jednostkowe i przekonać ich do stosowania TDD.
+
+\item
+Dodać metryki mierzenia kodu do CI. Ustawić poziom minimalny na 10-15\%.
+
+\item
+Użyć frameworka do podstawowych testów GUI już istniejącej aplikacji (najlepiej \textit{Espresso}). Stworzyć testy opierając się na przypadkach użycia (ang. \textit{use cases)}.
+
+\item
+Bezwzględnie pisać testy jednostkowe do nowych części oprogramowania zgodnie z TDD, \textit{mockując} jeśli to możliwe wykorzystywane obiekty z zastanego kodu.
+
+\item
+Wyizolować zastany kod, tak aby nikt z programistów nie miał do niego dostępu, jeżeli naprawdę nie musi.
+
+\item
+Usunąć niewykorzystywane i nieużyteczne części kodu.
+
+\item
+Przepisać i przetestować wyizolowany kod, aby zwiększyć metryki pokrycia do około 60-70\%. 
+\end{itemize}
+
+Najważniejsze więc jest wyizolować stary kod, przetestować aplikację za pomocą frameworka do testów GUI, usunąć ewentualne błędy niepozwalające na poprawną pracę programu i nie modyfikować wyizolowanego kodu podczas pisania nowych funkcjonalności. Nowe funkcje należy dodawać stosując już TDD. Dopiero na końcu, jeżeli nasze środowisko jest już stabilne, należy rozpocząć przebudowę starych części aplikacji, tak aby metryki pokrycia kodu rosły wraz z upływem czasu. Przy wykonywaniu \textit{refaktoringu} Godfrey Nolan proponuje użyć narzędzia SonarQube\footnote{SonarQube - platforma do prowadzenia ciągłej inspekcji jakości kodu źródłowego, dostarczana na licencji \textit{open source}}.

@@ -162,6 +162,8 @@ Jeżeli istnieją unit testy i pokrywają znaczącą część kodu źródłowego
 
 Unit testy w podejściu TDD zapewniają, że jakość oprogramowania nie jest oparta na domysłach i przekonaniu programistów, a na rzetelnych raportach. Bez obaw można dokonywać modyfikacji takich, jak zmiana serwera baz danych, zmiana designu, interfejsu użytkownika, czy nawet API. Jeżeli wszystkie testy zostaną sprawdzone pozytywnie - oprogramowanie będzie działać nadal bezbłędnie.
 
+Ponadto TDD zmusza developera, żeby napisał tylko tyle linijek kodu, ile jest niezbędne dla powstania i działania danej fukcjonalności. Nie ma tu miejsca na wymyślanie własnych ścieżek i innowacji. Trzymamy się prostych rozwiązań tak mocno, jak to możliwe, a co za tym idzie nie komplikujemy niepotrzebnie aplikacji.
+
 Podsumowując, podejście TDD znacznie zwiększa nam więc testowalność i pielęgnowalność aplikacji. 
 
 \section{Wytwarzanie sterowane zachowaniem - \textit{Behaviour Driven Development}}
@@ -171,7 +173,9 @@ Podsumowując, podejście TDD znacznie zwiększa nam więc testowalność i piel
 \section{Alternative testing tactics}
 
 \section{Testowalność aplikacji androidowych}
-Jak to jest więc z tą testowalnością oprogramowania dla Android? Czy aktualna struktura stosowana w większości aplikacji jest testowalna? Czy, o ile nie jest, da się tak poprawić strukturę programów, aby były bardziej testowalne niż obecnie? Jak nie psuć wcześniej działających części aplikacji wprowadzanymi zmianami w kodzie? Jak w ogóle wykrywać takie sytuacje, gdy coś przypadkowo zepsuliśmy? Jak dzielić odpowiedzialność pomiędzy częściami naszego oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w naszym kodzie, jak i pomiędzy naszym kodem i frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? No i w ogóle, jak testować aplikacje dla Androida poprawnie?
+Jak to jest więc z tą testowalnością oprogramowania dla Android? Czy aktualna struktura stosowana w większości aplikacji jest testowalna?
+
+Z obserwacji autora wynika, że bardzo łatwo jest napisać zły i nietestowalny kod, nie tylko dla Androida. Ale czy metoda TDD jest wystarczająca, a by podnieść testowalność aplikacji? Czy może potrzebna jest zmiana całej struktury aplikacji? Jak dzielić odpowiedzialność pomiędzy częściami naszego oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w naszym kodzie, jak i pomiędzy naszym kodem i frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? No i w ogóle, jak testować aplikacje dla Androida skutecznie?
 
 Na te pytania autor postara się odpowiedzieć w dalszej części pracy.
 %tutaj przykłady jak użyć poszczególnych konstrukcji
