@@ -149,8 +149,24 @@ Odpowiedzialność za testy akceptacyjne, w przeciwieństwie do testów opisanyc
 
 \section{Wytwarzanie sterowane testowaniem - \textit{Test Driven Development}}
 \label{test_driven_development}
+Technika wytwarzania sterowanego zarządzaniem zyskuje coraz więcej popularności. Związane to jest pośrednio z nowymi modelami zarządzania projektami informatycznymi opartymi na metodykach zwinnych, w tym Agile\footnote{Agile software development) – grupa metodyk wytwarzania oprogramowania opartego na programowaniu iteracyjno-przyrostowym, powstałe jako alternatywa do tradycyjnych metod typu waterfall. Najważniejszym założeniem metodyk zwinnych jest obserwacja, że wymagania odbiorcy (klienta) często ewoluują podczas trwania projektu. Oprogramowanie wytwarzane jest przy współpracy samozarządzalnych zespołów, których celem jest przeprowadzanie procesów wytwarzania oprogramowania. (Źródło: Wikipedia) }. W założeniu podejście takie pozwala:
 
-\section{Behaviour Driven Development}
+\begin{itemize}
+\item znaleźć więcej błędów na wcześniejszym etapie procesu developmentu;
+\item świadomie zrobić zmiany wtedy, kiedy są potrzebne;
+\item łatwo wykonać testy regresywne bazując na wcześniej napisanych procedurach;
+\item przedłużyć żywotność kodu.
+\end{itemize}
+
+Jeżeli istnieją unit testy i pokrywają znaczącą część kodu źródłowego, wtedy jasne jest, że więcej błędów zostanie znalezionych i poprawionych. W ten sam sposób przy podejściu \textit{Test Driven Development (TDD)} można wywnioskować, że skoro unit testy są już napisane, z dużym prawdopodobieństwem pokrycie kodu będzie zadowalające. Co więcej, raz napisane testy można wykorzystywać do przeprowadzania testów regresywnych, aby się upewnić, czy zmiany w naszym oprogramowaniu zgodne są z założeniami i wymaganiami systemu.
+
+Unit testy w podejściu TDD zapewniają, że jakość oprogramowania nie jest oparta na domysłach i przekonaniu programistów, a na rzetelnych raportach. Bez obaw można dokonywać modyfikacji takich, jak zmiana serwera baz danych, zmiana designu, interfejsu użytkownika, czy nawet API. Jeżeli wszystkie testy zostaną sprawdzone pozytywnie - oprogramowanie będzie działać nadal bezbłędnie.
+
+Podsumowując, podejście TDD znacznie zwiększa nam więc testowalność i pielęgnowalność aplikacji. 
+
+\section{Wytwarzanie sterowane zachowaniem - \textit{Behaviour Driven Development}}
+\label{behaviour_driven_development}
+
 
 \section{Alternative testing tactics}
 
