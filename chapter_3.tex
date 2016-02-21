@@ -13,7 +13,7 @@ Architektura Android przez wielu opisywana jest jako \textit{Java on Linux}, czy
 
 Aplikacje Android pozwalają developerom rozszerzać i ulepszać funkcjonalność urządzeń, bez konieczności sięgania do niższych warstw systemu. W zamian framework Androida dostarcza developerom bogate środowisko użytkownika, które pozwala na dostęp do różnych udogodnień, jakie urządzenie z tym systemem jest w stanie programiście zaoferować. Jest to swoiste połączenie pomiędzy aplikacjami a wirtualną maszyną Dalvika, które zezwala na konfigurowanie interfejsu użytkownika (UI\footnote{User Interface}), dostęp do baz danych oraz przekazywanie informacji pomiędzy poszczególnymi komponentami aplikacji.
 
-Zarówno aplikacje jak i opisywany \textit{framework} napisane są w Javie i wykonywane na wirtualnej maszynie Dalvika (\textit{DalvikVM}). Jest to specjalnie zaprojektowana wirtualna maszyna Javy, zoptymalizowana pod jądro Linuxa. Niestety, nie wszystkie biblioteki wykorzystane przy jej tworzeniu udostępnione są na zasadzie wolnych licencji.
+Zarówno aplikacje jak i opisywany \textit{framework} napisane są w Javie i wykonywane na wirtualnej maszynie Dalvika (\textit{DalvikVM}). Jest to specjalnie zaprojektowana wirtualna maszyna z własnym kodem bajtowym, zoptymalizowana pod jądro Linuxa i pozwalająca na uruchamianie aplikacji androidowych. Niestety, nie wszystkie biblioteki wykorzystane przy jej tworzeniu udostępnione są na zasadzie wolnych licencji.
 
 Natywne elementy kodu Androida zawierają usługi systemowe, usługi sieciowe (takie jak \textit{DHCP} i \textit{wpa\_supplicant}) oraz różnego rodzaju biblioteki, między innymi \textit{WebKit} i \textit{OpenSSL}. 
 
@@ -50,10 +50,10 @@ i ostatnie, ale najważniejsze z punktu widzenia tej pracy: jeżeli w kodzie źr
 
 Spowodowane jest to dwoma czynnikami: pierwszy to trudność w wyodrębnieniu obszarów testowych z powodu zbyt dużego sprzężenia między warstwami (\textit{couplingu}), a drugi – pracochłonność w pisaniu testów. Jeżeli granica pomiędzy kolejnymi warstwami oprogramowania nie jest jasno wyznaczona, liczba testów do zaprojektowania rośnie drastycznie.
 
-\section{Testowanie aktualnej struktury aplikacji}
+\section{Trudności w testowaniu aktualnej struktury aplikacji}
 \label{testowanie_starej_struktury}
 
-Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą kodu z jedną instrukcją warunkową \textit{„if”}, oraz funkcjonalność \textbf{B}, w której mamy dwie zależne od siebie instrukcje \textit{„if”}, czyli cztery możliwe decyzje programowe. Testując te funkcjonalności razem (z powodu sprzężenia nie mamy innego wyjścia) musimy wykonać łącznie \textit{2 * 4 = 8} testów. Testy te równocześnie przestają być unit testami, gdyż łączą w sobie kilka funkcjonalności i stają się przez to testami integracyjnymi. Testując natomiast te funkcjonalności osobno, wykonamy \textit{2 + 4 = 6} unit testów. W tym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w aplikacjach z kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
+Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą kodu z jedną instrukcją warunkową \textit{„if”}, oraz funkcjonalność \textbf{B}, w której mamy dwie zależne od siebie instrukcje \textit{„if”}, czyli cztery możliwe decyzje programowe. Testując te funkcjonalności razem (z powodu sprzężenia nie mamy innego wyjścia) musimy wykonać łącznie \textit{2 * 4 = 8} testów. Testy te równocześnie przestają być testami jednostkowymi, gdyż łączą w sobie kilka funkcjonalności i stają się przez to testami integracyjnymi. Testując natomiast te funkcjonalności osobno, wykonamy \textit{2 + 4 = 6} unit testów. W tym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w aplikacjach z kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
 
 \begin{figure}[!htb]
     \centering
@@ -63,9 +63,12 @@ Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą ko
     \label{fig:testowanie_klas}
 \end{figure} 
 
+Również w przypadku architektury aplikacji Android, jeżeli zachodzi konieczność testowania każdej klasy lub pojedynczej funkcji w powiązaniu z \textit{Android SDK}, liczba testów jednostkowych zauważalnie wzrośnie.
 
-\newpage
-Z doświadczenia własnego autora oraz jego kolegów testerów można wywnioskować, że jeżeli chcemy aplikację przetestować zaczynając od testów integracyjnych zamiast od testów jednostkowych, nakład pracy będzie zdecydowanie większy, niż gdy zastosujemy schemat standardowy, czyli zaczynając od \textit{Unit Tests}, kontynuując poprzez testy integracyjne, następnie systemowe, a kończąc na akceptacyjnych (etapów może być więcej). Pozbawiając się możliwości zastosowania testów jednostkowych na wczesnym etapie projektu z powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a co za tym idzie - utratę zaufania klientów do naszego oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i technik Agile.}  w książce „Succeeding with Agile” \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
+\section{Idealna i odwrócona piramida testowania}
+Z doświadczenia własnego autora oraz jego kolegów testerów można wywnioskować, że jeżeli chcemy aplikację przetestować zaczynając od testów integracyjnych zamiast od testów jednostkowych, nakład pracy będzie zdecydowanie większy, niż gdy zastosujemy schemat standardowy, czyli zaczynając od \textit{Unit Tests}, kontynuując poprzez testy integracyjne, następnie systemowe, a kończąc na akceptacyjnych (etapów może być więcej). 
+
+Pozbawiając się możliwości zastosowania testów jednostkowych na wczesnym etapie projektu z powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a co za tym idzie - utratę zaufania klientów do naszego oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i technik Agile.}  w książce „Succeeding with Agile” \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
 
 \begin{figure}[!htb]
     \centering
@@ -75,6 +78,7 @@ Z doświadczenia własnego autora oraz jego kolegów testerów można wywnioskow
     \label{fig:idealna_piramida}
 \end{figure} 
 
+\newpage
 Z powyższego schematu wynika, że idealnie byłoby, gdyby wszystkie etapy testów zostały zautomatyzowane (wszystkie, z wyjątkiem manualnych testów akceptacyjnych, ale w idealnym świecie powinno być ich tak mało, że ich automatyzacja nie miałaby większego sensu). Oczywiście piramida ta może przybierać różne formy, poziomów testowania może być więcej lub mniej, mogą być one zautomatyzowane lub nie, ale idea jest cały czas ta sama: najwięcej przypadków testowych powinno być na najniższym poziomie. Powinny być one również najprostsze do zaprojektowania. Im dalsza faza projektu, tym testy stają się bardziej pracochłonne, a koszt usunięcia znalezionego błędu wyższy, do czego autor nawiązał już w tabeli \ref{tab:koszty_bledu}.
 
 Analizując aktualną strukturę większości aplikacji androidowych, schemat ten wygląda jednak tak jak na rysunku \ref{fig:odwrocona_piramida}.
@@ -87,11 +91,44 @@ Analizując aktualną strukturę większości aplikacji androidowych, schemat te
     \label{fig:odwrocona_piramida}
 \end{figure} 
 
+\newpage
 Na rysunku \ref{fig:odwrocona_piramida} widać, że z powodu zbyt dużego \textit{couplingu} unit testy zastąpione zostają testami integracyjnymi, a najwięcej przypadków testowych wykonywanych jest na interfejsie użytkownika (w czym znacznie pomagają frameworki testowe pozwalające na zautomatyzowanie pewnych czynności, nagranie makr według specyfikacji lub \textit{„user stories”}) oraz testy manualne.
 
 Autor nie zaprzecza, że tym sposobem nie da się dobrze przetestować aplikacji, szczególnie jeżeli zastosujemy taktyki testowania opisane w rozdziale \ref{testowalnosc}. Jak powszechnie wiadomo, testowanie gruntowne nie jest możliwe, jakiejkolwiek metody nie użylibyśmy. Lecz ryzyko znalezienia błędu na dalszym etapie projektu jest w tym przypadku znacznie większe niż w przypadku oprogramowania o usystematyzowanej strukturze, a co za tym idzie – koszty jego usunięcia są również znacznie wyższe.
 
 Okazuje się, że strukturę aplikacji Android da się jednak przeprojektować tak, aby ułatwić życie zarówno programistom jak i testerom. Propozycja zmiany struktury aplikacji Android zaproponowana została w rozdziale \ref{clean_architecture}
+
+\section{Przyczyny rezygnacji z testów jednostkowych}
+\label{testy_jednostkowe_brak}
+Trudna w testowaniu struktura aplikacji to jednak nie jedyna przyczyna niedostatecznej ilości testów jednostkowych, a nawet ich braku w procesie tworzenia aplikacji. Przyczyn takiej sytuacji może być wiele, a najważniejsze z nich, zdaniem autora, to:
+\begin{itemize}
+\item
+Niedostateczna znajomość języka programowania wśród programistów
+
+Jeżeli programista, nawet dobry, został zmuszony przez sytuację do poznawania nowego języka programowania, to w pierwszej kolejności chciałby, aby jego kod się kompilował, a program zaczął działać. Jeżeli zaczyna pisać testy, to znaczy, że ma na to czas i nie musi zagłębiać się w techniki konfiguracji kompilatora, czy środowiska programistycznego. 
+
+\item
+Słaba znajomość narzędzi testowych
+
+Jeżeli programista nie doskonali się w temacie projektowania testów, nie poznaje narzędzi testowych, które mogą spowodować, że testowanie stanie się łatwe i przyjemne, szybko zniechęci się już przy pierwszej próbie napisania trudniejszego testu, czy próbie \textit{zamockowania} jednego z interfejsów.
+
+\item
+Niska jakość kodu źródłowego
+
+Kiepsko zaprojektowany kod i niezbyt optymalnie zaprojektowana architektura systemowa powoduje, że nie ma możliwości w rozsądnym czasie przygotować zestawu testów. To powoduje, że firmy rezygnują z  testów jednostkowych na rzecz testów integracyjnych i systemowych, co pokazane zostało na rysunku \ref{fig:odwrocona_piramida}.
+
+\item
+Brak czasu na testy
+
+W dzisiejszych czasach koszty projektów informatycznych są zwykle ograniczone i menedżerowie niechętnie godzą się na dodatkowe aktywności, jeżeli wiąże się to z przekroczeniem pewnych ram czasowych. A programiści starają się wykorzystywać cały swój czas aż do \textit{deadline'ów} na "ulepszanie" kodu, co skutkuje brakiem czasu na testy jednostkowe.
+
+\item
+Przekonanie programistów o własnej nieomylności
+
+Człowiek jest omylny i popełnia błędy, do czego już autor nawiązał w rozdziale \ref{testowalnosc}. Niektórzy programiści nie chcą jednak przyjąć tego do wiadomości i upierają się przy stwierdzeniach, że testy do ich kawałka kodu źródłowego nie są potrzebne.
+\end{itemize}
+
+Należy zastanowić się, czy zastosowanie jednej z taktyk zwinnych, w tym przypadku TDD, pozwoliłoby usystematyzować pracę nad projektem i usunąć wszystkie powyższe przyczyny.
 
 \section{Pielęgnowalność aplikacji Android}
 \label{pielegnowalnosc_aplikacji}
