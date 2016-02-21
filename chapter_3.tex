@@ -39,7 +39,7 @@ warstwa odpowiedzialna za logikę domenową jest pomieszana z warstwą UI (User 
 \item
 logika UI jest pomieszana z asynchronicznym pobieraniem danych,
 \item
-funkcje callback możemy znaleźć dosłownie wszędzie,
+funkcje \textit{callback\footnote{Wywołanie zwrotne (ang. callback) jest to technika programowania będąca odwrotnością wywołania funkcji. Zwykle korzystanie z właściwości konkretnej biblioteki polega na wywołaniu funkcji (podprogramów) dostarczanych przez tę bibliotekę. W tym przypadku jest odwrotnie: użytkownik jedynie rejestruje funkcję do późniejszego wywołania, natomiast funkcje biblioteki wywołają ją w stosownym dla siebie czasie. Źródło: Wikipedia}} możemy znaleźć dosłownie wszędzie,
 \item
 elementy warstwy UI: Activity i Fragmenty potrafią mieć tysiące linii kodu,
 \item
@@ -48,44 +48,54 @@ w większości plików aplikacji na każdej warstwie odwołujemy się do środow
 i ostatnie, ale najważniejsze z punktu widzenia tej pracy: jeżeli w kodzie źródłowym szukamy zestawu unit testów – możemy się rozczarować.
 \end{itemize}
 
-Spowodowane jest to dwoma czynnikami: pierwszy to trudność w wyodrębnieniu obszarów testowych z powodu zbyt dużego sprzężenia między warstwami (wspomnianego już \textit{couplingu}), a drugi – pracochłonność w pisaniu testów. Jeżeli granica pomiędzy kolejnymi warstwami oprogramowania nie jest jasno wyznaczona, liczba testów do zaprojektowania rośnie drastycznie. Wyjaśnię to na poniższym przykładzie:
+Spowodowane jest to dwoma czynnikami: pierwszy to trudność w wyodrębnieniu obszarów testowych z powodu zbyt dużego sprzężenia między warstwami (\textit{couplingu}), a drugi – pracochłonność w pisaniu testów. Jeżeli granica pomiędzy kolejnymi warstwami oprogramowania nie jest jasno wyznaczona, liczba testów do zaprojektowania rośnie drastycznie.
+
+\section{Testowanie aktualnej struktury aplikacji}
+\label{testowanie_starej_struktury}
 
 Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą kodu z jedną instrukcją warunkową \textit{„if”}, oraz funkcjonalność \textbf{B}, w której mamy dwie zależne od siebie instrukcje \textit{„if”}, czyli cztery możliwe decyzje programowe. Testując te funkcjonalności razem (z powodu sprzężenia nie mamy innego wyjścia) musimy wykonać łącznie \textit{2 * 4 = 8} testów. Testy te równocześnie przestają być unit testami, gdyż łączą w sobie kilka funkcjonalności i stają się przez to testami integracyjnymi. Testując natomiast te funkcjonalności osobno, wykonamy \textit{2 + 4 = 6} unit testów. W tym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w aplikacjach z kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
 
-\colorbox{red}{(dodać rysunki i ilustracje przedstawiające szerzej przykład)}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=10cm]{imgs/ch3_przyklad_testowania_klas.png}
+    \caption
+{Różnice w testowaniu klas osobno i razem. \textit{"Integrated Tests are a Scam"} - schemat autorstwa J.B. Rainsbergera. Źródło: \url{https://vimeo.com/80533536)}}
+    \label{fig:testowanie_klas}
+\end{figure} 
+
 
 \newpage
-Z doświadczenia własnego autora oraz jego kolegów testerów można wywnioskować, że jeżeli chcemy aplikację przetestować zaczynając od testów integracyjnych zamiast od unit testu, nakład pracy będzie zdecydowanie większy, niż gdy zastosujemy schemat standardowy, czyli zaczynając od unit testów, kontynuując poprzez testy integracyjne, następnie systemowe, a kończąc na akceptacyjnych (etapów może być więcej). Pozbawiając się możliwości zastosowania unit testów we wczesnym etapie projektu z powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a co za tym idzie - utratę zaufania klientów do naszego oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i technik Agile.}  w książce „Succeeding with Agile” \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
+Z doświadczenia własnego autora oraz jego kolegów testerów można wywnioskować, że jeżeli chcemy aplikację przetestować zaczynając od testów integracyjnych zamiast od testów jednostkowych, nakład pracy będzie zdecydowanie większy, niż gdy zastosujemy schemat standardowy, czyli zaczynając od \textit{Unit Tests}, kontynuując poprzez testy integracyjne, następnie systemowe, a kończąc na akceptacyjnych (etapów może być więcej). Pozbawiając się możliwości zastosowania testów jednostkowych na wczesnym etapie projektu z powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a co za tym idzie - utratę zaufania klientów do naszego oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i technik Agile.}  w książce „Succeeding with Agile” \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=10cm]{imgs/ch3_idealna_piramida.png}
+    \includegraphics[width=8cm]{imgs/ch3_idealna_piramida.png}
     \caption
 {Idealna piramida testowania według Mike'a Cohna\cite{bib:cohn:agile}}
     \label{fig:idealna_piramida}
 \end{figure} 
 
-Z powyższego schematu wynika, że idealnie byłoby, gdyby wszystkie etapy testów zostały zautomatyzowane (wszystkie, z wyjątkiem manualnych testów akceptacyjnych, ale w idealnym świecie powinno być ich tak mało, że ich automatyzacja nie miałaby większego sensu). Oczywiście piramida ta może przybierać różne formy, poziomów testowania może być więcej lub mniej, mogą być one zautomatyzowane lub nie, ale idea jest cały czas ta sama: najwięcej testów powinno być na najniższym poziomie. Powinny być one również najprostsze do zaprojektowania. Im dalsza faza projektu, tym testy stają się bardziej pracochłonne, a koszt usunięcia znalezionego błędu wyższy, do czego autor nawiązał już w tabeli \ref{tab:koszty_bledu}.
+Z powyższego schematu wynika, że idealnie byłoby, gdyby wszystkie etapy testów zostały zautomatyzowane (wszystkie, z wyjątkiem manualnych testów akceptacyjnych, ale w idealnym świecie powinno być ich tak mało, że ich automatyzacja nie miałaby większego sensu). Oczywiście piramida ta może przybierać różne formy, poziomów testowania może być więcej lub mniej, mogą być one zautomatyzowane lub nie, ale idea jest cały czas ta sama: najwięcej przypadków testowych powinno być na najniższym poziomie. Powinny być one również najprostsze do zaprojektowania. Im dalsza faza projektu, tym testy stają się bardziej pracochłonne, a koszt usunięcia znalezionego błędu wyższy, do czego autor nawiązał już w tabeli \ref{tab:koszty_bledu}.
 
-Wracając do analizy oprogramowania na platformę Android, aktualnie w większości przypadków schemat ten wygląda jednak tak jak na rysunku \ref{fig:odwrocona_piramida}.
+Analizując aktualną strukturę większości aplikacji androidowych, schemat ten wygląda jednak tak jak na rysunku \ref{fig:odwrocona_piramida}.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=8cm]{imgs/ch3_odwrocona_piramida.png}
     \caption
-{Software Testing Ice Cream AntiPatern. Źródło: watirmelon.com}
+{Software Testing Ice Cream AntiPatern. Źródło: \url{watirmelon.com}}
     \label{fig:odwrocona_piramida}
 \end{figure} 
 
 Na rysunku \ref{fig:odwrocona_piramida} widać, że z powodu zbyt dużego \textit{couplingu} unit testy zastąpione zostają testami integracyjnymi, a najwięcej przypadków testowych wykonywanych jest na interfejsie użytkownika (w czym znacznie pomagają frameworki testowe pozwalające na zautomatyzowanie pewnych czynności, nagranie makr według specyfikacji lub \textit{„user stories”}) oraz testy manualne.
 
-Autor nie zaprzecza, że tym sposobem nie da się dobrze przetestować aplikacji, szczególnie że według podręczników testerskich testowanie gruntowne nie jest możliwe, jakiejkolwiek metody nie użylibyśmy. Lecz ryzyko znalezienia błędu na dalszym etapie projektu jest w tym przypadku znacznie większe niż w przypadku oprogramowania o usystematyzowanej strukturze, a co za tym idzie – koszty jego usunięcia są również znacznie wyższe.
+Autor nie zaprzecza, że tym sposobem nie da się dobrze przetestować aplikacji, szczególnie jeżeli zastosujemy taktyki testowania opisane w rozdziale \ref{testowalnosc}. Jak powszechnie wiadomo, testowanie gruntowne nie jest możliwe, jakiejkolwiek metody nie użylibyśmy. Lecz ryzyko znalezienia błędu na dalszym etapie projektu jest w tym przypadku znacznie większe niż w przypadku oprogramowania o usystematyzowanej strukturze, a co za tym idzie – koszty jego usunięcia są również znacznie wyższe.
 
-Propozycja zmiany struktury aplikacji Android zaproponowana została w rozdziale \ref{clean_architecture}
+Okazuje się, że strukturę aplikacji Android da się jednak przeprojektować tak, aby ułatwić życie zarówno programistom jak i testerom. Propozycja zmiany struktury aplikacji Android zaproponowana została w rozdziale \ref{clean_architecture}
 
 \section{Pielęgnowalność aplikacji Android}
 \label{pielegnowalnosc_aplikacji}
-W realnym świecie niestety bardzo rzadko mamy możliwość tworzenia aplikacji od początku. W większości przypadków programiści muszą borykać się z kodem, który ktoś już kiedyś napisał, a dotyczy to w zasadzie wszystkich większych projektów informatycznych. Weźmy na przykład taką aplikację jak \textit{Gmail}. Wychodzą ciągle nowe wersje, ale trudno wyobrazić sobie sytuację, że któraś z nich została po prostu napisana od nowa. W takich przypadkach mamy do czynienia z tzw. kodem zastanym.
+W realnym świecie niestety bardzo rzadko mamy możliwość tworzenia aplikacji od początku. W większości przypadków programiści muszą borykać się z kodem, który ktoś już kiedyś napisał, a dotyczy to w zasadzie wszystkich większych projektów informatycznych. Weźmy na przykład taką aplikację jak \textit{Gmail}. Wychodzą ciągle nowe wersje, ale trudno wyobrazić sobie sytuację, że któraś z nich została po prostu napisana od nowa. W takich przypadkach mamy do czynienia z tzw. \textbf{kodem zastanym}.
 
 O ile kod pisany był w sposób przejrzysty, dobrzy programiści są w stanie dobudować nowe części aplikacji, nawet nie mając dokumentacji do starszej części. Wiele firm programistycznych stosuje podejście, że sam kod programu jest zarówno jego dokumentacją. Rozsądne nadawanie nazw zmiennym oraz umieszczanie rzeczowych komentarzy pozwala programistom zrozumieć swoich poprzedników, a automatycznym narzędziom w stylu \textit{JavaDoc\footnote{Javadoc – narzędzie automatycznie generujące dokumentację na podstawie zamieszczonych w kodzie źródłowym znaczników w komentarzach. Javadoc został stworzony specjalnie na potrzeby języka programowania Java przez firmę Sun Microsystems. Źródło: Wikipedia}} wygenerować całkiem wyczerpującą dokumentację.
 

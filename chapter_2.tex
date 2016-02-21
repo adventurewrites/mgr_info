@@ -1,17 +1,18 @@
 \chapter{Testowalność oprogramowania}
+\label{testowalnosc}
 \section{Pojęcie testowalności i pielęgnowalności oprogramowania}
-Jako analityk testowy z pojęciem testowalności oprogramowania autor spotyka się już od początku pracy w branży. Termin „testowalność oprogramowania” \footnote{Definicja testowalności według standardu ISO9126}  według definicji ISTQB \footnote{International Software Qualification Board}  i ISO9126, to najkrócej mówiąc właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. A pielęgnowalność \footnote{Definicja pielęgnowalności według ISTQB} , to łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
+Jako analityk testowy, z pojęciem testowalności oprogramowania autor spotyka się już od początku pracy w branży. Termin „testowalność oprogramowania” \footnote{Definicja testowalności według standardu ISO9126}  według definicji ISTQB \footnote{International Software Qualification Board}  i ISO9126, to najkrócej mówiąc właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. A pielęgnowalność \footnote{Definicja pielęgnowalności według ISTQB} , to łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
 
 \section{Czy testowanie jest potrzebne?}
-Po co tak w ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej pracy, w tym rozdziale poruszymy tylko pojęcia, które zaostaną wykorzystane w dalszej części tej pracy.
+Po co tak w ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej publikacji, w tym rozdziale poruszymy tylko pojęcia, które zaostaną wykorzystane w dalszej części tej pracy.
 
-Człowiek, jako istota żywa i omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w kodzie programu, bądź w dokumencie. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego wymagamy, lub wykonać to niezgodnie z założeniami, czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
+Człowiek, jako istota żywa i omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w kodzie programu, bądź w dokumencie. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego wymagamy, lub wykonać to niezgodnie z założeniami. Czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
 
 Defekty powstają, ponieważ jak już wspomnieliśmy wcześniej, ludzie są omylni. Ale pomyłka człowieka, to nie jedyny powód awarii systemów. Mogą one być również spowodowane przez warunki środowiskowe, takie jak promieniowanie, pole magnetyczne i elektryczne, czy nawet zanieczyszczenia środowiska.
 
 Czy testowanie pomaga nam w całkowitym uniknięciu awarii systemów? Na pewno nie, ale pozwala je drastycznie ograniczyć. Za pomocą zestawu testów możemy zmierzyć jakość oprogramowania wyrażoną przez ilość znalezionych usterek oraz możemy budować zaufanie do jakości oprogramowania, jeżeli jako osoby testujące znajdujemy ich mało, bądź nie znajdujemy ich wcale.
 
-I tutaj najważniejsza teza: \textbf{Testowanie samo w sobie nie poprawia jakości oprogramowania!} Dopiero umiejscowienie defektu w kodzie programu (zdebugowanie) oraz naprawa tego błędu przez programistę poprawi nam tą jakość. Poniżej na rysunku widzimy tabelę (słynną już, gdyż korzysta z niej wielu trenerów prowadzących kursy z testowania oprogramowania), jak testowanie na poszczególnych etapach wytwarzania oprogramowania wpływa na koszty projektu.
+I tutaj najważniejsza teza: \textbf{Testowanie samo w sobie nie poprawia jakości oprogramowania!} Dopiero umiejscowienie defektu w kodzie programu (zdebugowanie) oraz naprawa tego błędu przez programistę poprawi nam tą jakość. Tabela \ref{tab:koszty_bledu} przedstawia poglądowo, jak testowanie na poszczególnych etapach wytwarzania oprogramowania wpływa na koszty projektu.
 
 \begin{table}[]
 \centering
@@ -71,7 +72,7 @@ Wszystkie te opcje korzystają ze wspólnego zestawu funkcji\footnote{Na przykł
 
 Android został zaprojektowany do pracy na wielu różnych typach urządzeń, od telefonów do tabletów i telewizorów. Deweloperzy muszą tolerować pewną zmienność zachowań projektowanych funkcji i zapewnić elastyczny interfejs użytkownika, który dostosowuje się do różnych konfiguracji ekranu czy sieci.
 
-Należy sprawdzić, czy aplikacja działa poprawnie na wszystkich urządzeniach, na których można ją uruchomić. To, że działa świetnie na smartfonie, nie zanczy że działa poprawnie na tablecie, a to że działa na smartfonie jednej firmy nie wyklucza awarii na tym samym urządzeniu wyprodukowanym przez kogoś innego. Elementy, które powinniśmy testować w tym zakresie, to:
+Należy sprawdzić, czy aplikacja działa poprawnie na wszystkich urządzeniach, na których można ją uruchomić. To, że działa świetnie na smartfonie, nie znaczy że działa poprawnie na tablecie, a to że działa na tablecie jednej firmy nie wyklucza awarii na tym samym urządzeniu wyprodukowanym przez kogoś innego. Elementy, które powinniśmy testować w tym zakresie, to:
 
 - możliwości sieciowe,
 
@@ -94,7 +95,7 @@ Android framework dostarcza rozwiązań pozwalających pewne rzeczy dostosowywa�
 \end{itemize}
 
 \section{Rodzaje testów}
-Proces testowania może zostać wprowadzony na każdym etapie tworzenia aplikacji, w zależności od wybranej strategii testu. Jednakże, jak już autor wspomniał wcześniej, najlepiej jest rozpoczynać testowanie tak szybko jak to jest możliwe, w możliwie najwcześniejszym stadium projektu. Nawet jeżeli nie wszystkie wymagania systemowe zostały uzgodnione, a proces pisania oprogramowania się jeszcze nie rozpoczął. Już sam etap tworzenia dokumentacji i \textit{requirementów} może zostać poddany testowaniu. Pozwala to unikać błędów już na etapie wczesnego projektowania, a które mogłyby implikować proces tworzenia przez długi czas.
+Proces testowania może zostać wprowadzony na każdym etapie tworzenia aplikacji, w zależności od wybranej strategii testu. Jednakże, jak już autor wspomniał wcześniej, najlepiej jest rozpoczynać testowanie tak szybko jak to jest możliwe, w możliwie najwcześniejszym stadium projektu. Nawet jeżeli nie wszystkie wymagania systemowe zostały uzgodnione, a proces pisania oprogramowania się jeszcze nie rozpoczął. Już sam etap tworzenia dokumentacji i \textit{requirementów} powinien zostać poddany testowaniu. Pozwala to unikać błędów już na etapie wczesnego projektowania, a które mogłyby implikować proces tworzenia przez długi czas.
 
 Rozpoznaje się kilka poziomów testowania, w zależności od modelu zarządzania projektem. Jeżeli weźmiemy pod uwagę model V przedstawiony na schemacie \ref{fig:model_v}, wyróżnić możemy cztery główne interesujące nas obszary:
 
@@ -127,7 +128,7 @@ Mogą one zawierać testy funkcjonalności oraz niektórych atrybutów niefunkcj
 
 Najczęściej wykorzystywanem frameworkiem testowym dla Unit Testów pod Androidem jest środowisko JUnit. To proste i użyteczne środowisko, pozwalające automatyzować testy jednostkowe, zostało zaprojektowane przez Ericha Gamma\footnote{Erich Gamma - szwajcarski informatyk, współautor książki "Wzorce projektowe: elementy oprogramowania obiektowego wielokrotnego użytku". Wspólnie z Kentem Beckiem napisał narzędzie do tworzenia testów jednostkowych JUnit. Rozwijał także środowisko Eclipse.} i Kenta Becka i wydane na licencji \textit{open source}.
 
-Głównie badaniem tego rodzaju testów autor zajmował się będzie w części doświadczalnej pracy magisterskiej.
+Głównie badaniem tego rodzaju testów autor zajmował się będzie w części doświadczalnej pracy magisterskiej, w rozdziale \ref{analiza_testow}.
 
 \paragraph{Testy integracyjne}
 
@@ -168,14 +169,44 @@ Podsumowując, podejście TDD znacznie zwiększa nam więc testowalność i piel
 
 \section{Wytwarzanie sterowane zachowaniem - \textit{Behaviour Driven Development}}
 \label{behaviour_driven_development}
+BDD do kolejna technika testowania mająca swoje korzenie w metodykach zwinnych. Wywodzi się bezpośrednio z opisywanej wcześniej TDD, a także  nawiązuje pośrednio do techniki \textit{Acceptance Test Driven Development} (ATDD), opisanej w skrócie w sekcji \ref{alternatywne_metody_testowania}.
 
+BDD rozszerza TDD o następujące elementy:
+\begin{itemize}
+\item
+Wprowadza zasadę "pięciu pytań \textit{Dlaczego}" dla każdego proponowanego przypadku użycia (\textit{user story}). W ten sposób łatwiej jest ustalić rzeczywisty cel biznesowy.
 
-\section{Alternative testing tactics}
+\item
+Stosuje strategię myślenia "z zewnątrz do wewnątrz", czyli programujemy tylko to, co jest nam rzeczywiście potrzebne z punktu widzenia biznesowego.
+
+\item
+Wprowadza jednoznaczny opis zachowania, tak aby z tej samej dokumentacji lub notatki mogli korzystać zarówno programiści, jak i testerzy i eksperci systemowi.
+
+\item
+Ten sposób działania wprowadzany jest od najwyższego (wymagania użytkownika) aż do najniższego (wymagania funkcjonalne) poziomu abstrakcji.
+
+\end{itemize}
+
+Dokumentacja w podejściu BDD oparta jest w znacznej mierze na przypadkach użytkownika (\textit{user stories}). Oczywiście na niższych poziomach abstrakcji muszą one być odpowiednio uszczegółowione.
+
+Główna różnica pomiędzy TDD a BDD jest więc taka, że TDD odnosi się do testów, a BDD do scenariuszy użycia, lub innych przypadków opisanych za pomocą charakterystycznych dla \textit{Behaviour Driven Development} form \textit{Given-When-Then\footnote{GWT - forma tworzenia specyfikacji na podstawie przykładów}} (GWT).
+
+Wszystkie te elementy powinny doprowadzić do zwiększonej współpracy programistów, testerów oraz specjalistów i ekspertów dziedzinowych. Zamiast terminu "testy jednostkowe", zwolennicy BDD wolą używać "specyfikacja zachowania klasy", a zamiast "testy funkcjonalne" - "specyfikacja zachowania produktu".
+
+Stosowanie techniki \textit{Behaviour Driven Development} nie wymaga żadnych specjalnych narzędzi ani języków programowania. Jest to podejście czysto koncepcyjne.\cite{website:agile:guide}
+
+\section{Alternatywne techniki testowania}
+\label{alternatywne_metody_testowania}
+TDD i BDD to nie jedyne strategie testowania, które można przyjąć zwiększając testowalność aplikacji androidowych. Warto wspomnieć również o może nie tak popularnej, ale równie skutecznej strategii dotyczącej szczególnie testów akceptacyjnych, a jest nią \textit{Acceptance Test-Driven Development} (ATDD). Jest to metodologia rozwoju opartego na komunikacji między klientami biznesowymi, programistami i testerami. 
+
+ATDD jest ściśle związane z Test-Driven Development. Nacisk na współpracę z wymaganiami klienckimi i systemowymi jest tutaj zdecydowanie większy niż w przypadku TDD, a wykorzystywana jest przede wszystkim przy tworzeniu testów akceptacyjnych.
+
+Analizując jeszcze głębiej metodyki zwinne, możemy doszukać się również podejść \textit{Example Driven Development} (EDD) oraz \textit{Story test-Driven Development} (SDD). Różnice między nimi a ATDD są tak niewielkie, że autor pominie ich szczegółowy opis sygnalizując tylko, że zastosowanie takich taktyk testowania również może mieć wpływ na poprawienie testowalności aplikacji pod Androidem.  
 
 \section{Testowalność aplikacji androidowych}
-Jak to jest więc z tą testowalnością oprogramowania dla Android? Czy aktualna struktura stosowana w większości aplikacji jest testowalna?
+Z obserwacji autora wynika, że bardzo łatwo jest napisać zły i nietestowalny kod, nie tylko dla Androida. Warto jednak pamiętać, że zastosowanie procesów z metodologii wymienionych w poprzednich podrozdziałach zdecydowanie może podnieść testowalność naszych aplikacji. Techniki te znacznie pomagają deweloperom i testerom w zrozumieniu potrzeb klienta.
 
-Z obserwacji autora wynika, że bardzo łatwo jest napisać zły i nietestowalny kod, nie tylko dla Androida. Ale czy metoda TDD jest wystarczająca, a by podnieść testowalność aplikacji? Czy może potrzebna jest zmiana całej struktury aplikacji? Jak dzielić odpowiedzialność pomiędzy częściami naszego oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w naszym kodzie, jak i pomiędzy naszym kodem i frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? No i w ogóle, jak testować aplikacje dla Androida skutecznie?
+Ale czy zastosowanie metody TDD lub BDD jest wystarczające, aby podnieść testowalność aplikacji Android? Czy może potrzebna jest zmiana całej struktury aplikacji? Jak dzielić odpowiedzialność pomiędzy częściami naszego oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w naszym kodzie, jak i pomiędzy naszym kodem i frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? No i w ogóle, jak testować aplikacje dla Androida skutecznie?
 
 Na te pytania autor postara się odpowiedzieć w dalszej części pracy.
 %tutaj przykłady jak użyć poszczególnych konstrukcji
