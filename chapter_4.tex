@@ -48,8 +48,32 @@ Cały kod rdzenia aplikacji (\textit{Object Model, Object services, Application 
 \end{itemize}
 
 
-\subsection{Architektura heksagonalna - \textit{The Hexagonal Architecture}}
-Architektura heksagonalna.
+\subsection{Architektura portów i adapterów - \textit{Ports and Adapters Architecture}}
+Opracowana w 2005 roku przez Alistaira Cockburna\footnote{Alistair Cockburn - jeden z inicjatorów ruchu Agile. Jest współautorem wydanego w 2001 roku manifestu Agile. W roku 2005 pomagał współtworzyć deklarację 'PM Declaration of Interdependence'. Propagator przypadków użycia jako dokumentacji procesów biznesowych oraz wymagań co do zachowania oprogramowania. Źródło: Wikipedia} architektura niegdyś znana była pod nazwą architektury heksagonalnej.\cite{website:architect:hexagonal}. Nazwa "heksagonalna" przyjęła się, ponieważ kiedyś znane były tylko trzy porty wejściowe i trzy porty wyjściowe, stąd wszystkie schematy rysowane były jako foremny sześciokąt. Wraz ze wzrostem liczby portów wejściowych i wyjściowych zmieniono nazwę na \textit{Ports \& Adapters}, nie zmieniono natomiast zasady przedstawiania architektury na schematach, co przedstawia rysunek \ref{fig:hexagonal_architecture}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=13cm]{imgs/ch4_hexagonal_architecture_2.png}
+    \caption
+{Architektura heksagonalna. Opracowanie: Sławomir Sobótka. Źródło: \url{https://prezi.com/p0psif9qixgz/ports-adapters}}
+    \label{fig:hexagonal_architecture}
+\end{figure} 
+
+Idea jest bardzo podobna do architektury cebulowej: w centrum znajduje się jądro aplikacji, czyli model domeny i logika biznesowa, odpowiedzialna za kluczowe działania programu. Jądro otoczone jest przez warstwę portów, zawierającą porty zarówno wejściowe, jak i wyjściowe. Zewnętrzną warstwą jest warstwa adapterów. W szczegółach przedstawia się to następująco:
+
+\paragraph{Jądro - \textit{Kernel}}
+Jądro oferuje model domeny i logikę biznesową: ogólne możliwości aplikacji, operacje, logikę operacji oraz mechanizmy wspierania decyzji, co już w wymienionej kolejności stanowi architekturę warstwową. Warstwa również może być podzielona na kilka poziomów logiki. 
+
+\paragraph{Porty - \textit{Ports}}
+Porty są to interfejsy usług: API, odczyt danych (wejściowe), oraz interfejsy repozytoriów czy DAO\footnote{Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a źródłem danych.}, sterowniki do różnego rodzaju maszyn, urządzeń, odbiorników GPS czy radia (wyjściowe). Jądro za pomocą portów wyjściowych jest również w stanie emitować zdarzenia. Zdarzenia są techniką odwracania kontroli, czyli przyjęta jest znów zasada, że warstwa wewnętrzna nie chce mieć kontroli nad warstwą zewnętrzną. 
+
+\paragraph{Adaptery - \textit{Adapters}}
+Szczególnym adapterem jest aplikacja webowa. Może odbierać również zdarzenia od innych modułów systemowych, jeżeli architektura systemowa jest modułowa (Listener/Receptor zdarzeń). Adapter deleguje to zdarzenie do portów. Adapter powinien mieć najgłupszy jak to tylko możliwe. W ten sposób powstaje nam taki klaster heksagonalnych modułów.
+
+Testy jednostkowe penetrują jądro, testy integracyjne penetrują porty, testy systemowe penetrują kilka jąder na raz. W jądrze mamy obiekty domenowe: zamówienie: 100 testów, księgowy 100, faktura 100 testów. Łącznie będzie 100000 testów.
+
+Dopisać kilka rzeczy do architektury systemowej.
+Architektura musi być wizualizowana. Za pomocą kodu się tego nie ogarnie. 
 
 \subsection{Architektura uporządkowana - \textit{The Clean Architecture}}
 Robert Cecil Martin \footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o programowaniu. Jest również współautorem „Agile manifesto”}, znany szerzej w środowisku informatycznym jako Uncle Bob, opublikował w 2012 roku na swoim blogu propozycję usystematyzowania kodu Android. Schemat przedstawiony jest na rysunku \ref{fig:clean_architecture}
@@ -58,7 +82,7 @@ Robert Cecil Martin \footnote{Robert Cecil Martin (Uncle Bob) to amerykański in
     \centering
     \includegraphics[width=13cm]{imgs/ch4_clean_architecture.jpg}
     \caption
-{Clean architecture of Android według Uncle Ben. Źródło: http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html}
+{Clean architecture of Android według Uncle Ben. Źródło: \url{http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html}}
     \label{fig:clean_architecture}
 \end{figure} 
 
