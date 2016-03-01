@@ -19,15 +19,47 @@ Największą przeszkodą w testowaniu aplikacji androidowych jest niestety sam A
 \end{figure} 
 
 Nowy model aplikacji oddziela (przynajmniej w teorii) warstwy Application, Networking, Persistance oraz Model/Domain od środowiska Android SDK, a co za tym idzie nie musimy umieszczać odwołania do tego środowiska praktycznie w każdym pliku (wyrażenie \texttt{import android.*}). Dopiero najwyższą warstwą jest warstwa Aplikacja Android. W takim podejściu staramy się użyć Androida jako pewnego rodzaju \textit{pluginu} do naszej aplikacji i uniezależnić warstwę logiczną od reszty warstw. Czyli najpierw napiszemy aplikację, która będzie oddzielona od Android SDK (na przykład w czystej Javie), potem dołączymy do tego android SDK i złączymy to wszystko w Aplikację Android. W ten sposób zapewnimy, że kod, który stanowi podstawę naszej aplikacji, czyli jej logikę działania, był przetestowany tak jak należy, czyli w oddzieleniu od reszty warstw.
+\section{Różne podejścia do uporządkowania architektury}
+\subsection{Architektura cebulowa - \textit{The Onion Architecture}}
+Jeffrey Pallermo w połowie 2008 roku opublikował na swoim blogu serię artykułów\cite{website:architect:onion}, w których zaproponował inne od klasycznego podejście do warstw w aplikacji. Zauważył, że uzależnienie warstwy biznesowej od warstwy danych niekorzystnie wpływa na stabilność warstwy biznesowej, która z założenia powinna być niezależna od wprowadzania nowych technologii do warstwy bazodanowej. Stare podejście tego nie zapewniało. W większości przypadków warstwa biznesowa musiała być modyfikowana, a przynajmniej rekompilowana podczas modyfikacji warstwy dostępu do danych.
 
-Robert Cecil Martin \footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o programowaniu. Jest również współautorem „Agile manifesto”}, znany szerzej w środowisku informatycznym jako Uncle Bob, opublikował w 2012 roku na swoim blogu propozycję usystematyzowania kodu Android. Schemat przedstawiony jest na poniższym rysunku:
+W zaproponowanym przez Palermo modelu, im warstwy położone są w architekturze głębiej, tym mniej podatne są na zmiany. Zależności mogą być zwrócone tylko w jedną stronę - do wnętrza "cebuli". W ten sposób w centrum znajdzie się model domeny, a na zewnątrz - warstwa bazodanowa. Jest to podejście nazywane \textit{odwróceniem zależności\footnote{Dependency Inversion Principle (DIP) - zasada mówiąca, że moduły wysokopoziomowe nie powinny zależeć od modułów niskopoziomowych. Obie grupy powinny zależeć od abstrakcji. Abstrakcje natomiast nie powinny zależeć od szczegółowych rozwiązań, tylko odwrotnie.}} i wymaga od programistów zastosowania odpowiednich technik projektowych, między innymi \textit{wstrzykiwania zależności\footnote{Dependency Injection (DI) – wzorzec projektowy i wzorzec architektury oprogramowania polegający na usuwaniu bezpośrednich zależności pomiędzy komponentami na rzecz architektury typu plug-in. Źródło: Wikipedia}}.
+
+Warstwy wewnętrzne definiują interfejsy, za pomocą których mogą komunikować się z warstwami zewnętrznymi. Dzięki temu programiści nie muszą implementować na przykład dostępu z warstwy biznesowej do bazy danych w warstwie danych, zaimplementują tylko odpowiedni interfejs.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=10cm]{imgs/ch4_onion_architecture.png}
+    \caption
+{Onion architecture według Jeffrey'a Palermo. Źródło: \url{http://jeffreypalermo.com/blog/the-onion-architecture-part-1}}
+    \label{fig:onion_architecture}
+\end{figure} 
+
+Kluczowe założenia architektury cebulowej:
+\begin{itemize}
+\item 
+Aplikacja zbudowana jest według niezależnego modelu obiektowego.
+\item
+Warstwy wewnętrzne definiują interfejsy. Warstwy zewnętrzne te interfejsy implementują.
+\item
+Kierunek \textit{sprzężenia} jest od warstwy zewnętrznej do wewnętrznej.
+\item
+Cały kod rdzenia aplikacji (\textit{Object Model, Object services, Application Services}) może zostać skompilowany i wykonany bez kontaktu z infrastrukturą i interfejsem użytkownika.
+\end{itemize}
+
+
+\subsection{Architektura heksagonalna - \textit{The Hexagonal Architecture}}
+Architektura heksagonalna.
+
+\subsection{Architektura uporządkowana - \textit{The Clean Architecture}}
+Robert Cecil Martin \footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o programowaniu. Jest również współautorem „Agile manifesto”}, znany szerzej w środowisku informatycznym jako Uncle Bob, opublikował w 2012 roku na swoim blogu propozycję usystematyzowania kodu Android. Schemat przedstawiony jest na rysunku \ref{fig:clean_architecture}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=13cm]{imgs/ch4_clean_architecture.jpg}
     \caption
 {Clean architecture of Android według Uncle Ben. Źródło: http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html}
-    \label{fig:clean architecture}
+    \label{fig:clean_architecture}
 \end{figure} 
 
 Idea tego schematu jest następująca:
