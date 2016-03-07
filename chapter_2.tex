@@ -148,7 +148,8 @@ Dąży się do tego, aby środowisko testowe w przypadku testów systemowych by�
 
 Odpowiedzialność za testy akceptacyjne, w przeciwieństwie do testów opisanych w poprzednich paragrafach, leży po stronie klientów. Zwykle testy akceptacyne dzieli się na dwa etapy: testy \textit{alfa} oraz \textit{beta}. Testy \textit{alfa} przeprowadzane są przez przyszłych użytkowników w siedzibie producenta, natomiast \textit{beta} - w środowisku docelowym. W praktyce producenci oprogramowania przekazują darmowe wersje swoich aplikacji o ograniczonych możliwościach, oczekując w zamian od użytkowników raportowania błędów lub propozycji usprawnień, bądź uzyskując to raportowanie automatycznie, kiedy aplikacja sama wysyła do producenta informację o zaistniałych defektach.
 
-\section{Wytwarzanie sterowane testowaniem - \textit{Test Driven Development}}
+\section{Zwinne podejście do testowania}
+\subsection{Wytwarzanie sterowane testowaniem - \textit{Test Driven Development}}
 \label{test_driven_development}
 Technika wytwarzania sterowanego zarządzaniem zyskuje coraz więcej popularności. Związane to jest pośrednio z nowymi modelami zarządzania projektami informatycznymi opartymi na metodykach zwinnych, w tym Agile\footnote{Agile software development) – grupa metodyk wytwarzania oprogramowania opartego na programowaniu iteracyjno-przyrostowym, powstałe jako alternatywa do tradycyjnych metod typu waterfall. Najważniejszym założeniem metodyk zwinnych jest obserwacja, że wymagania odbiorcy (klienta) często ewoluują podczas trwania projektu. Oprogramowanie wytwarzane jest przy współpracy samozarządzalnych zespołów, których celem jest przeprowadzanie procesów wytwarzania oprogramowania. (Źródło: Wikipedia) }. W założeniu podejście takie pozwala:
 
@@ -167,7 +168,7 @@ Ponadto TDD zmusza developera, żeby napisał tylko tyle linijek kodu, ile jest 
 
 Podsumowując, podejście TDD znacznie zwiększa nam więc testowalność i pielęgnowalność aplikacji. 
 
-\section{Wytwarzanie sterowane zachowaniem - \textit{Behaviour Driven Development}}
+\subsection{Wytwarzanie sterowane zachowaniem - \textit{Behaviour Driven Development}}
 \label{behaviour_driven_development}
 BDD do kolejna technika testowania mająca swoje korzenie w metodykach zwinnych. Wywodzi się bezpośrednio z opisywanej wcześniej TDD, a także  nawiązuje pośrednio do techniki \textit{Acceptance Test Driven Development} (ATDD), opisanej w skrócie w sekcji \ref{alternatywne_metody_testowania}.
 
@@ -195,7 +196,7 @@ Wszystkie te elementy powinny doprowadzić do zwiększonej współpracy programi
 
 Stosowanie techniki \textit{Behaviour Driven Development} nie wymaga żadnych specjalnych narzędzi ani języków programowania. Jest to podejście czysto koncepcyjne.\cite{website:agile:guide}
 
-\section{Alternatywne techniki testowania}
+\subsection{Alternatywne techniki testowania}
 \label{alternatywne_metody_testowania}
 TDD i BDD to nie jedyne strategie testowania, które można przyjąć zwiększając testowalność aplikacji androidowych. Warto wspomnieć również o może nie tak popularnej, ale równie skutecznej strategii dotyczącej szczególnie testów akceptacyjnych, a jest nią \textit{Acceptance Test-Driven Development} (ATDD). Jest to metodologia rozwoju opartego na komunikacji między klientami biznesowymi, programistami i testerami. 
 

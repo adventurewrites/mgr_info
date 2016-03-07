@@ -2,11 +2,7 @@
 
 \section{Tworzenie aplikacji od podstaw}
 \label{nowa_aplikacja}
-Jak już autor wspomniał w rozdziale \ref{test_driven_development} dotyczącym metodologii TDD, wytwarzanie oprogramowania zaczynając od testowania powoduje, że zostanie napisanie tylko tyle aplikacji, ile to jest ujęte w wymaganiach. A co za tym idzie jej stopień komplikacji zostanie ograniczony do niezbędnego minimum.
-
-\textit{i tutaj sięgamy do książeczki i piszemy o TDD}
-
-\section{Nowe podejście do architektury systemu}
+\subsection{Nowe podejście do architektury systemu}
 \label{clean_architecture}
 Największą przeszkodą w testowaniu aplikacji androidowych jest niestety sam Android. Im większy \textit{coupling} między warstwami, tym trudniej jest pisać testy jednostkowe. Rozważmy więc przekształcenie modelu aplikacji Android opisanego na początku poprzedniego rozdziału w następujący sposób:
 
@@ -19,6 +15,53 @@ Największą przeszkodą w testowaniu aplikacji androidowych jest niestety sam A
 \end{figure} 
 
 Nowy model aplikacji oddziela (przynajmniej w teorii) warstwy Application, Networking, Persistance oraz Model/Domain od środowiska Android SDK, a co za tym idzie nie musimy umieszczać odwołania do tego środowiska praktycznie w każdym pliku (wyrażenie \texttt{import android.*}). Dopiero najwyższą warstwą jest warstwa Aplikacja Android. W takim podejściu staramy się użyć Androida jako pewnego rodzaju \textit{pluginu} do naszej aplikacji i uniezależnić warstwę logiczną od reszty warstw. Czyli najpierw napiszemy aplikację, która będzie oddzielona od Android SDK (na przykład w czystej Javie), potem dołączymy do tego android SDK i złączymy to wszystko w Aplikację Android. W ten sposób zapewnimy, że kod, który stanowi podstawę naszej aplikacji, czyli jej logikę działania, był przetestowany tak jak należy, czyli w oddzieleniu od reszty warstw.
+
+\subsection{Zastosowanie techniki \textit{Test Driven Development} przy tworzeniu oprogramowania}
+Jak już autor wspomniał w rozdziale \ref{test_driven_development} dotyczącym metodologii TDD, wytwarzanie oprogramowania zaczynając od testowania powoduje, że zostanie napisanie tylko tyle aplikacji, ile to jest ujęte w wymaganiach. A co za tym idzie jej stopień komplikacji zostanie ograniczony do niezbędnego minimum. Zastosowanie tej techniki w przypadku aplikacji tworzonych pod Android z wykorzystaniem uporządkowanej architektury pozwoli na zwiększenie testowalności aplikacji. 
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=10cm]{imgs/ch4_tdd.jpg}
+    \caption
+{Schemat kodowania w technice TDD}
+    \label{fig:tdd_schema}
+\end{figure} 
+
+Korzyści, których można się spodziewać po zastosowaniu tej techniki są następujące:
+
+\begin{itemize}
+\item
+Wczesne wykrywanie błedów. Odporność na błedy regresyjne. Programista poprawia swoje błędy na bieżąco.
+\item
+Łatwiejszy refaktoring kodu.
+\item
+Dobrze napisane testy stają się dokumentacją kodu.
+\item
+Lepiej zaprojektowane interfejsy. Technika projektowania testów za pomocą \textit{user stories} zmusza do lepszego przemyślenia rozwiązań i dokładnego określenia zadań. 
+\item
+Uproszczona integracja, łatwiejsze łączenie różnych fragmentów kodu poddanych wcześniej testom. Mniej błedów przedostaje się do etapu testów systemowych.
+\item
+Automatyzacja i powtarzalność \textit{(contignous integration)}: testy można uruchamiać regularnie o określonych porach lub na pewnych etapach produkcji. 
+\item
+Możliwość przetestowania funkcjonalności bez uruchamiania oprogramowania.
+\end{itemize}
+
+Wady \textit{Test Driven Development} dotyczą głównie wykorzystania czasu w projekcie. Wymagany jest:
+
+\begin{itemize}
+\item
+Dodatkowy czas na stworzenie testów jednostkowych - deweloper potrzebuje czasem nawet o 40 procent więcej czasu na wykonanie tych samych zadań.
+\item
+Dodatkowy czas na utrzymanie testów - przy wprowadzaniu zmian w istniejącej funkcjonalności należy pamiętać, że potrzebny jest również czas na modyfikację istniejących testów jednostkowych.
+\end{itemize}
+
+\subsection{Automatyzacja testów jednostkowych}
+Testy automatyczne powinny przyczyniać się do poprawy jakości dostarczając szybkiej - dużo szybszej niż w przypadku testowania manualnego - informacji zwrotnej na temat działania programu. Dodatkowo, szybka informacja zwrotna jest potwierdzeniem, że programista niczego nie uszkodził podczas modyfikowania gotowych funkcji.
+Automatyzacja testów nie ma sensu, jeżeli jej koszt jest większy niż korzyści, które przynosi. Z analizy rysunku \ref{fig:idealna_piramida} z rozdziału \ref{piramida?testowania} można wnioskować, że największą korzyść przynosi automatyzacja testów jednostkowych. Są relatywnie łatwe do napisania, wykonują się w ułamkach sekund i są równiez łatwe do modyfikacji. Unit testy są solidną podstawą automatycznych testów regresyjnych.
+
+\subsection{Kod jako dokumentacja programu}
+
+
 \section{Różne podejścia do uporządkowania architektury}
 \subsection{Architektura cebulowa - \textit{The Onion Architecture}}
 Jeffrey Pallermo w połowie 2008 roku opublikował na swoim blogu serię artykułów\cite{website:architect:onion}, w których zaproponował inne od klasycznego podejście do warstw w aplikacji. Zauważył, że uzależnienie warstwy biznesowej od warstwy danych niekorzystnie wpływa na stabilność warstwy biznesowej, która z założenia powinna być niezależna od wprowadzania nowych technologii do warstwy bazodanowej. Stare podejście tego nie zapewniało. W większości przypadków warstwa biznesowa musiała być modyfikowana, a przynajmniej rekompilowana podczas modyfikacji warstwy dostępu do danych.
