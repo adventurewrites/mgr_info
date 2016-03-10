@@ -4,7 +4,7 @@
 \label{nowa_aplikacja}
 \subsection{Nowe podejście do architektury systemu}
 \label{clean_architecture}
-Największą przeszkodą w testowaniu aplikacji androidowych jest niestety sam Android. Im większy \textit{coupling} między warstwami, tym trudniej jest pisać testy jednostkowe. Rozważmy więc przekształcenie modelu aplikacji Android opisanego na początku poprzedniego rozdziału w następujący sposób:
+Okazuje się, że największą przeszkodą w testowaniu aplikacji androidowych jest Android sam w sobie. Im większy \textit{coupling} między warstwami, tym trudniej jest pisać testy jednostkowe. Rozważmy więc przekształcenie modelu aplikacji Android opisanego na początku poprzedniego rozdziału w następujący sposób:
 
 \begin{figure}[!htb]
     \centering
@@ -14,7 +14,7 @@ Największą przeszkodą w testowaniu aplikacji androidowych jest niestety sam A
     \label{fig:opis_rozwiazania}
 \end{figure} 
 
-Nowy model aplikacji oddziela (przynajmniej w teorii) warstwy Application, Networking, Persistance oraz Model/Domain od środowiska Android SDK, a co za tym idzie nie musimy umieszczać odwołania do tego środowiska praktycznie w każdym pliku (wyrażenie \texttt{import android.*}). Dopiero najwyższą warstwą jest warstwa Aplikacja Android. W takim podejściu staramy się użyć Androida jako pewnego rodzaju \textit{pluginu} do naszej aplikacji i uniezależnić warstwę logiczną od reszty warstw. Czyli najpierw napiszemy aplikację, która będzie oddzielona od Android SDK (na przykład w czystej Javie), potem dołączymy do tego android SDK i złączymy to wszystko w Aplikację Android. W ten sposób zapewnimy, że kod, który stanowi podstawę naszej aplikacji, czyli jej logikę działania, był przetestowany tak jak należy, czyli w oddzieleniu od reszty warstw.
+Nowy model aplikacji oddziela (przynajmniej w teorii) warstwy Application, Networking, Persistance oraz Model/Domain od środowiska Android SDK, a co za tym idzie nie trzeba umieszczać odwołania do tego środowiska praktycznie w każdym pliku (wyrażenie \texttt{import android.*}). Dopiero najwyższą warstwą jest warstwa Aplikacja Android. W takim podejściu należy użyć Androida jako pewnego rodzaju \textit{pluginu} do tworzonej aplikacji i uniezależnić warstwę logiczną od reszty warstw. Czyli najpierw napisać aplikację, która będzie oddzielona od Android SDK (na przykład w czystej Javie), potem dołączyć do tego android SDK i złączyć to wszystko w Aplikację Android. W ten sposób można być przekonanym, że kod, który stanowi podstawę naszej aplikacji, czyli jej logikę działania, zostanie przetestowany tak jak należy, czyli w oddzieleniu od reszty warstw.
 
 \subsection{Zastosowanie techniki \textit{Test Driven Development} przy tworzeniu oprogramowania}
 Jak już autor wspomniał w rozdziale \ref{test_driven_development} dotyczącym metodologii TDD, wytwarzanie oprogramowania zaczynając od testowania powoduje, że zostanie napisanie tylko tyle aplikacji, ile to jest ujęte w wymaganiach. A co za tym idzie jej stopień komplikacji zostanie ograniczony do niezbędnego minimum. Zastosowanie tej techniki w przypadku aplikacji tworzonych pod Android z wykorzystaniem uporządkowanej architektury pozwoli na zwiększenie testowalności aplikacji. 
@@ -31,15 +31,15 @@ Korzyści, których można się spodziewać po zastosowaniu tej techniki są nas
 
 \begin{itemize}
 \item
-Wczesne wykrywanie błedów. Odporność na błedy regresyjne. Programista poprawia swoje błędy na bieżąco.
+Wczesne wykrywanie błędów. Odporność na błędy regresyjne. Programista poprawia swoje pomyłki na bieżąco.
 \item
-Łatwiejszy refaktoring kodu.
+Łatwiejszy \textit{refactoring} kodu.
 \item
 Dobrze napisane testy stają się dokumentacją kodu.
 \item
 Lepiej zaprojektowane interfejsy. Technika projektowania testów za pomocą \textit{user stories} zmusza do lepszego przemyślenia rozwiązań i dokładnego określenia zadań. 
 \item
-Uproszczona integracja, łatwiejsze łączenie różnych fragmentów kodu poddanych wcześniej testom. Mniej błedów przedostaje się do etapu testów systemowych.
+Uproszczona integracja, łatwiejsze łączenie różnych fragmentów kodu poddanych wcześniej testom. Mniej błędów przedostaje się do etapu testów systemowych.
 \item
 Automatyzacja i powtarzalność \textit{(contignous integration)}: testy można uruchamiać regularnie o określonych porach lub na pewnych etapach produkcji. 
 \item
@@ -57,10 +57,32 @@ Dodatkowy czas na utrzymanie testów - przy wprowadzaniu zmian w istniejącej fu
 
 \subsection{Automatyzacja testów jednostkowych}
 Testy automatyczne powinny przyczyniać się do poprawy jakości dostarczając szybkiej - dużo szybszej niż w przypadku testowania manualnego - informacji zwrotnej na temat działania programu. Dodatkowo, szybka informacja zwrotna jest potwierdzeniem, że programista niczego nie uszkodził podczas modyfikowania gotowych funkcji.
-Automatyzacja testów nie ma sensu, jeżeli jej koszt jest większy niż korzyści, które przynosi. Z analizy rysunku \ref{fig:idealna_piramida} z rozdziału \ref{piramida?testowania} można wnioskować, że największą korzyść przynosi automatyzacja testów jednostkowych. Są relatywnie łatwe do napisania, wykonują się w ułamkach sekund i są również łatwe do modyfikacji. Unit testy są solidną podstawą automatycznych testów regresyjnych.
+Automatyzacja testów nie ma sensu, jeżeli jej koszt jest większy niż korzyści, które przynosi. Z analizy rysunku \ref{fig:idealna_piramida} z rozdziału \ref{piramida_testowania} można wnioskować, że największą korzyść przynosi automatyzacja testów jednostkowych. Są relatywnie łatwe do napisania, wykonują się w ułamkach sekund i są również łatwe do modyfikacji. Unit testy są solidną podstawą automatycznych testów regresyjnych.
 
 \subsection{Kod jako dokumentacja programu}
-
+\label{czysty_kod}
+Martin Robert Cecil\footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o programowaniu. Jest również współautorem „Agile manifesto”} - popularny w środowisku programistycznym \textit{Uncle Bob} - w swojej książce "Clean Code"\cite{bib:cecil:clean_code}, scharakteryzował dobrze napisany kod następująco: 
+\begin{itemize}
+\item
+Czysty kod można odczytać.
+\item
+Czysty kod posiada przypisane testy jednostkowe.
+\item
+Czysty kod posiada znaczące i rozpoznawalne nazwy zmiennych, klas i funkcji.
+\item
+W czystym kodzie poszczególne klasy i podporządkowane im funkcje robią tylko jedną rzecz.
+\item
+Czysty kod posiada minimalne zależności, które są wyraźnie zdefiniowane i zapewniają czyste i minimalne API.
+\item
+Czysty kod nie powinien się duplikować.
+\item
+Czysty kod powinien być "literacki", ponieważ w zależności od języka nie wszystkie informacje mogą być rozumiane tak samo.
+\item
+Czysty kod może być łatwo rozbudowany przez inne osoby.
+\item
+Czysty kod powinien być złożony w takiej formie, aby był czytelny nie tylko dla maszyny, ale również dla człowieka.
+\end{itemize}
+Okazuje się jednak, że nie wystarczy raz napisać dobrze kod programu. Jeszcze ciężej jest go utrzymać w czystej formie podczas rozbudowy aplikacji. Warto więc, zdaniem autora, rozpatrzyć jedno z nowoczesnych podejść do uporządkowania architektury aplikacji, które może zwiększyć testowalność aplikacji pisanych dla systemu Android.
 
 \section{Różne podejścia do uporządkowania architektury}
 \subsection{Architektura cebulowa - \textit{The Onion Architecture}}
@@ -92,13 +114,13 @@ Cały kod rdzenia aplikacji (\textit{Object Model, Object services, Application 
 
 
 \subsection{Architektura portów i adapterów - \textit{Ports and Adapters Architecture}}
-Opracowana w 2005 roku przez Alistaira Cockburna\footnote{Alistair Cockburn - jeden z inicjatorów ruchu Agile. Jest współautorem wydanego w 2001 roku manifestu Agile. W roku 2005 pomagał współtworzyć deklarację 'PM Declaration of Interdependence'. Propagator przypadków użycia jako dokumentacji procesów biznesowych oraz wymagań co do zachowania oprogramowania. Źródło: Wikipedia} architektura niegdyś znana była pod nazwą architektury heksagonalnej.\cite{website:architect:hexagonal}. Nazwa "heksagonalna" przyjęła się, ponieważ kiedyś znane były tylko trzy porty wejściowe i trzy porty wyjściowe, stąd wszystkie schematy rysowane były jako foremny sześciokąt. Wraz ze wzrostem liczby portów wejściowych i wyjściowych zmieniono nazwę na \textit{Ports \& Adapters}, nie zmieniono natomiast zasady przedstawiania architektury na schematach, co przedstawia rysunek \ref{fig:hexagonal_architecture}.
+Opracowana w 2005 roku przez Alistaira Cockburna\footnote{Alistair Cockburn - jeden z inicjatorów ruchu Agile. Jest współautorem wydanego w 2001 roku manifestu Agile. W roku 2005 pomagał współtworzyć deklarację 'PM Declaration of Interdependence'. Propagator przypadków użycia jako dokumentacji procesów biznesowych oraz wymagań co do zachowania oprogramowania. Źródło: Wikipedia} architektura niegdyś znana była pod nazwą architektury heksagonalnej\cite{website:architect:hexagonal}. Nazwa \textit{"heksagonalna"} przyjęła się, ponieważ kiedyś znane były tylko trzy porty wejściowe i trzy porty wyjściowe, stąd wszystkie schematy rysowane były jako foremny sześciokąt. Wraz ze wzrostem liczby portów wejściowych i wyjściowych zmieniono nazwę na \textit{Ports \& Adapters}, nie zmieniono natomiast zasady przedstawiania architektury na schematach, co przedstawia rysunek \ref{fig:hexagonal_architecture}.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=13cm]{imgs/ch4_hexagonal_architecture_2.png}
     \caption
-{Architektura heksagonalna. Opracowanie: Sławomir Sobótka. Źródło: \url{https://prezi.com/p0psif9qixgz/ports-adapters}}
+{Architektura heksagonalna. Opracowanie schematu: Sławomir Sobótka. Źródło: \url{https://prezi.com/p0psif9qixgz/ports-adapters}}
     \label{fig:hexagonal_architecture}
 \end{figure} 
 
@@ -108,18 +130,15 @@ Idea jest bardzo podobna do architektury cebulowej: w centrum znajduje się jąd
 Jądro oferuje model domeny i logikę biznesową: ogólne możliwości aplikacji, operacje, logikę operacji oraz mechanizmy wspierania decyzji, co już w wymienionej kolejności stanowi architekturę warstwową. Warstwa również może być podzielona na kilka poziomów logiki. 
 
 \paragraph{Porty - \textit{Ports}}
-Porty są to interfejsy usług: API, odczyt danych (wejściowe), oraz interfejsy repozytoriów czy DAO\footnote{Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a źródłem danych.}, sterowniki do różnego rodzaju maszyn, urządzeń, odbiorników GPS czy radia (wyjściowe). Jądro za pomocą portów wyjściowych jest również w stanie emitować zdarzenia. Zdarzenia są techniką odwracania kontroli, czyli przyjęta jest znów zasada, że warstwa wewnętrzna nie chce mieć kontroli nad warstwą zewnętrzną. 
+Porty są to interfejsy usług: API, odczyt danych (wejściowe), oraz interfejsy repozytoriów czy DAO\footnote{Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a źródłem danych.}, sterowniki do różnego rodzaju maszyn, urządzeń, odbiorników GPS czy radia (wyjściowe). Za pomocą portów wyjściowych warstwa jądra jest w stanie emitować zdarzenia. Zdarzenia są techniką odwracania kontroli, czyli działają z zachowaniem wspomnianej już zasady, że warstwa wewnętrzna nie posiada kontroli nad warstwą zewnętrzną. 
 
 \paragraph{Adaptery - \textit{Adapters}}
-Szczególnym adapterem jest aplikacja webowa. Może odbierać również zdarzenia od innych modułów systemowych, jeżeli architektura systemowa jest modułowa (Listener/Receptor zdarzeń). Adapter deleguje to zdarzenie do portów. Adapter powinien mieć najgłupszy jak to tylko możliwe. W ten sposób powstaje nam taki klaster heksagonalnych modułów.
+Szczególnym przykładem adaptera jest aplikacja webowa, która z jednej strony komunikuje się z serwerem baz danych, a z drugiej z cienkim klientem, jakim jest przeglądarka internetowa po stronie użytkownika. Może odbierać również zdarzenia od innych modułów systemowych, jeżeli architektura systemowa jest modułowa (Listener/Receptor zdarzeń). Głównym zadaniem adapterów jest delegowanie zdarzeń do portów na warstwie położonej wewnątrz i powinno się w miarę możliwości unikać przypisywania adapterom większej ilości zadań.
 
-Testy jednostkowe penetrują jądro, testy integracyjne penetrują porty, testy systemowe penetrują kilka jąder na raz. W jądrze mamy obiekty domenowe: zamówienie: 100 testów, księgowy 100, faktura 100 testów. Łącznie będzie 100000 testów.
-
-Dopisać kilka rzeczy do architektury systemowej.
-Architektura musi być wizualizowana. Za pomocą kodu się tego nie ogarnie. 
+Z punku widzenia systemu napisanego w architekturze cebulowej, testowalność oprogramowania wygląda następująco: testy jednostkowe penetrują jądro, testy integracyjne penetrują porty, a testy systemowe penetrują kilka jąder na raz.
 
 \subsection{Architektura uporządkowana - \textit{The Clean Architecture}}
-Robert Cecil Martin \footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o programowaniu. Jest również współautorem „Agile manifesto”}, znany szerzej w środowisku informatycznym jako Uncle Bob, opublikował w 2012 roku na swoim blogu propozycję usystematyzowania kodu Android. Schemat przedstawiony jest na rysunku \ref{fig:clean_architecture}
+Cytowany już w rozdziale \ref{czysty_kod} Uncle Bob opublikował w 2012 roku na swoim blogu propozycję usystematyzowania kodu Android, która zainteresowała również autora tej pracy. Właśnie ten typ architektury zostanie wykorzystany przez autora w części \ref{analiza_testow} do wykazania wzrostu testowalności aplikacji napisanej dla Androida w "czystej architekturze" w porównaniu do aplikacji napisanej w sposób "tradycyjny", przedstawiony w rozdziale \ref{opis_problemu}. Schemat przedstawiony jest na rysunku \ref{fig:clean_architecture}
 
 \begin{figure}[!htb]
     \centering
@@ -136,32 +155,32 @@ Idea tego schematu jest następująca:
 \item
 Najważniejszym elementem jest środek, czyli warstwa \textit{Entities}. W warstwie tej znajdują się kluczowe dla tworzonej aplikacji reguły biznesowe gwarantujące poprawność działania programu. Krótko mówiąc – znajduje się tam logika działania aplikacji.
 \item
-Drugą warstwą są \textit{Use Cases}. W wolnym tłumaczeniu są to przypadki użycia, ale lepiej chyba używać nazwy intencje biznesowe. Jest to zbiór wszystkich zachowań, jakich oczekujemy od tworzonego systemu. W przypadku aplikacji bankowej, może być to na przykład funkcja wykonywania przelewu, jako jeden \textit{use case}, a innym przypadkiem użycia byłoby sprawdzenie stanu konta.
+Drugą warstwą są \textit{Use Cases}. W wolnym tłumaczeniu są to \textit{przypadki użycia}, ale bardziej adekwatną jest nazwa \textit{intencje biznesowe}. Jest to zbiór wszystkich zachowań, jakich oczekujemy od tworzonego systemu. W przypadku aplikacji bankowej, może być to na przykład funkcja wykonywania przelewu, jako jeden \textit{use case}, a innym przypadkiem użycia byłoby sprawdzenie stanu konta.
 \item
-Wyższa, otaczająca warstwa dotyczy wszystkich kontrolerów i prezenterów. Warto zauważyć, że nadal na tym etapie nie mamy powiązania z systemem Android.
+Wyższa, otaczająca warstwa dotyczy wszystkich kontrolerów i prezenterów. Warto zauważyć, że nadal na tym etapie nie ma powiązania z frameworkiem Android.
 \item
-Dopiero na ostatniej, najbardziej zewnętrznej warstwie pojawia nam się powiązanie z Android SDK. Korzystamy z niego aby dostać się do baz danych, skorzystać z interfejsów użytkownika dla danego urządzenia, uzyskać dostęp do zewnętrznych interfejsów lub urządzeń.
+Dopiero na ostatniej, najbardziej zewnętrznej warstwie pojawia się powiązanie z Android SDK. Wykorzystujemy je, aby dostać się do baz danych, skorzystać z interfejsów użytkownika dla danego urządzenia oraz uzyskać dostęp do zewnętrznych interfejsów lub urządzeń.
 \end{itemize}
 
-I teraz rzecz najważniejsza: pomiędzy warstwami na schemacie narysowane są strzałki, które informują nas o kierunku przekazywania informacji. Ze schematu wynika, że \textit{Entities} nie wiedzą nic o istnieniu \textit{Use Cases}, \textit{Use Cases} nie posiadają informacji o kontrolerach i prezenterach, a te z kolei nie wiedzą o istnieniu interfejsu użytkownika. Patrząc w drugą stronę, każda warstwa wyższa posiada wszystkie informacje o warstwie niższej, czyli UI wie wszystko o prezenterach, te wiedzą wszystko o \textit{Use Cases}, no i przypadki użycia mogą korzystać z całej warstwy logicznej.
+Warstwy na schemacie połączone są strzałkami, które informują o kierunku przekazywania informacji. Ze schematu wynika, że warstwa \textit{Entities} nie posiada informacji o istnieniu \textit{Use Cases}, \textit{Use Cases} nie posiadają informacji o kontrolerach i prezenterach, a te z kolei nie wiedzą o istnieniu interfejsu użytkownika. Patrząc w drugą stronę, każda warstwa wyższa posiada wszystkie informacje o warstwie niższej, czyli \textit{UI} wie wszystko o prezenterach, te wiedzą wszystko o \textit{Use Cases}, a przypadki użycia mogą korzystać z wiedzy o całej warstwie logicznej.
 
-Przekładając to na język języków programowania, jeżeli używamy instrukcji \texttt{import android.*}, to tylko w stosunku do wyższej warstwy. Nie wolno nam tego robić w stosunku do warstwy niższej, bo wtedy cała koncepcja zostanie zachwiana.
+Przekładając powyższe na język języków programowania, jeżeli używamy instrukcji \texttt{import android.*}, to tylko w stosunku do wyższej warstwy. Nie wolno tego robić w stosunku do warstwy niższej, bo wtedy cała koncepcja może ulec dezintegracji.
 
-W ten sposób teoretycznie jesteśmy w stanie stworzyć architekturę, która:
+W ten sposób teoretycznie można stworzyć architekturę, która:
 \begin{itemize}
 \item
-jest niezależna od frameworka (tutaj Android SDK) – i zachowujemy zasadę zależności,
+jest niezależna od frameworka (tutaj Android SDK) i zachowana zostaje zasada zależności,
 \item
-jest niezależna od UI, bazy danych lub innych urządzeń zewnętrznych,
+jest niezależna od textit{UI}, bazy danych lub innych urządzeń zewnętrznych,
 \item
-jest testowalna, w oderwaniu od warstwy zawierającej interfejsy wymienione powyżej, czyli od wszystkiego, co czyni testy na Androidzie trudnymi.
+jest testowalna, w oderwaniu od warstwy zawierającej interfejsy wymienione powyżej, czyli od wszystkiego, co czyni testy na Androidzie trudnymi do wykonania.
 \end{itemize}
 
-Jeżeli ułożymy naszą strukturę aplikacji w powyższy sposób – testowanie powinno odbywać się jak w przypadku kodu napisanego w czystej Javie czy C++.
+Jeżeli struktura tworzonej aplikacji zostanie ułożona w powyższy sposób – testowanie (przynajmniej jednostkowe) nie powinno być bardziej skomplikowane niż w przypadku kodu napisanego w czystej Javie czy C++.
 
 \section{Praca z kodem zastanym}
 \label{legacy_code}
-W rozdziale \ref{pielegnowalnosc_aplikacji} nawiązaliśmy już do problemu pracy z kodem zastanym, tak zwanym \textit{Legacy Code}.
+W rozdziale \ref{pielegnowalnosc_aplikacji} autor nawiązał do problemu pracy z kodem zastanym, tak zwanym \textit{Legacy Code}.
 Co więc zrobić, aby zaimplementować testy do już napisanego kodu? Godfrey Nolan\footnote{Godfrey Nolan - założyciel i prezes RIIS LLC, firmy zajmującej się rozwojem oprogramowania dla platform przenośnych. Autor książek o Androidzie: "Agile Android", "Booletproof android", "Android Best Practices" i "Decompiling Android"} w swojej książce "Agile Android"\cite{bib:agile:android} proponuje następujące rozwiązanie:
 
 \begin{itemize}
@@ -189,7 +208,7 @@ Użyć frameworka do podstawowych testów GUI już istniejącej aplikacji (najle
 Bezwzględnie pisać testy jednostkowe do nowych części oprogramowania zgodnie z TDD, \textit{mockując} jeśli to możliwe wykorzystywane obiekty z zastanego kodu.
 
 \item
-Wyizolować zastany kod, tak aby nikt z programistów nie miał do niego dostępu, jeżeli naprawdę nie musi.
+Wyizolować zastany kod, tak aby nikt z programistów nie miał do niego dostępu, jeżeli naprawdę nie jest to niezbędne.
 
 \item
 Usunąć niewykorzystywane i nieużyteczne części kodu.
@@ -198,4 +217,4 @@ Usunąć niewykorzystywane i nieużyteczne części kodu.
 Przepisać i przetestować wyizolowany kod, aby zwiększyć metryki pokrycia do około 60-70\%. 
 \end{itemize}
 
-Najważniejsze więc jest wyizolować stary kod, przetestować aplikację za pomocą frameworka do testów GUI, usunąć ewentualne błędy niepozwalające na poprawną pracę programu i nie modyfikować wyizolowanego kodu podczas pisania nowych funkcjonalności. Nowe funkcje należy dodawać stosując już TDD. Dopiero na końcu, jeżeli nasze środowisko jest już stabilne, należy rozpocząć przebudowę starych części aplikacji, tak aby metryki pokrycia kodu rosły wraz z upływem czasu. Przy wykonywaniu \textit{refaktoringu} Godfrey Nolan proponuje użyć narzędzia SonarQube\footnote{SonarQube - platforma do prowadzenia ciągłej inspekcji jakości kodu źródłowego, dostarczana na licencji \textit{open source}}.
+Najważniejsze więc jest wyizolować stary kod, przetestować aplikację za pomocą frameworka do testów GUI, usunąć ewentualne błędy nie pozwalające na poprawną pracę programu i nie modyfikować wyizolowanego kodu podczas pisania nowych funkcjonalności. Nowe funkcje należy dodawać stosując już taktykę \textit{Test Driven Development}. Dopiero na końcu, jeżeli tworzone środowisko jest już stabilne, należy rozpocząć przebudowę starych części aplikacji, tak aby metryki pokrycia kodu rosły wraz z upływem czasu. Przy wykonywaniu \textit{refaktoringu} Godfrey Nolan proponuje użyć narzędzia SonarQube\footnote{SonarQube - platforma do prowadzenia ciągłej inspekcji jakości kodu źródłowego, dostarczana na licencji \textit{open source}}.
