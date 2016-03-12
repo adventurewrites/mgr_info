@@ -46,11 +46,11 @@ Zachowanie się każdego elementu architektury może być również jej części
 Definicja architektury nie specyfikuje niestety, która architektura jest dla danego systemu odpowiednia bądź nie - lub - mówiąc bardziej dosadnie, która jest dobra, a która zła. Jak autor wykaże w kolejnych rozdziałach, również w przypadku systemu Android wybór odpowiedniej architektury jest kluczowy dla testowalności i pielęgnowalności  oprogramowania tworzonego dla tej platformy.
 
 \section{Architektura Android}
-Architektura Android przez wielu opisywana jest jako \textit{Java on Linux}, czyli programowanie w Javie pod Linuksem. Jednakże jest to stwierdzenie zbyt ogólne, biorąc pod uwagę złożoność całej platformy. Całość systemu zawiera bowiem w sobie komponenty, które układają się w pięć głównych warstw: \textit{Android applications}, \textit{the Android Framework}, \textit{the Dalvik virtual machine}, \textit{user-space native code} oraz \textit{Linux kernel}\cite{bib:hacker:handbook}.
+Architektura Android przez wielu opisywana jest jako \textit{Java on Linux}, czyli programowanie w Javie pod Linuksem. Jednakże jest to stwierdzenie zbyt ogólne, biorąc pod uwagę złożoność całej platformy. Całość systemu zawiera bowiem w sobie komponenty, które układają się w pięć głównych warstw: \textit{Android applications}, \textit{Android Framework}, \textit{Dalvik virtual machine}, \textit{user-space native code} oraz \textit{Linux kernel}\cite{bib:hacker:handbook}.
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=15cm]{imgs/ch3_android_architecture_1.jpg}
+    \includegraphics[width=17cm]{imgs/ch3_android_architecture_1.jpg}
     \caption
 {Przegląd architektury Android. Źródło: Karim Yaghmour of Opersys Inc., \url{http://http://www.slideshare.net/opersys/inside-androids-ui}}
     \label{fig:ch3_android_architecture_1}
@@ -69,13 +69,13 @@ W większości przypadków aplikacje z przeznaczeniem dla systemu Android pisane
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=15cm]{imgs/ch3_opis_problemu_1.png}
+    \includegraphics[width=8cm]{imgs/ch3_opis_problemu_1.png}
     \caption
 {Podejście „standardowe” przy tworzeniu aplikacji dla systemu Android}
     \label{fig:opis_problemu}
 \end{figure} 
 
-Czyli, na najniższej warstwie mamy Android SDK\footnote{Software Development Kit}  i na niej budujemy kolejne warstwy. Każda z kolejnych warstw naszego oprogramowania korzysta z warstwy poniżej, a co za tym idzie, dziedziczy również zależności z warstwy Android SDK. Analizując taką strukturę aplikacji dostępnych pod Androidem możemy zaobserwować, że w wielu z nich:
+Czyli, na najniższej warstwie położony jest Android SDK i na niej budowane są kolejne warstwy. Każda z kolejnych warstw oprogramowania korzysta z warstwy poniżej, a co za tym idzie, dziedziczy również zależności z warstwy Android SDK. Analizując taką strukturę aplikacji dostępnych pod Androidem można zaobserwować, że w wielu z nich:
 \begin{itemize}
 \item
 nie jest zachowana zasada pojedynczej odpowiedzialności,
@@ -84,13 +84,13 @@ warstwa odpowiedzialna za logikę domenową jest pomieszana z warstwą UI (User 
 \item
 logika UI jest pomieszana z asynchronicznym pobieraniem danych,
 \item
-funkcje \textit{callback\footnote{Wywołanie zwrotne (ang. callback) jest to technika programowania będąca odwrotnością wywołania funkcji. Zwykle korzystanie z właściwości konkretnej biblioteki polega na wywołaniu funkcji (podprogramów) dostarczanych przez tę bibliotekę. W tym przypadku jest odwrotnie: użytkownik jedynie rejestruje funkcję do późniejszego wywołania, natomiast funkcje biblioteki wywołają ją w stosownym dla siebie czasie. Źródło: Wikipedia}} możemy znaleźć dosłownie wszędzie,
+funkcje \textit{callback\footnote{Wywołanie zwrotne (ang. callback) jest to technika programowania będąca odwrotnością wywołania funkcji. Zwykle korzystanie z właściwości konkretnej biblioteki polega na wywołaniu funkcji (podprogramów) dostarczanych przez tę bibliotekę. W tym przypadku jest odwrotnie: użytkownik jedynie rejestruje funkcję do późniejszego wywołania, natomiast funkcje biblioteki wywołają ją w stosownym dla siebie czasie. Źródło: Wikipedia}} możemy znaleźć w całym kodzie,
 \item
 elementy warstwy UI: Activity i Fragmenty potrafią mieć tysiące linii kodu,
 \item
 w większości plików aplikacji na każdej warstwie odwołujemy się do środowiska Android (\texttt{import android.*})
 \item
-i ostatnie, ale najważniejsze z punktu widzenia tej pracy: jeżeli w kodzie źródłowym szukamy zestawu unit testów – możemy się rozczarować.
+i ostatnie, ale najważniejsze z punktu widzenia tej pracy: jeżeli w kodzie źródłowym ktoś będzie szukał zestawu testów jednostkowych – można się rozczarować.
 \end{itemize}
 
 Spowodowane jest to dwoma czynnikami: pierwszy to trudność w wyodrębnieniu obszarów testowych z powodu zbyt dużego sprzężenia między warstwami (\textit{couplingu}), a drugi – pracochłonność w pisaniu testów. Jeżeli granica pomiędzy kolejnymi warstwami oprogramowania nie jest jasno wyznaczona, liczba testów do zaprojektowania rośnie drastycznie.
@@ -98,7 +98,11 @@ Spowodowane jest to dwoma czynnikami: pierwszy to trudność w wyodrębnieniu ob
 \section{Trudności w testowaniu aktualnej struktury aplikacji}
 \label{testowanie_starej_struktury}
 
-Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą kodu z jedną instrukcją warunkową \textit{„if”}, oraz funkcjonalność \textbf{B}, w której mamy dwie zależne od siebie instrukcje \textit{„if”}, czyli cztery możliwe decyzje programowe. Testując te funkcjonalności razem (z powodu sprzężenia nie mamy innego wyjścia) musimy wykonać łącznie \textit{2 * 4 = 8} testów. Testy te równocześnie przestają być testami jednostkowymi, gdyż łączą w sobie kilka funkcjonalności i stają się przez to testami integracyjnymi. Testując natomiast te funkcjonalności osobno, wykonamy \textit{2 + 4 = 6} unit testów. W tym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w aplikacjach z kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
+Weźmy dwie funkcjonalności: funkcjonalność \textbf{A} opisaną za pomocą kodu z jedną instrukcją warunkową \textit{„if”}, oraz funkcjonalność \textbf{B}, w której mamy dwie zależne od siebie instrukcje \textit{„if”}, czyli cztery możliwe decyzje programowe. Testując te funkcjonalności razem (z powodu sprzężenia nie mamy innego wyjścia) należy wykonać łącznie 
+\[2*4=8\]
+testów. Testy te równocześnie przestają być testami jednostkowymi, gdyż łączą w sobie kilka funkcjonalności i stają się przez to testami integracyjnymi. Testując natomiast te funkcjonalności osobno, trzeba wykonać 
+\[2+4=6\]
+testów jednostkowych. W tym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w aplikacjach z kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
 
 \begin{figure}[!htb]
     \centering
@@ -118,9 +122,9 @@ Pozbawiając się możliwości zastosowania testów jednostkowych na wczesnym et
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch3_idealna_piramida.png}
+    \includegraphics[width=12cm]{imgs/ch3_idealna_piramida.png}
     \caption
-{Idealna piramida testowania według Mike'a Cohna\cite{bib:cohn:agile}}
+{Idealna piramida testowania według Mike'a Cohna\cite{bib:cohn:agile}. Źródło: \url{http://www.scrumdo.pl/2015/08/piramida-testow-agile.html}}
     \label{fig:idealna_piramida}
 \end{figure} 
 
@@ -131,9 +135,9 @@ Analizując aktualną strukturę większości aplikacji androidowych, schemat te
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch3_odwrocona_piramida.png}
+    \includegraphics[width=12cm]{imgs/ch3_odwrocona_piramida.png}
     \caption
-{Software Testing Ice Cream AntiPatern. Źródło: \url{watirmelon.com}}
+{Podejście klasyczne do testów, czyli ddwrócona piramida testowania (\textit{Ice Cream AntiPatern}). Źródło: \url{http://www.scrumdo.pl/2015/08/piramida-testow-agile.html}}
     \label{fig:odwrocona_piramida}
 \end{figure} 
 
@@ -142,7 +146,7 @@ Na rysunku \ref{fig:odwrocona_piramida} widać, że z powodu zbyt dużego \texti
 
 Autor nie zaprzecza, że tym sposobem nie da się dobrze przetestować aplikacji, szczególnie jeżeli zastosujemy taktyki testowania opisane w rozdziale \ref{testowalnosc}. Jak powszechnie wiadomo, testowanie gruntowne nie jest możliwe, jakiejkolwiek metody nie użylibyśmy. Lecz ryzyko znalezienia błędu na dalszym etapie projektu jest w tym przypadku znacznie większe niż w przypadku oprogramowania o usystematyzowanej strukturze, a co za tym idzie – koszty jego usunięcia są również znacznie wyższe.
 
-Okazuje się, że strukturę aplikacji Android da się jednak przeprojektować tak, aby ułatwić życie zarówno programistom jak i testerom. Propozycja zmiany struktury aplikacji Android zaproponowana została w rozdziale \ref{clean_architecture}
+Okazuje się, że strukturę aplikacji Android da się jednak przeprojektować tak, aby ułatwić pracę zarówno programistom jak i testerom. Propozycja zmiany struktury aplikacji Android zaproponowana została w rozdziale \ref{clean_architecture}
 
 \section{Przyczyny rezygnacji z testów jednostkowych}
 \label{testy_jednostkowe_brak}
@@ -166,7 +170,7 @@ Kiepsko zaprojektowany kod i niezbyt optymalnie zaprojektowana architektura syst
 \item
 Brak czasu na testy
 
-W dzisiejszych czasach koszty projektów informatycznych są zwykle ograniczone i menedżerowie niechętnie godzą się na dodatkowe aktywności, jeżeli wiąże się to z przekroczeniem pewnych ram czasowych. A programiści starają się wykorzystywać cały swój czas aż do \textit{deadline'ów} na "ulepszanie" kodu, co skutkuje brakiem czasu na testy jednostkowe.
+W dzisiejszych czasach koszty projektów informatycznych są zwykle ograniczone. W związku z tym programiści starają się wykorzystywać cały swój czas aż do \textit{deadline'ów} na "ulepszanie" kodu, co skutkuje brakiem czasu na testy jednostkowe.
 
 \item
 Przekonanie programistów o własnej nieomylności

@@ -1,12 +1,13 @@
 \chapter{Testowalność oprogramowania}
 \label{testowalnosc}
 \section{Pojęcie testowalności i pielęgnowalności oprogramowania}
-Jako analityk testowy, z pojęciem testowalności oprogramowania autor spotyka się już od początku pracy w branży. Termin „testowalność oprogramowania” \footnote{Definicja testowalności według standardu ISO9126}  według definicji ISTQB \footnote{International Software Qualification Board}  i ISO9126, to najkrócej mówiąc właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. A pielęgnowalność \footnote{Definicja pielęgnowalności według ISTQB}definiowana jest jako łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
+Jako analityk testowy, z pojęciem testowalności oprogramowania autor spotyka się już od początku pracy w branży. Termin „testowalność oprogramowania” \footnote{Definicja testowalności według standardu ISO9126}  według definicji ISTQB \footnote{International Software Qualification Board}  i ISO9126, to właściwość tego oprogramowania umożliwiająca testowanie go po zmianach. Termin ten ściśle powiązany jest także z innym pojęciem ze słownika testerskiego – pielęgnowalnością. Pielęgnowalność \footnote{Definicja pielęgnowalności według ISTQB}definiowana jest jako łatwość, z którą oprogramowanie może być modyfikowane w celu naprawy defektów, dostosowania do nowych wymagań, modyfikowane w celu ułatwienia przyszłego utrzymania lub dostosowania do zmian zachodzących w jego środowisku.
 
 \section{Czy testowanie jest potrzebne?}
+\label{czy_testowanie_potrzebne}
 Po co tak w ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej publikacji, w tym rozdziale poruszone zostaną więc tylko pojęcia, które wykorzystane są w dalszej części tej pracy.
 
-Człowiek, jako istota żywa i omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w kodzie programu, bądź w dokumencie. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego się wymaga, lub wykonać to niezgodnie z założeniami. Czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
+Człowiek, jako istota żywa i omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w kodzie programu, bądź w dokumentacji. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego się wymaga, lub wykonać to niezgodnie z założeniami. Czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
 
 Defekty powstają, ponieważ ludzie są omylni, ale pomyłka człowieka, to nie jedyny powód awarii systemów. Mogą one być również spowodowane przez warunki środowiskowe, takie jak promieniowanie, pole magnetyczne i elektryczne, czy nawet zanieczyszczenia środowiska.
 
@@ -36,12 +37,12 @@ Z zestawienia jasno wynika, że praca testerów nie zaczyna się dopiero gdy pro
 \section{Obszary testowe}
 Z punktu widzenia projektu, idealnie byłoby mieć możliwość przetestowania każdej linijki kodu. Autor zdaje sobie sprawę, że w wielu przypadkach jest to niemożliwe, a nawet bezcelowe, więc dopuszcza się możliwość ograniczenia testowania do kluczowych elementów kodu źródłowego i kluczowych funkcjonalności. Na przykład zwykle nie jest potrzebne testowanie \textit{setterów}, \textit{getterów}, czy funkcji należących do standardowych bibliotek, gdyż zapewne zostały przetestowane już podczas procesu ich tworzenia. 
 
-Bazując na publikacji \textit{"Learning Android Application Testing"\cite{bib:android:testing:learning}} autor wyróżnił następujące trzy główne obszary testowania:
+Bazując na publikacji \cite{bib:android:testing:learning}, autor wyróżnił następujące trzy główne obszary testowania:
 
 \begin{itemize}
 \item{Cykle życia aktywności}
 
-Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle życia. Jeżeli od tworzonej aplikacji wymagamy, żeby zachowywała swój stan podczas \texttt{onPause()} albo \texttt{onDestroy()} i poźniej odtwarzała zachowany stan podczas wykonywania funkcji \texttt{onCreate()}, wtedy należy zaprojektować testy pokrywające wszystkie te przypadki i sprawdzające, czy zachowany status został odtworzony poprawnie. Trzy główne pętle do przetestowania znajdują się na poniższym schemacie:
+Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle życia. Jeżeli od tworzonej aplikacji wymagamy, żeby zachowywała swój stan podczas \texttt{onPause()} i poźniej odtwarzała zachowany stan podczas wykonywania funkcji \texttt{onCreate()}, wtedy należy zaprojektować testy pokrywające wszystkie te przypadki i sprawdzające, czy zachowany status został odtworzony poprawnie. Trzy główne pętle do przetestowania znajdują się na schemacie \ref{fig:sample_figure}:
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=10cm]{imgs/ch2_activity_lifecycle.png}
@@ -95,7 +96,7 @@ Android framework dostarcza rozwiązań pozwalających dostosowywać pewne rzecz
 \end{itemize}
 
 \section{Rodzaje testów}
-Proces testowania może zostać wprowadzony na każdym etapie tworzenia aplikacji, w zależności od wybranej strategii testu. Jednakże, jak już autor wspomniał wcześniej, najlepiej jest rozpoczynać testowanie tak szybko jak to jest możliwe, w możliwie najwcześniejszym stadium projektu. Nawet jeżeli nie wszystkie wymagania systemowe zostały uzgodnione, a proces pisania oprogramowania się jeszcze nie rozpoczął. Już sam etap tworzenia dokumentacji i \textit{requirementów}, czy to na poziomie klienta, systemowym, czy softwarowym, powinien zostać poddany testowaniu. Pozwala to unikać błędów już na etapie wczesnego projektowania, a które mogłyby implikować proces tworzenia przez długi czas.
+Proces testowania może zostać wprowadzony na każdym etapie tworzenia aplikacji, w zależności od wybranej strategii testu. Jednakże, jak już autor wspomniał w podrozdziale \ref{czy_testowanie_potrzebne}, najlepiej jest rozpoczynać testowanie tak szybko jak to jest możliwe, w możliwie najwcześniejszym stadium projektu. Nawet jeżeli nie wszystkie wymagania systemowe zostały uzgodnione, a proces pisania oprogramowania się jeszcze nie rozpoczął. Już sam etap tworzenia dokumentacji i wymagań, czy to na poziomie klienta, systemowym, czy softwarowym, powinien zostać poddany testowaniu. Pozwala to unikać błędów już na etapie wczesnego projektowania, a które mogłyby wpływać na proces tworzenia przez długi czas.
 
 Rozpoznaje się kilka poziomów testowania, w zależności od modelu zarządzania projektem. Rozważając model V przedstawiony na schemacie \ref{fig:model_v}, wyróżnić możemy cztery główne interesujące z punktu widzenia testowalności obszary:
 
@@ -114,34 +115,33 @@ testy akceptacyjne
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=10cm]{imgs/ch2_model_v.jpg}
-    \caption{Model V - najpopularniejszy model zarządzania projektem informatycznym (\textit{V\-model}). Źródło: \href{http://www.projectinsight.net/blogs/it-project-management-solutions/the-quot-v-quot-model-by-cameron-watson}{"V" Model opisany przez Cameron Watson}}
+    \caption{Model V - najpopularniejszy model zarządzania projektem informatycznym (\textit{V\-model}). Źródło: \cite{website:android:modelv}}
     \label{fig:model_v}
 \end{figure} 
 
-\paragraph{Testy jednostkowe (modułowe)}
+\subsection{Testy jednostkowe (modułowe)}
 
-
-Według Sylabusa ISTQB poziomu podstawowego\cite{bib:sylabus:foundation}, testy modułowe polegają na wyszukiwaniu błędów i weryfikacji funkcjonalności oprogramowania (np. modułów, programów, obiektów, klas), które można testować oddzielnie. Testowanie może być wykonywane w izolacji od reszty systemu, w zależności od kontekstu cyklu rozwoju oprogramowania i od samego systemu. Podczas testów można użyć zaślepek, sterowników testowych oraz symulatorów. 
+Według \cite{bib:sylabus:foundation}, testy modułowe polegają na wyszukiwaniu błędów i weryfikacji funkcjonalności oprogramowania (np. modułów, programów, obiektów, klas), które można testować oddzielnie. Testowanie może być wykonywane w izolacji od reszty systemu, w zależności od kontekstu cyklu rozwoju oprogramowania i od samego systemu. Podczas testów można użyć zaślepek, sterowników testowych oraz symulatorów. 
 
 Mogą one zawierać testy funkcjonalności oraz niektórych atrybutów niefunkcjonalnych, takich jak stopień wykorzystania zasobów (np. wycieków pamięci) lub odporności. Wlicza się w nie również testy strukturalne - pokrycia linii kodu, decyzji lub gałęzi. Do projektowania przypadków testowych bardzo przydatna jest specyfikacja fumkcji. Wtedy jest możliwość zaprojektowania testów zanim zostanie napisany kod programu (tzw. "wytwarzanie sterowane testowaniem" - \textit{Test Driven Development}, opisane szerzej w sekcji \ref{test_driven_development}). Testy modułowe zwykle wykonuje się mając dostęp do kodu źródłowego i przy wsparciu środowiska rozwojowego (np. bibliotek do testów jednostkowych, narzędzi do debagowania). Testy jednostkowe w praktyce zwykle angażują też programistę, który jest autorem kodu. Usterki są usuwane jak tylko zostaną wykryte, bez systemu formalnego nimi zarządzania nimi.
 
-Najczęściej wykorzystywanym frameworkiem testowym dla Unit Testów pod Androidem jest środowisko \textit{JUnit}. To proste i użyteczne środowisko, pozwalające automatyzować testy jednostkowe, zostało zaprojektowane przez Ericha Gamma\footnote{Erich Gamma - szwajcarski informatyk, współautor książki "Wzorce projektowe: elementy oprogramowania obiektowego wielokrotnego użytku". Wspólnie z Kentem Beckiem napisał narzędzie do tworzenia testów jednostkowych JUnit. Rozwijał także środowisko Eclipse.} i Kenta Becka i wydane na licencji \textit{open source}.
+Najczęściej wykorzystywanym środowiskiem testowym dla Unit Testów pod Androidem jest \textit{JUnit}. To proste i użyteczne narzędzie, pozwalające automatyzować testy jednostkowe, zostało zaprojektowane przez Ericha Gamma\footnote{Erich Gamma - szwajcarski informatyk, współautor książki "Wzorce projektowe: elementy oprogramowania obiektowego wielokrotnego użytku". Wspólnie z Kentem Beckiem napisał narzędzie do tworzenia testów jednostkowych JUnit. Rozwijał także środowisko Eclipse.} i Kenta Becka i wydane na licencji \textit{open source}\cite{website:opensource}.
 
 Głównie badaniem tego rodzaju testów autor zajmował się będzie w części doświadczalnej pracy magisterskiej, w rozdziale \ref{analiza_testow}.
 
-\paragraph{Testy integracyjne}
+\subsection{Testy integracyjne}
 
 Testy integracyjne służą do sprawdzania interfejsów pomiędzy modułami, interakcji z innymi częściami systemu (takimi jak system operacyjny, system plików i sprzęt) oraz zależności pomiędzy systemami.
 
 Wykonuje je się zwykle, jeżeli tylko jest możliwość przetestowania integracji gotowych już modułów, przetestowanych testami jednostkowymi. Pojęcie testowania integracyjnego można rozszerzyć również na testowanie integracji pomiędzy różnymi systemami, a nawet produktami różnych producentów.\cite{bib:sylabus:foundation}
 
-\paragraph{Testy systemowe}
+\subsection{Testy systemowe}
 
 Testy systemowe zajmują się zachowaniem produktu lub systemu. Zakres takich testów powinien być jasno określony w głównym planie testów oraz w planach testów poszczególnych poziomów. Testy systemowe mogą zawierać testy oparte na ryzyku lub wymaganiach, procesie biznesowym, przypadkach użycia lub wysokopoziomowych opisach słownych i modelach zachowania systemu, interakcji z systemem operacyjnym i zasobami systemowymi.
 
 Dąży się do tego, aby środowisko testowe w przypadku testów systemowych było maksymalnie zbliżone do środowiska docelowego, w którym projektowana aplikacja ma działać. Optymalnie byłoby pokryć wszystkie możliwe konfiguracje sprzętowe, aczkolwiek z wielu powodów, głównie finansowych, firmy skupiają się na najczęściej wykorzystywanych przez użytkownikach urządzeniach.\cite{bib:sylabus:foundation} 
 
-\paragraph{Testy akceptacyjne}
+\subsection{Testy akceptacyjne}
 
 Celem testów akceptacyjnych jest nabranie zaufania do systemu, jego części lub pewnych atrybutów niefunkcjonalnych. Wyszukiwanie usterek nie jest głównym celem tego rodzaju testowania. Testy akceptacyjne mogą oceniać gotowość systemu do wdrożenia i użycia, chociaż nie muszą być ostatnim poziomem testowania. Na przykład może po nich następować testowanie integracji systemów w większej skali.
 
@@ -161,7 +161,7 @@ Technika wytwarzania sterowanego zarządzaniem zyskuje coraz więcej popularnoś
 
 Jeżeli istnieją unit testy i pokrywają znaczącą część kodu źródłowego, wtedy jasne jest, że więcej błędów zostanie znalezionych i poprawionych. W ten sam sposób przy podejściu \textit{Test Driven Development (TDD)} można wywnioskować, że skoro unit testy są już napisane, z dużym prawdopodobieństwem pokrycie kodu będzie zadowalające. Co więcej, raz napisane testy można wykorzystywać do przeprowadzania testów regresywnych, aby się upewnić, czy zmiany w naszym oprogramowaniu zgodne są z założeniami i wymaganiami systemu.
 
-Unit testy w podejściu TDD zapewniają, że jakość oprogramowania nie jest oparta na domysłach i przekonaniu programistów, a na rzetelnych raportach. Bez obaw można dokonywać modyfikacji takich, jak zmiana serwera baz danych, zmiana designu, interfejsu użytkownika, czy nawet API. Jeżeli wszystkie testy zostaną sprawdzone pozytywnie - oprogramowanie będzie działać nadal bezbłędnie.
+Testy jednostkowe w podejściu TDD zapewniają, że jakość oprogramowania nie jest oparta na domysłach i przekonaniu programistów, a na rzetelnych raportach. Bez obaw można dokonywać modyfikacji takich, jak zmiana serwera baz danych, zmiana designu, interfejsu użytkownika, czy nawet API. Jeżeli wszystkie testy zostaną sprawdzone pozytywnie - oprogramowanie będzie działać nadal bezbłędnie.
 
 Ponadto TDD zmusza developera, żeby napisał tylko tyle linijek kodu, ile jest niezbędne dla powstania i działania danej fukcjonalności. Nie ma tu miejsca na wymyślanie własnych ścieżek i innowacji. Należy trzymać się prostych rozwiązań tak mocno, jak to możliwe, a co za tym idzie nie komplikować niepotrzebnie aplikacji.
 

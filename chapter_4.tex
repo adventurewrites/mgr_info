@@ -94,9 +94,9 @@ Warstwy wewnętrzne definiują interfejsy, za pomocą których mogą komunikowa�
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=10cm]{imgs/ch4_onion_architecture.png}
+    \includegraphics[width=10cm]{imgs/ch4_onion_architecture.jpg}
     \caption
-{Onion architecture według Jeffrey'a Palermo. Źródło: \url{http://jeffreypalermo.com/blog/the-onion-architecture-part-1}}
+{\textit{Onion architecture} według Jeffrey'a Palermo. Źródło: \url{http://jeffreypalermo.com/blog/the-onion-architecture-part-1}}
     \label{fig:onion_architecture}
 \end{figure} 
 
@@ -164,7 +164,7 @@ Dopiero na ostatniej, najbardziej zewnętrznej warstwie pojawia się powiązanie
 
 Warstwy na schemacie połączone są strzałkami, które informują o kierunku przekazywania informacji. Ze schematu wynika, że warstwa \textit{Entities} nie posiada informacji o istnieniu \textit{Use Cases}, \textit{Use Cases} nie posiadają informacji o kontrolerach i prezenterach, a te z kolei nie wiedzą o istnieniu interfejsu użytkownika. Patrząc w drugą stronę, każda warstwa wyższa posiada wszystkie informacje o warstwie niższej, czyli \textit{UI} wie wszystko o prezenterach, te wiedzą wszystko o \textit{Use Cases}, a przypadki użycia mogą korzystać z wiedzy o całej warstwie logicznej.
 
-Przekładając powyższe na język języków programowania, jeżeli używamy instrukcji \texttt{import android.*}, to tylko w stosunku do wyższej warstwy. Nie wolno tego robić w stosunku do warstwy niższej, bo wtedy cała koncepcja może ulec dezintegracji.
+Przekładając powyższe na język programistów, jeżeli używamy instrukcji \texttt{import android.*}, to tylko w stosunku do wyższej warstwy. Nie wolno tego robić w stosunku do warstwy niższej, bo wtedy cała koncepcja może ulec dezintegracji.
 
 W ten sposób teoretycznie można stworzyć architekturę, która:
 \begin{itemize}
@@ -177,6 +177,7 @@ jest testowalna, w oderwaniu od warstwy zawierającej interfejsy wymienione powy
 \end{itemize}
 
 Jeżeli struktura tworzonej aplikacji zostanie ułożona w powyższy sposób – testowanie (przynajmniej jednostkowe) nie powinno być bardziej skomplikowane niż w przypadku kodu napisanego w czystej Javie czy C++.
+
 
 \section{Praca z kodem zastanym}
 \label{legacy_code}
