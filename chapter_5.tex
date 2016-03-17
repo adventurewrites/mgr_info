@@ -2,37 +2,27 @@
 \label{analiza_testow}
 
 \section{Opis doświadczenia}
-\textit{---------draft-------------}
+Doświadczenie polega na przeanalizowaniu przykładowej aplikacji dla Systemu Android zaprojektowanej na dwa sposoby. Wersja pierwsza to aplikacja napisana w standardowej architekturze, wersja druga to ten sam program napisany przy wykorzystaniu \textit{Clean Architecture}. Do tego celu zdecydowano się wykorzystać
+aplikację \textit{JSON Web Token Authentication for Android} napisaną przez Victora Albertosa \cite{website:victor:aplication} , a której źródła udostępnione są w serwisie GitHub na licencji \textit{open source}.
 
-Na przykładzie jednej z aplikacji postaram się przedstawić różnicę w podejściu do testowania w przypadku programu dla systemu Android napisanego w architekturze „standardowej” i tego samego programu napisanego przy użyciu Clean Architecture.
-
-Do tego celu autor wykorzysta aplikację \textit{JSON Web Token Authentication for Android} napisaną przez Victora Albertosa , a której źródła udostępnione są w serwisie GitHub na licencji \textit{open source}. 
-
-https://github.com/VictorAlbertos/RestAPIParseAuthAndroid
-
-https://github.com/VictorAlbertos/RestAPIParseAuthCleanAndroid
+W części doświadczalnej analizę ograniczono do testowalności w zakresie testów jednostkowych i wczesnych testów integracyjnych pomijając analizę na etapie testów systemowych czy akceptacyjnych z powodu braku dostępu do wymagań systemowych i wymagań klienta. Jednakże już na podstawie analizy testów jednostkowych i wstępnego testu integracyjnego można z dużym prawdopodobieństwem ocenić, czy zastosowanie TDD i architektury \textit{Clean Architecture} poprawi testowalność programu i spowoduje polepszenie testowalności również na dalszych etapach procesu testowego.
 
 \section{Opis aplikacji}
-\textit{---------draft-------------}
-
-Uwierzytelnianie dla Androida i iOS. 
-
-Aplikacja służy do autentykacji użytkowników Androida i iOS korzystając z \textit{REST API} serwera \textit{Parse} oraz textit{JSON\footnote{JSON, JavaScript Object Notation – lekki format wymiany danych komputerowych. JSON jest formatem tekstowym, bazującym na podzbiorze języka JavaScript. Źródło: Wikipedia.} Web Tokens (JWT)}. JWT to otwarta, według standardu przemysłowego RFC 7519\cite{website:jwt:rfc7519}, metoda do uwierzytelniania stron w środowisku aplikacji internetowych. Wykorzystywana jest do przekazywania tożsamości użytkowników między dostawcą, a odbiorcą usług internetowych lub innego typu uwierzytelnień zgodnie z logiką biznesową. Tokeny mogą także być uwierzytelniane i szyfrowane. 
+\textit{JSON Web Token Authentication for Android} autentykuje użytkowników Androida i iOS korzystając z \textit{REST API} serwera \textit{Parse} oraz textit{JSON\footnote{JSON, JavaScript Object Notation – lekki format wymiany danych komputerowych. JSON jest formatem tekstowym, bazującym na podzbiorze języka JavaScript. Źródło: Wikipedia.} Web Tokens (JWT)}. JWT to otwarta, według standardu przemysłowego RFC 7519\cite{website:jwt:rfc7519}, metoda do uwierzytelniania stron w środowisku aplikacji internetowych. Wykorzystywana jest do przekazywania tożsamości użytkowników między dostawcą, a odbiorcą usług internetowych lub innego typu uwierzytelnień zgodnie z logiką biznesową. 
 
 Serwer \textit{Parse} to wspólna platforma do przechowywania danych i interakcji z usługami internetowymi dla aplikacji mobilnych. Wielu programistów decyduje się na wykorzystanie tej platformy, zamiast pisać własne rozwiązania w tym zakresie.
 
-Victor Albertos zdecydował się użyć wyżej wymienionego rozwiązania, aby zwiększyć pielęgnowalność aplikacji: móc modyfikować logikę biznesową nie modyfikując aplikacji po stronie klienta. Serwer Parse, jako rozwiązanie uniwersalne, zapewniał takie podejście \cite{website:victor:application}.
+Victor Albertos zdecydował się użyć wyżej wymienionego rozwiązania, aby zwiększyć pielęgnowalność swojej aplikacji: móc modyfikować logikę biznesową nie modyfikując aplikacji po stronie klienta. Serwer Parse, jako rozwiązanie uniwersalne, zapewniał takie podejście i wpisywał się doskonale w koncepcję autora aplikacji.
 
 \section{Zasada działania}
-\textit{---------draft-------------}
-
-Użytkownik loguje się za pomocą swojej nazwy użytkownika i hasła do serwera Parse. Jeżeli nie ma jeszcze konta na serwerze, za pomocą aplikacji może je sobie założyć. Od chwili zalogowania może korzystać z przeznaczonych mu usług serwera, logując się z wielu urządzeń i otwierając wiele sesji.
+Użytkownik loguje się za pomocą swojej nazwy użytkownika i hasła do serwera \textit{Parse}. Jeżeli nie posiada jeszcze konta na serwerze, może założyć je bezpośrednio z używanego programu. Jeżeli użytkownik istnieje, od chwili zalogowania może korzystać z dostępnych mu usług serwera, a logując się z wielu urządzeń korzysta z wielosesyjności systemu. 
 
 \section{Analiza aplikacji pod względem testowalności}
+W tej pracy autor skupia się na budowie aplikacji tylko z punktu widzenia testowania aplikacji, nie będzie więc analizowany szczegółowo kod programu. Przeprowadzone natomiast zostaną testym na podstawie których można w wystarczającej części ocenić, czy zmiana struktury oprogramowania na \textit{Clean Architecture} oraz zastosowanie  \textit{Test Driven Development} wpłynie pozytywnie na testowalność oprogramowania, w tym przypadku tej wybranej aplikacji.
 
-\subsection{Budowa aplikacji w architekturze standardowej}
-\textit{---------draft-------------}
-Autor skupia się na budowie aplikacji tylko z punktu widzenia testowania aplikacji.
+\newpage
+\subsection{Budowa analizowanej aplikacji napisanej w architekturze standardowej}
+Schemat budowy aplikacji \textit{JSON Web Token Authentication for Android} zbudowanej w standardowej architekturze przedstawia się tak, jak to pokazano na rysunku \ref{fig:app_std}.
 
 \begin{figure}[!htb]
     \centering
@@ -42,11 +32,10 @@ Autor skupia się na budowie aplikacji tylko z punktu widzenia testowania aplika
     \label{fig:app_std}
 \end{figure} 
 
+Aplikacja podzielona jest na warstwę domenową i warstwę interfejsu użytkownika. W celu przetestowania interfejsu użytkownika, utworzono jeden test, który w zależności od kontekstu można nazwać integracyjnym, systemowym, bądź nawet końcowym. Test polega na zalogowaniu się do programu za pomocą przykładowych danych i otrzymaniu wyniku, czy autentykacja przebiegła pomyślnie. Poza tym przypadkiem nie znaleziono żadnych innych testów, w tym jednostkowych. Z punktu widzenia programisty, można byłoby napisać je w każdym momencie. Jest to jednak trudne do wykonania z dwóch powodów: po pierwsze - ze względu na stopień uzależnienia warstwy domenowej i \textit{UI} od środowiska Android, a po drugie - programista piszący testy może (nawet nieświadomie) skupiać się na zapewnieniu pokrycia testami już gotowego kodu, zamiast na szukaniu błędów w programie. Do problemu tego nawiązano już w rozdziale \ref{opis_problemu}.
 
-\subsection{Budowa aplikacji wykorzystując \textit{Clean Architecture}}
-\textit{---------draft-------------}
-
-Każde z wymienionych w poprzednim rozdziale podejść do uporządkowania architektury systemowej można wykorzystać do polepszenia testowalności aplikacji tworzonych dla tego systemu. Analizując je krok po kroku można dojść do wniosku, że ich idea jest taka sama, a różnią się szczegółami. Dla celów tej pracy wystarczy wybrać jedną z nich - w tym przypadku autor zdecydował się na \textit{The Clean Architecture}, opisaną w rozdziale \ref{clean_architecture_opis}.
+\subsection{Budowa analizowanej aplikacji wykorzystującej \textit{Clean Architecture}}
+Każde z wymienionych w rozdziale \ref{propozycja_rozwiazania} podejść do uporządkowania architektury systemowej można wykorzystać do polepszenia testowalności aplikacji tworzonych dla systemu Android. Analizując opisywane rozwiązania krok po kroku można dojść do wniosku, że ich idea jest taka sama, a różnią się jedynie szczegółami. W tym wypadku autor \textit{JSON Web Token Authentication for Android} zdecydował się na \textit{The Clean Architecture}, zaprezentowaną w tej pracy w rozdziale \ref{clean_architecture_opis}.
 
 \begin{figure}[!htb]
     \centering
@@ -56,18 +45,22 @@ Każde z wymienionych w poprzednim rozdziale podejść do uporządkowania archit
     \label{fig:app_std}
 \end{figure} 
 
+Tym razem aplikacja została podzielona na trzy warstwy: zgodnie z nowym podejściem wydzielono warstwę przechowywania danych, za \textit{UI} odpowiada warstwa prezentacyjna, a warstwa domenowa została wzbogacona o dwa zestawy testów jednostkowych, które zostały napisane przed powstaniem kodu programu:
+\begin{itemize}
+\item
+\textit{interactors} - \textit{opisać warstwę w domu}
+\item
+\textit{presenters} - \textit{opisać warstwę w domu},
+\end{itemize}
+Test interfejsu użytkownika pozostał ten sam, aczkolwiek jego zakres został ograniczony o przetestowane w testach jednostkowych zagadnienia. - \textit{sprawdzić w domu czy to prawda.}
 
 \section{Przebieg doświadczenia}
-\textit{---------draft-------------}
+Podczas doświadczenia przeprowadzono osobne pomiary dla obu projektów, wykorzystując to samo środowisko testowe (\textit{wziąć pojęcia ze słownika testerskiego}): Android Studio w wersji 1.5.1, ten sam komputer i ten sam emulator: Nexus\_5\_API\_23.
 
-Przeprowadzono testy osobno dla obu projektów, wykorzystując to samo środowisko Android Studio w wersji 1.5.1, ten sam komputer i ten sam emulator: Nexus\_5\_API\_23.
-
-\newpage
 \section{Wyniki doświadczenia}
 \label{wyniki_doswiadczenia}
 \subsection{Architektura standardowa}
-\textit{---------draft-------------}
-
+Wyniki doświadczenia dla aplikacji napisanej w architekturze standardowej przedstawiają się następująco:
 \begin{itemize}
 \item
 Brak testów jednostkowych. Brak weryfikacji błędów w kodzie na bieżąco. Patrz rysunek \ref{fig:odwrocona_piramida}.
