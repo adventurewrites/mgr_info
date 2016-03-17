@@ -13,15 +13,18 @@ import edu.victoralbertos.restapiparseauthandroid.R;
 import ui.activities.ProfileActivity;
 
 public class LoginFragment extends BaseFragment {
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    @Override public void onActivityCreated(Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         getView().findViewById(R.id.login_bt_submit).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 performLogin(view);
             }
         });
@@ -36,7 +39,8 @@ public class LoginFragment extends BaseFragment {
         String password = ((EditText) getView().findViewById(R.id.login_et_password)).getText().toString();
 
         mSession.login(getActivity(), username, password, new Session.Callback<String>() {
-            @Override public void response(boolean success, String feedback) {
+            @Override
+            public void response(boolean success, String feedback) {
                 pb_loading.setVisibility(View.INVISIBLE);
                 button.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), feedback, Toast.LENGTH_SHORT).show();

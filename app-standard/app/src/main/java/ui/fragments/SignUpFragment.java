@@ -14,15 +14,18 @@ import edu.victoralbertos.restapiparseauthandroid.R;
 import ui.activities.ProfileActivity;
 
 public class SignUpFragment extends BaseFragment {
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
 
-    @Override public void onActivityCreated(Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         getView().findViewById(R.id.sign_up_bt_submit).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 performSignUp(view);
             }
         });
@@ -39,7 +42,8 @@ public class SignUpFragment extends BaseFragment {
         String password = ((EditText) getView().findViewById(R.id.sign_up_et_password)).getText().toString();
 
         mSession.signUp(getActivity(), email, username, phone, password, new Session.Callback<String>() {
-            @Override public void response(boolean success, String feedback) {
+            @Override
+            public void response(boolean success, String feedback) {
                 pb_loading.setVisibility(View.INVISIBLE);
                 button.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), feedback, Toast.LENGTH_SHORT).show();

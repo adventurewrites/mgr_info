@@ -5,7 +5,8 @@ import android.os.Bundle;
 
 public class LaunchActivity extends BaseActivity {
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (mSession.isActive(this)) {

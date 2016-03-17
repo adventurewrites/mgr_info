@@ -10,9 +10,11 @@ import domain.services.Session;
 import domain.services.SessionComponent;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    @Inject Session mSession;
+    @Inject
+    Session mSession;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpGraph();
     }

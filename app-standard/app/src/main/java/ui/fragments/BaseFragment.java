@@ -10,9 +10,11 @@ import domain.services.Session;
 import domain.services.SessionComponent;
 
 public abstract class BaseFragment extends Fragment {
-    @Inject Session mSession;
+    @Inject
+    Session mSession;
 
-    @Override public void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpGraph();
     }

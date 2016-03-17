@@ -17,7 +17,8 @@ public class ProfileFragment extends BaseFragment {
     private View bt_update, bt_logout, pb_loading;
     private EditText et_username, et_email, et_phone;
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
 
         pb_loading = root.findViewById(R.id.pb_loading);
@@ -31,7 +32,8 @@ public class ProfileFragment extends BaseFragment {
         return root;
     }
 
-    @Override public void onActivityCreated(Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         populateUser();
@@ -54,7 +56,8 @@ public class ProfileFragment extends BaseFragment {
         bt_update.setVisibility(View.INVISIBLE);
 
         mSession.currentSession(getActivity(), new Session.Callback<User>() {
-            @Override public void response(boolean success, User user) {
+            @Override
+            public void response(boolean success, User user) {
                 pb_loading.setVisibility(View.INVISIBLE);
                 bt_update.setVisibility(View.VISIBLE);
 
@@ -80,7 +83,8 @@ public class ProfileFragment extends BaseFragment {
         String phone = et_phone.getText().toString();
 
         mSession.update(getActivity(), email, username, phone, new Session.Callback<String>() {
-            @Override public void response(boolean success, String feedback) {
+            @Override
+            public void response(boolean success, String feedback) {
                 pb_loading.setVisibility(View.INVISIBLE);
                 bt_update.setVisibility(View.VISIBLE);
 

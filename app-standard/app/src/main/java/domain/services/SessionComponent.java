@@ -10,6 +10,8 @@ import ui.fragments.BaseFragment;
 @Component(modules = {SessionModule.class})
 public interface SessionComponent {
     Session provideSession();
+
     void injectClient(BaseActivity baseActivity);
+
     void injectClient(BaseFragment baseFragment);
 }

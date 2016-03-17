@@ -16,18 +16,21 @@ public class Session {
     private final Endpoints mEndpoints;
     private final Persistence mPersistence;
 
-    @Inject public Session(Endpoints endpoints, Persistence persistence) {
+    @Inject
+    public Session(Endpoints endpoints, Persistence persistence) {
         mEndpoints = endpoints;
         mPersistence = persistence;
     }
 
     public void login(final Context context, String username, String password, final Callback<String> callback) {
         mEndpoints.login(username, password, new retrofit.Callback<JsonObject>() {
-            @Override public void success(JsonObject jsonObject, Response response) {
+            @Override
+            public void success(JsonObject jsonObject, Response response) {
                 handleSuccessConnection(context, jsonObject, callback);
             }
 
-            @Override public void failure(RetrofitError error) {
+            @Override
+            public void failure(RetrofitError error) {
                 handleCommonFailure(context, error, callback);
             }
         });
@@ -67,7 +70,8 @@ public class Session {
         });
     }
 
-    @Nullable public void currentSession(final Context context, final Callback<User> callback) {
+    @Nullable
+    public void currentSession(final Context context, final Callback<User> callback) {
         String token = mPersistence.retrieveToken(context);
         mEndpoints.currentSession(token, new retrofit.Callback<User>() {
             @Override
