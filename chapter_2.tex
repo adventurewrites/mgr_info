@@ -7,7 +7,7 @@ Termin „testowalność oprogramowania” \footnote{Definicja testowalności we
 \label{czy_testowanie_potrzebne}
 Po co tak w~ogóle właściwie testować oprogramowanie? Czy testowanie jest potrzebne? Jak dużo testów należy przeprowadzić, aby testowanie było wystarczająco skuteczne? To są pytania, które mogą być tematem osobnej publikacji, w~tym rozdziale poruszone zostaną więc tylko pojęcia, które wykorzystane są w~dalszej części tej pracy.
 
-Człowiek, jako istota żywa i~omylna, może popełnić podczas pracy \textbf{błąd}, czyli inaczej – \textbf{pomyłkę}. Pomyłka w~pracy programisty może skutkować pojawieniem się \textbf{defektu} (usterki, pluskwy) w~kodzie programu, bądź w~dokumentacji. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w~sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego się wymaga, lub wykonać to niezgodnie z~założeniami. Czyli inaczej rzecz ujmując, ulegnie \textbf{awarii}. 
+Człowiek, jako istota żywa i~omylna, może popełnić podczas pracy \textit{błąd}, czyli inaczej – \textit{pomyłkę}. Pomyłka w~pracy programisty może skutkować pojawieniem się \textit{defektu} (usterki, pluskwy) w~kodzie programu, bądź w~dokumentacji. Do tej pory nic się nie dzieje złego, ale jeżeli kod programu, który posiada w~sobie taki defekt, zostanie wykonany, system może nie zrobić tego, co od niego się wymaga, lub wykonać to niezgodnie z~założeniami. Czyli inaczej rzecz ujmując, ulegnie \textit{awarii}. 
 
 Defekty powstają, ponieważ ludzie są omylni, ale pomyłka człowieka, to nie jedyny powód awarii systemów. Mogą one być również spowodowane przez warunki środowiskowe, takie jak promieniowanie, pole magnetyczne i~elektryczne, czy nawet zanieczyszczenia środowiska.
 
@@ -114,7 +114,7 @@ testy akceptacyjne
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=10cm]{imgs/ch2_model_v.jpg}
+    \includegraphics[width=10cm]{imgs/ch2_model_v_pl.jpg}
     \caption{Model V - najpopularniejszy model zarządzania projektem informatycznym (\textit{V\-model}). Źródło: \cite{website:android:modelv}}
     \label{fig:model_v}
 \end{figure} 
@@ -203,12 +203,12 @@ ATDD jest ściśle związane z~Test-Driven Development. Nacisk na współpracę 
 
 Analizując jeszcze głębiej metodyki zwinne, możemy doszukać się również podejść \textit{Example Driven Development} (EDD) oraz \textit{Story test-Driven Development} (SDD). Różnice między nimi a~\textit{TDD} są tak niewielkie, że autor pominie ich szczegółowy opis sygnalizując tylko, że zastosowanie takich taktyk testowania również może mieć wpływ na poprawienie testowalności aplikacji pod Androidem.  
 
-\section{Testowalność aplikacji androidowych}
-Z obserwacji autora wynika, że bardzo łatwo jest napisać zły i~nietestowalny kod, nie tylko dla Androida. Warto jednak pamiętać, że zastosowanie procesów z~metodologii wymienionych w~poprzednich podrozdziałach zdecydowanie może podnieść testowalność naszych aplikacji. Techniki te znacznie pomagają deweloperom i~testerom w~zrozumieniu potrzeb klienta.
+%\section{Testowalność aplikacji androidowych}
+%Z obserwacji autora wynika, że bardzo łatwo jest napisać zły i~nietestowalny kod dla Androida. Warto jednak pamiętać, że zastosowanie procesów z~metodologii wymienionych w~poprzednich podrozdziałach zdecydowanie może podnieść testowalność aplikacji pisanych dla tego systemu. Techniki te znacznie pomagają programistom i~testerom w~zrozumieniu potrzeb klienta.
 
-Ale czy zastosowanie metody TDD lub BDD jest wystarczające, aby podnieść testowalność aplikacji Android? Czy może potrzebna jest zmiana całej struktury aplikacji? Jak dzielić odpowiedzialność pomiędzy częściami oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w~napisanym kodzie, jak i~pomiędzy kodem aplikacji i~frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? Oraz najważniejsze pytanie: jak testować aplikacje dla Androida skutecznie?
+%Ale czy zastosowanie metody \textit{TDD} lub \textit{BDD} jest wystarczające, aby podnieść testowalność aplikacji Android? Czy może potrzebna jest zmiana całej struktury aplikacji? Jak dzielić odpowiedzialność pomiędzy częściami oprogramowania? Jak rozwiązać problem zbyt dużego sprzężenia zarówno w~napisanym kodzie, jak i~pomiędzy kodem aplikacji i~frameworkiem androidowym \footnote{Sprzężenie (\textit{ang. coupling}) jest miarą jak bardzo obiekty, podsystemy lub systemy zależą od siebie nawzajem.}? Oraz najważniejsze pytanie: jak testować aplikacje dla Androida skutecznie?
 
-Na te pytania autor postara się odpowiedzieć w~dalszej części pracy.
+%Na te pytania autor postara się odpowiedzieć w~dalszej części pracy.
 %tutaj przykłady jak użyć poszczególnych konstrukcji
 %Przykładowy rysunek \ref{fig:sample_figure}. Prztykładowa tabela %\ref{tab:sample_table}. Przykładowy odnośnik do bibliografi \cite{bib:kowalski_2015}. \textbf{Powodzenia!}
 
