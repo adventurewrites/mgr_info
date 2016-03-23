@@ -8,7 +8,7 @@ aplikację \textit{JSON Web Token Authentication for Android} napisaną przez Vi
 W części doświadczalnej badania ograniczono do analizy testowalności w~zakresie testów jednostkowych i~wczesnych testów integracyjnych. Pominięto przegląd na etapie testów systemowych czy akceptacyjnych z~powodu braku dostępu do wymagań systemowych i~wymagań klienta. Jednakże już na podstawie analizy testów jednostkowych i~wstępnego testu integracyjnego można z~dużym prawdopodobieństwem ocenić, czy zastosowanie \textit{Test Driven Development} i~podejścia \textit{The Clean Architecture} poprawi testowalność programu i~spowoduje ułatwienie dalszego procesu testowego.
 
 \section{Opis aplikacji}
-\textit{JSON Web Token Authentication for Android} poświadcza prawdziwość użytkowników Androida i~iOS korzystając z~\textit{REST API} serwera \textit{Parse} oraz textit{JSON\footnote{JSON, JavaScript Object Notation – lekki format wymiany danych komputerowych. JSON jest formatem tekstowym, bazującym na podzbiorze języka JavaScript. Źródło: Wikipedia.} Web Tokens (JWT)}. JWT to otwarta, według standardu przemysłowego RFC 7519\cite{website:jwt:rfc7519}, metoda do uwierzytelniania stron w~środowisku aplikacji internetowych. Wykorzystywana jest do przekazywania tożsamości użytkowników między dostawcą a~odbiorcą usług internetowych, lub innego typu uwierzytelnień zgodnie z~logiką biznesową. 
+\textit{JSON Web Token Authentication for Android} poświadcza prawdziwość użytkowników Androida i~iOS korzystając z~\textit{REST API} serwera \textit{Parse} oraz textit{JSON\footnote{JSON, JavaScript Object Notation – lekki format wymiany danych komputerowych. JSON jest formatem tekstowym, bazującym na podzbiorze języka JavaScript. \textit{"JSON", Wikipedia, 2015}} Web Tokens (JWT)}. JWT to otwarta, według standardu przemysłowego RFC 7519\cite{website:jwt:rfc7519}, metoda do uwierzytelniania stron w~środowisku aplikacji internetowych. Wykorzystywana jest do przekazywania tożsamości użytkowników między dostawcą a~odbiorcą usług internetowych, lub innego typu uwierzytelnień zgodnie z~logiką biznesową. 
 
 Serwer \textit{Parse} to wspólna platforma do przechowywania danych i~interakcji z~usługami internetowymi dla aplikacji mobilnych. Wielu programistów decyduje się na wykorzystanie tej platformy sprawdzonej, zamiast pisać własne rozwiązania w~tym zakresie.
 
@@ -26,7 +26,7 @@ Schemat budowy aplikacji \textit{JSON Web Token Authentication for Android} w~we
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch6_app_st.png}
+    \includegraphics[width=8cm]{imgs/ch6_app_st_diagram.png}
     \caption
 {Schemat budowy badanej aplikacji wykorzystującej architekturę standardową}
     \label{fig:app_std}
@@ -37,37 +37,24 @@ Aplikacja podzielona jest na moduł domeny i~moduł interfejsu użytkownika. w~c
 \subsection{Budowa analizowanej aplikacji w~wersji poprawionej}
 Każde z~wymienionych w~rozdziale \ref{propozycja_rozwiazania} podejść do uporządkowania architektury systemowej można wykorzystać do polepszenia testowalności aplikacji tworzonych dla systemu Android. Analizując opisywane rozwiązania krok po kroku można dojść do wniosku, że ich idea jest taka sama, a~różnią się jedynie szczegółami. w~tym wypadku autor \textit{JSON Web Token Authentication for Android} zdecydował się na \textit{The Clean Architecture}, zaprezentowaną w~tej pracy w~rozdziale \ref{clean_architecture_opis}.
 
-Aplikacja w~wersji poprawionej nadal ma budowę modułową - tym razem moduły są trzy: moduł domeny, moduł danych i~moduł prezentacyjny. Zgodnie z~nowym podejściem (patrz rysunek \ref{fig:clean_architecture}) można rozpoznać poszczególne warstwy uporządkowanej architektury:
+Aplikacja w~wersji poprawionej nadal ma budowę modułową - tym razem moduły są trzy: moduł domeny, moduł danych i~moduł prezentacyjny. Zgodnie z~nowym podejściem (patrz rysunek \ref{fig:clean_architecture}) można rozpoznać poszczególne warstwy uporządkowanej architektury (rysunek \ref{fig:app_cl}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=12cm]{imgs/ch6_app_cl_diagram.png}
+    \caption
+{Schemat budowy aplikacji w~wersji poprawionej: warstwa \textit{entities}.}
+    \label{fig:app_cl}
+\end{figure} 
+
 \begin{itemize}
 \item
 Warstwę \textit{entities}, w~której znajduje się definicja klasy \textit{User} oraz klasy \textit{Credentials}. Należą one do logiki biznesowej aplikacji i~to na tych klasach oparte jest działanie programu. 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=8cm]{imgs/ch6_app_cl_entities.png}
-    \caption
-{Schemat budowy aplikacji w~wersji poprawionej: warstwa \textit{entities}.}
-    \label{fig:app_cl_entities}
-\end{figure} 
 
 \item
-Warstwę \textit{Use Cases}, należącą do modułu domeny, do której na podstawie przypadków użycia zostały napisane testy jednostkowe (patrz rysunek \ref{fig:app_cl_usecases})
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=8cm]{imgs/ch6_app_cl_usecases.png}
-    \caption
-{Schemat budowy aplikacji w~wersji poprawionej: warstwa \textit{use cases}.}
-    \label{fig:app_cl_usecases}
-\end{figure} 
+Warstwę \textit{Use Cases}, należącą do modułu domeny, do której na podstawie przypadków użycia zostały napisane testy jednostkowe;
 
 \item
-Warstwę \textit{Presenters}, również należącą do modułu domenowego i~odpowiadające jej testy jednostkowe (rysunek \ref{fig:app_cl_presenters}).
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=8cm]{imgs/ch6_app_cl_presenters.png}
-    \caption
-{Schemat budowy aplikacji w~wersji poprawionej: warstwa \textit{presenters}.}
-    \label{fig:app_cl_presenters}
-\end{figure} 
+Warstwę \textit{Presenters}, również należącą do modułu domenowego i~odpowiadające jej testy jednostkowe; 
 
 \item
 Moduły \textit{data} oraz \textit{presentation}, to najbardziej zewnętrzna warstwa, zależna od wszystkich wyżej opisanych. 
@@ -86,7 +73,7 @@ W przypadku aplikacji w~wersji poprawionej testy jednostkowe istnieją dla warst
 \centering
 \caption{Zestawienie testów jednostkowych: podsumowanie dla warstw \textit{Use Cases} oraz \textit{Presenters}.}
 \label{tab:testy_jednostkowe_razem}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|p{5.8cm}|p{3cm}|p{3cm}|p{3cm}|}
 \hline
 \textbf{Warstwa} & \textbf{Przetestowane klasy} & \textbf{Przetestowane funkcje} & \textbf{Pokrycie linii kodu} \\ \hline
 \textit{Use Cases} & 100\% (6/6) & 100\% (16/16) & 100\% (36/36)	\\ \hline
@@ -98,7 +85,7 @@ W przypadku aplikacji w~wersji poprawionej testy jednostkowe istnieją dla warst
 \centering
 \caption{Zestawienie testów jednostkowych: podsumowanie szczegółowe dla warstwy \textit{Use Cases}.}
 \label{tab:testy_jednostkowe_usecases}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|p{5.8cm}|p{3cm}|p{3cm}|p{3cm}|}
 \hline
 \textbf{Warstwa} & \textbf{Przetestowane klasy} & \textbf{Przetestowane funkcje} & \textbf{Pokrycie linii kodu} \\ \hline
 \textit{GetUserUseCase} & 100\% (1/1) & 100\% (2/2) & 100\% (3/3)	\\ \hline
@@ -114,7 +101,7 @@ W przypadku aplikacji w~wersji poprawionej testy jednostkowe istnieją dla warst
 \centering
 \caption{Zestawienie testów jednostkowych: podsumowanie szczegółowe dla warstwy \textit{Presenters}.}
 \label{tab:testy_jednostkowe_presenters}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|p{5.8cm}|p{3cm}|p{3cm}|p{3cm}|}
 \hline
 \textbf{Warstwa} & \textbf{Przetestowane klasy} & \textbf{Przetestowane funkcje} & \textbf{Pokrycie linii kodu} \\ \hline
 \textit{subscribers} & 100\% (3/3) & 80\% (8/10) & 91\% (22/24)	\\ \hline
@@ -160,7 +147,7 @@ testów jednostkowych. w~przypadku aplikacji w~wersji pierwotnej - zgodnie z~wyj
  testy jednostkowe. Różnicę pokazuje wykres \ref{fig:app_ut_liczba}.
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=12cm]{imgs/ch6_app_ut_liczba.png}
+    \includegraphics[width=8cm]{imgs/ch6_app_ut_liczba.png}
     \caption
 {Porównanie ilości testów jednostkowych potrzebnych do pokrycia tej samej funkcjonalności w~przypadku wersji pierwotnej i~poprawionej. }
     \label{fig:app_ut_liczba}
@@ -169,7 +156,7 @@ testów jednostkowych. w~przypadku aplikacji w~wersji pierwotnej - zgodnie z~wyj
 Taka liczba testów musiała się również odbić na ich czasie wykonania, co w~przypadku badanej aplikacji przedstawia się jak na wykresie  \ref{fig:app_ut_czas}:
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=12cm]{imgs/ch6_app_ut_czas.png}
+    \includegraphics[width=10cm]{imgs/ch6_app_ut_czas.png}
     \caption
 {Porównanie czasu wykonania testów jednostkowych potrzebnych do pokrycia tej samej funkcjonalności w~przypadku wersji pierwotnej i~poprawionej. }
     \label{fig:app_ut_czas}
@@ -187,7 +174,7 @@ zakładając, że dodatkowo każdy z~siedmiu testów jednostkowych przeznaczonyc
 \end{itemize}
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=12cm]{imgs/ch6_app_int_czas.png}
+    \includegraphics[width=8cm]{imgs/ch6_app_int_czas.png}
     \caption
 {Porównanie czasu wykonania testów integracyjnych potrzebnych do pokrycia tej samej funkcjonalności w~przypadku wersji pierwotnej i~poprawionej. }
     \label{fig:app_int_czas}

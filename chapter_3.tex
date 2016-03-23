@@ -9,7 +9,7 @@ Systemy oprogramowania są skonstruowane tak, aby spełnić cele biznesowe organ
 
 
 \subsection{Architektura oprogramowania}
-Istnieje wiele definicji architektury oprogramowania. Na potrzeby tej pracy autor wybrał przedstawioną w~książce Lena Bassa, Paula Clementsa i~Ricka Kazmana "Software Architecture in Practice"\cite{bib:architect:software} \textit{Architektura oprogramowania jest zbiorem struktur potrzebnych do uporządkowania systemu, które zawierają elementy oprogramowania i~sprzętu oraz opisują relacje między nimi"}. 
+Istnieje wiele definicji architektury oprogramowania. Na potrzeby tej pracy autor wybrał przedstawioną w~książce Lena Bassa, Paula Clementsa i~Ricka Kazmana "Software Architecture in Practice"\cite{bib:architect:software} \textit{Architektura oprogramowania jest zbiorem struktur potrzebnych do uporządkowania systemu, które zawierają elementy oprogramowania i~sprzętu oraz opisują relacje między nimi}. 
 
 W systemach opartych na modelu \textit{waterfall}, architekturę oprogramowania tworzona jest przed rozpoczęciem kodowania i~jest to bardzo poważny proces, który mógł wpłynąć na losy projektu. w~modelach projektowych opartych na metodykach zwinnych, do których autor nawiązuje i~przekonuje w~tej pracy, architektura oprogramowania może być zmieniana również podczas tworzenia systemu. Czasem jest to nawet niezbędne ze względu na dynamiczne zmiany w~wymaganiach użytkownika, lub pojawianie się kolejnych \textit{use cases}.
 
@@ -50,9 +50,9 @@ Architektura Android przez wielu opisywana jest jako \textit{Java on Linux}, czy
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=17cm]{imgs/ch3_android_architecture_1.jpg}
+    \includegraphics[width=14cm]{imgs/ch3_android_architecture_1.jpg}
     \caption
-{Przegląd architektury Android. Źródło: Karim Yaghmour of Opersys Inc., \url{http://http://www.slideshare.net/opersys/inside-androids-ui}}
+{Przegląd architektury Android \cite{website:android:przegladarchitektury}.}
     \label{fig:ch3_android_architecture_1}
 \end{figure} 
 
@@ -70,7 +70,7 @@ W większości przypadków aplikacje z~przeznaczeniem dla systemu Android pisane
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch3_opis_problemu_1.png}
+    \includegraphics[width=8cm]{imgs/ch3_opis_problemu_1.jpg}
     \caption
 {Podejście „standardowe” przy tworzeniu aplikacji dla systemu Android}
     \label{fig:opis_problemu}
@@ -85,7 +85,7 @@ warstwa odpowiedzialna za logikę domenową jest pomieszana z~warstwą UI (User 
 \item
 logika UI jest pomieszana z~asynchronicznym pobieraniem danych,
 \item
-funkcje \textit{callback\footnote{Wywołanie zwrotne (ang. callback) jest to technika programowania będąca odwrotnością wywołania funkcji. Zwykle korzystanie z~właściwości konkretnej biblioteki polega na wywołaniu funkcji (podprogramów) dostarczanych przez tę bibliotekę. w~tym przypadku jest odwrotnie: użytkownik jedynie rejestruje funkcję do późniejszego wywołania, natomiast funkcje biblioteki wywołają ją w~stosownym dla siebie czasie. Źródło: Wikipedia}} można znaleźć w~całym kodzie,
+funkcje \textit{callback\footnote{Wywołanie zwrotne (ang. callback) jest to technika programowania będąca odwrotnością wywołania funkcji. Zwykle korzystanie z~właściwości konkretnej biblioteki polega na wywołaniu funkcji (podprogramów) dostarczanych przez tę bibliotekę. w~tym przypadku jest odwrotnie: użytkownik jedynie rejestruje funkcję do późniejszego wywołania, natomiast funkcje biblioteki wywołają ją w~stosownym dla siebie czasie. \textit{"Wywołanie zwrotne", Wikipedia, 2015}}} można znaleźć w~całym kodzie,
 \item
 elementy warstwy UI: Activity i~Fragmenty potrafią mieć tysiące linii kodu,
 \item
@@ -109,7 +109,7 @@ testów jednostkowych. w~tym przykładzie oczywiście nie widać zbyt wielkiej o
     \centering
     \includegraphics[width=10cm]{imgs/ch3_przyklad_testowania_klas_pl.png}
     \caption
-{Różnice w~testowaniu klas osobno i~razem. \textit{"Integrated Tests are a~Scam"} - schemat autorstwa J.B. Rainsbergera. Źródło: \url{https://vimeo.com/80533536)}}
+{Różnice w~testowaniu klas osobno i~razem. \textit{"Integrated Tests are a~Scam"} - schemat autorstwa J.B. Rainsbergera \cite{website:android:testowanieklas}.}
     \label{fig:testowanie_klas}
 \end{figure} 
 
@@ -123,9 +123,9 @@ Pozbawiając się możliwości zastosowania testów jednostkowych na wczesnym et
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch3_idealna_piramida.png}
+    \includegraphics[width=8cm]{imgs/ch3_idealna_piramida.jpg}
     \caption
-{Idealna piramida testowania według Mike'a Cohna\cite{bib:cohn:agile}. Źródło: \url{http://www.scrumdo.pl/2015/08/piramida-testow-agile.html}}
+{Idealna piramida testowania według Mike'a Cohna\cite{bib:cohn:agile}.}
     \label{fig:idealna_piramida}
 \end{figure} 
 
@@ -136,9 +136,9 @@ Analizując aktualną strukturę większości aplikacji androidowych, schemat te
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch3_odwrocona_piramida.png}
+    \includegraphics[width=8cm]{imgs/ch3_odwrocona_piramida.jpg}
     \caption
-{Podejście klasyczne do testów, czyli ddwrócona piramida testowania (\textit{Ice Cream AntiPatern}). Źródło: \url{http://www.scrumdo.pl/2015/08/piramida-testow-agile.html}}
+{Podejście klasyczne do testów, czyli odwrócona piramida testowania (\textit{Ice Cream AntiPatern}) \cite{website:piramidatestow}.}
     \label{fig:odwrocona_piramida}
 \end{figure} 
 
@@ -185,7 +185,7 @@ Należy zastanowić się, czy zastosowanie jednej z~taktyk zwinnych, w~tym przyp
 \label{pielegnowalnosc_aplikacji}
 W realnym świecie niestety bardzo rzadko mamy możliwość tworzenia aplikacji od początku. w~większości przypadków programiści muszą borykać się z~kodem, który ktoś już kiedyś napisał, a~dotyczy to w~zasadzie wszystkich większych projektów informatycznych. Weźmy na przykład taką aplikację jak \textit{Gmail}. Wychodzą ciągle nowe wersje, ale trudno wyobrazić sobie sytuację, że któraś z~nich została po prostu napisana od nowa. w~takich przypadkach mamy do czynienia z~tzw. \textit{kodem zastanym}.
 
-O ile kod pisany był w~sposób przejrzysty, dobrzy programiści są w~stanie dobudować nowe części aplikacji, nawet nie mając dokumentacji do starszej części. Wiele firm programistycznych stosuje podejście, że sam kod programu jest zarówno jego dokumentacją. Rozsądne nadawanie nazw zmiennym oraz umieszczanie rzeczowych komentarzy pozwala programistom zrozumieć swoich poprzedników, a~automatycznym narzędziom w~stylu \textit{JavaDoc\footnote{Javadoc – narzędzie automatycznie generujące dokumentację na podstawie zamieszczonych w~kodzie źródłowym znaczników w~komentarzach. Javadoc został stworzony specjalnie na potrzeby języka programowania Java przez firmę Sun Microsystems. Źródło: Wikipedia}} wygenerować całkiem wyczerpującą dokumentację.
+O ile kod pisany był w~sposób przejrzysty, dobrzy programiści są w~stanie dobudować nowe części aplikacji, nawet nie mając dokumentacji do starszej części. Wiele firm programistycznych stosuje podejście, że sam kod programu jest zarówno jego dokumentacją. Rozsądne nadawanie nazw zmiennym oraz umieszczanie rzeczowych komentarzy pozwala programistom zrozumieć swoich poprzedników, a~automatycznym narzędziom w~stylu \textit{JavaDoc\footnote{Javadoc – narzędzie automatycznie generujące dokumentację na podstawie zamieszczonych w~kodzie źródłowym znaczników w~komentarzach. Javadoc został stworzony specjalnie na potrzeby języka programowania Java przez firmę Sun Microsystems. \textit{"Javadoc", Wikipedia, 2015}}} wygenerować całkiem wyczerpującą dokumentację.
 
 Gorsza sytuacja jest z~testowaniem. Jeżeli produkt nie był tworzony z~zastosowaniem TDD, praca jaką należałoby wykonać przy pisaniu unit testów do gotowego kodu może być ogromna. Ponadto istnieje ryzyko, że tester chcąc sprostać wymaganiom osób zarządzających projektem będzie tak pisał testy jednostkowe, aby pokrywały jak największą część kodu, niekoniecznie przy tym wnosząc jakoś wartość w~sprawdzenie niezawodności aplikacji.
 

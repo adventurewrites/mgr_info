@@ -9,7 +9,7 @@ Okazuje się, że największą przeszkodą w~testowaniu aplikacji androidowych j
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=13cm]{imgs/ch4_opis_rozwiazania_1_pl.png}
+    \includegraphics[width=13cm]{imgs/ch4_opis_rozwiazania_1_pl.jpg}
     \caption
 {Propozycja modyfikacji struktury aplikacji Android.}
     \label{fig:opis_rozwiazania}
@@ -35,7 +35,7 @@ Korzyści, których można się spodziewać po zastosowaniu tej techniki są nas
 \item
 Wczesne wykrywanie błędów. Odporność na błędy regresyjne. Programista poprawia swoje pomyłki na bieżąco.
 \item
-Łatwiejszy refaktoring\footnote{Refaktoryzacja (czasem też refaktoring, ang. refactoring) – proces wprowadzania zmian w projekcie/programie, w wyniku których zasadniczo nie zmienia się funkcjonalność. Celem refaktoryzacji jest więc nie wytwarzanie nowej funkcjonalności, ale utrzymywanie odpowiedniej, wysokiej jakości organizacji systemu. Źródło: Wikipedia.} kodu.
+Łatwiejszy refaktoring\footnote{Refaktoryzacja (czasem też refaktoring, ang. refactoring) – proces wprowadzania zmian w projekcie/programie, w wyniku których zasadniczo nie zmienia się funkcjonalność. Celem refaktoryzacji jest więc nie wytwarzanie nowej funkcjonalności, ale utrzymywanie odpowiedniej, wysokiej jakości organizacji systemu.  \textit{"Refaktoryzacja", Wikipedia, 2016}} kodu.
 \item
 Dobrze napisane testy stają się dokumentacją kodu.
 \item
@@ -131,7 +131,7 @@ Najważniejsze więc jest wyizolować stary kod, przetestować aplikację za pom
 \subsection{Architektura cebulowa - \textit{The Onion Architecture}}
 Jeffrey Pallermo w~połowie 2008 roku opublikował na swoim blogu serię artykułów\cite{website:architect:onion}, w~których zaproponował inne od klasycznego podejście do warstw w~aplikacji. Zauważył, że uzależnienie warstwy biznesowej od warstwy danych niekorzystnie wpływa na stabilność warstwy biznesowej, która z~założenia powinna być niezależna od wprowadzania nowych technologii do warstwy bazodanowej. Stare podejście tego nie zapewniało. w~większości przypadków warstwa biznesowa musiała być modyfikowana, a~przynajmniej rekompilowana podczas modyfikacji warstwy dostępu do danych.
 
-W zaproponowanym przez Palermo modelu, im warstwy położone są w~architekturze głębiej, tym mniej podatne są na zmiany. Zależności mogą być zwrócone tylko w~jedną stronę - do wnętrza "cebuli". w~ten sposób w~centrum znajdzie się model domeny, a~na zewnątrz - warstwa bazodanowa. Jest to podejście nazywane \textit{odwróceniem zależności\footnote{Dependency Inversion Principle (DIP) - zasada mówiąca, że moduły wysokopoziomowe nie powinny zależeć od modułów niskopoziomowych. Obie grupy powinny zależeć od abstrakcji. Abstrakcje natomiast nie powinny zależeć od szczegółowych rozwiązań, tylko odwrotnie.}} i~wymaga od programistów zastosowania odpowiednich technik projektowych, między innymi \textit{wstrzykiwania zależności\footnote{Dependency Injection (DI) – wzorzec projektowy i~wzorzec architektury oprogramowania polegający na usuwaniu bezpośrednich zależności pomiędzy komponentami na rzecz architektury typu plug-in. Źródło: Wikipedia}}.
+W zaproponowanym przez Palermo modelu, im warstwy położone są w~architekturze głębiej, tym mniej podatne są na zmiany. Zależności mogą być zwrócone tylko w~jedną stronę - do wnętrza "cebuli". w~ten sposób w~centrum znajdzie się model domeny, a~na zewnątrz - warstwa bazodanowa. Jest to podejście nazywane \textit{odwróceniem zależności\footnote{Dependency Inversion Principle (DIP) - zasada mówiąca, że moduły wysokopoziomowe nie powinny zależeć od modułów niskopoziomowych. Obie grupy powinny zależeć od abstrakcji. Abstrakcje natomiast nie powinny zależeć od szczegółowych rozwiązań, tylko odwrotnie.}} i~wymaga od programistów zastosowania odpowiednich technik projektowych, między innymi \textit{wstrzykiwania zależności\footnote{Dependency Injection (DI) – wzorzec projektowy i~wzorzec architektury oprogramowania polegający na usuwaniu bezpośrednich zależności pomiędzy komponentami na rzecz architektury typu plug-in. \textit{"Wstrzykiwanie zależności", Wikipedia, 2016}}}.
 
 Warstwy wewnętrzne definiują interfejsy, za pomocą których mogą komunikować się z~warstwami zewnętrznymi. Dzięki temu programiści nie muszą implementować na przykład dostępu z~warstwy biznesowej do bazy danych w~warstwie danych, zaimplementują tylko odpowiedni interfejs.
 
@@ -157,11 +157,11 @@ Cały kod rdzenia aplikacji (\textit{Object Model, Object services, Application 
 
 
 \subsection{Architektura portów i~adapterów - \textit{Ports and Adapters \newline Architecture}}
-Opracowana w~2005 roku przez Alistaira Cockburna\footnote{Alistair Cockburn - jeden z~inicjatorów ruchu Agile. Jest współautorem wydanego w~2001 roku manifestu Agile. w~roku 2005 pomagał współtworzyć deklarację 'PM Declaration of Interdependence'. Propagator przypadków użycia jako dokumentacji procesów biznesowych oraz wymagań co do zachowania oprogramowania. Źródło: Wikipedia} architektura niegdyś znana była pod nazwą architektury heksagonalnej\cite{website:architect:hexagonal}. Nazwa \textit{"heksagonalna"} przyjęła się, ponieważ kiedyś znane były tylko trzy porty wejściowe i~trzy porty wyjściowe, stąd wszystkie schematy rysowane były jako foremny sześciokąt. Wraz ze wzrostem liczby portów wejściowych i~wyjściowych zmieniono nazwę na \textit{Ports \& Adapters}, nie zmieniono natomiast zasady przedstawiania architektury na schematach, co przedstawia rysunek \ref{fig:hexagonal_architecture}.
+Opracowana w~2005 roku przez Alistaira Cockburna\footnote{Alistair Cockburn - jeden z~inicjatorów ruchu Agile. Jest współautorem wydanego w~2001 roku manifestu Agile. w~roku 2005 pomagał współtworzyć deklarację 'PM Declaration of Interdependence'. Propagator przypadków użycia jako dokumentacji procesów biznesowych oraz wymagań co do zachowania oprogramowania. \textit{"Alistair Cockburn", Wikipedia, 2014}} architektura niegdyś znana była pod nazwą architektury heksagonalnej\cite{website:architect:hexagonal}. Nazwa \textit{"heksagonalna"} przyjęła się, ponieważ kiedyś znane były tylko trzy porty wejściowe i~trzy porty wyjściowe, stąd wszystkie schematy rysowane były jako foremny sześciokąt. Wraz ze wzrostem liczby portów wejściowych i~wyjściowych zmieniono nazwę na \textit{Ports \& Adapters}, nie zmieniono natomiast zasady przedstawiania architektury na schematach, co przedstawia rysunek \ref{fig:hexagonal_architecture}.
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=10cm]{imgs/ch4_hexagonal_architecture_3.png}
+    \includegraphics[width=10cm]{imgs/ch4_hexagonal_architecture_3.jpg}
     \caption
 {Architektura heksagonalna według Alistaira Cockburna.}
     \label{fig:hexagonal_architecture}
@@ -176,7 +176,7 @@ Jądro oferuje model domeny i~logikę biznesową: ogólne możliwości aplikacji
 Porty są to interfejsy usług: API, odczyt danych (wejściowe), oraz interfejsy repozytoriów czy DAO\footnote{Data Access Object – komponent dostarczający jednolity interfejs do komunikacji między aplikacją a~źródłem danych.}, sterowniki do różnego rodzaju maszyn, urządzeń, odbiorników GPS czy radia (wyjściowe). Za pomocą portów wyjściowych warstwa jądra jest w~stanie emitować zdarzenia. Zdarzenia są techniką odwracania kontroli, czyli działają z~zachowaniem wspomnianej już zasady, że warstwa wewnętrzna nie posiada kontroli nad warstwą zewnętrzną. 
 
 \paragraph{Adaptery - \textit{Adapters}}
-Szczególnym przykładem adaptera jest aplikacja webowa, która z~jednej strony komunikuje się z~serwerem baz danych, a~z drugiej z~cienkim klientem\footnote{Cienki klient (ang. thin client) – komputer bądź specjalizowane urządzenie (terminal komputerowy) wraz z odpowiednim oprogramowaniem typu klient, umożliwiające obsługę aplikacji stworzonej w architekturze klient-serwer. Cechą szczególną cienkiego klienta jest niezależność od obsługiwanej aplikacji serwerowej (jej zmiana nie pociąga za sobą konieczności wymiany oprogramowania klienta). Dodatkowym atutem jest niewielkie zapotrzebowanie na moc przetwarzania. Źródło: Wikipedia.}, jakim jest na~przykład przeglądarka internetowa po stronie użytkownika. Może odbierać również zdarzenia od innych modułów systemowych, jeżeli architektura systemowa jest modułowa (Listener/Receptor zdarzeń). Głównym zadaniem adapterów jest delegowanie zdarzeń do portów na warstwie położonej wewnątrz i~powinno się w~miarę możliwości unikać przypisywania adapterom większej ilości zadań.
+Szczególnym przykładem adaptera jest aplikacja webowa, która z~jednej strony komunikuje się z~serwerem baz danych, a~z drugiej z~cienkim klientem\footnote{Cienki klient (ang. thin client) – komputer bądź specjalizowane urządzenie (terminal komputerowy) wraz z odpowiednim oprogramowaniem typu klient, umożliwiające obsługę aplikacji stworzonej w architekturze klient-serwer. Cechą szczególną cienkiego klienta jest niezależność od obsługiwanej aplikacji serwerowej (jej zmiana nie pociąga za sobą konieczności wymiany oprogramowania klienta). Dodatkowym atutem jest niewielkie zapotrzebowanie na moc przetwarzania.\textit{"Cienki klient", Wikipedia, 2015}}, jakim jest na~przykład przeglądarka internetowa po stronie użytkownika. Może odbierać również zdarzenia od innych modułów systemowych, jeżeli architektura systemowa jest modułowa (Listener/Receptor zdarzeń). Głównym zadaniem adapterów jest delegowanie zdarzeń do portów na warstwie położonej wewnątrz i~powinno się w~miarę możliwości unikać przypisywania adapterom większej ilości zadań.
 
 Z punktu widzenia systemu napisanego w~architekturze cebulowej, testowalność oprogramowania wygląda następująco: testy jednostkowe penetrują warstwę \textit{Kernel} zawierającą model domeny i logikę biznesową, testy integracyjne penetrują porty, a~testy systemowe penetrują kilka warstw \textit{Kernel} na raz.
 
@@ -186,9 +186,9 @@ Cytowany już w~rozdziale \ref{czysty_kod} Uncle Bob opublikował w~2012 roku na
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=13cm]{imgs/ch4_clean_architecture.jpg}
+    \includegraphics[width=13cm]{imgs/ch4_clean_architecture_pl.jpg}
     \caption
-{Clean architecture of Android według Uncle Bob. Źródło: \cite{website:cecil:blog}}
+{Clean architecture of Android według Uncle Bob  \cite{website:cecil:blog}.}
     \label{fig:clean_architecture}
 \end{figure} 
 
