@@ -1,4 +1,4 @@
-\chapter{Przegląd alternatywnych rozwiązań \newline i~szukanie  rozwiązania problemów}
+\chapter{Przegląd alternatywnych rozwiązań}
 \label{propozycja_rozwiazania}
 
 \section{Tworzenie aplikacji od podstaw}
@@ -63,7 +63,7 @@ Automatyzacja testów nie ma sensu, jeżeli jej koszt jest większy niż korzyś
 
 \subsection{Kod jako dokumentacja programu}
 \label{czysty_kod}
-Martin Robert Cecil\footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o~programowaniu. Jest również współautorem „Agile manifesto”} - popularny w~środowisku programistycznym \textit{Uncle Bob} - w~swojej książce "Clean Code"\cite{bib:cecil:clean_code}, scharakteryzował dobrze napisany kod następująco: 
+Martin Robert Cecil\footnote{Robert Cecil Martin (Uncle Bob) to amerykański inżynier programista oraz autor książek o~programowaniu. Jest również współautorem „Agile manifesto”} - popularny w~środowisku programistycznym \textit{Uncle Bob} - w \cite{bib:cecil:clean_code}, scharakteryzował dobrze napisany kod następująco: 
 \begin{itemize}
 \item
 Czysty kod można odczytać.
@@ -143,7 +143,7 @@ Warstwy wewnętrzne definiują interfejsy, za pomocą których mogą komunikowa�
     \label{fig:onion_architecture}
 \end{figure} 
 
-Kluczowe założenia architektury cebulowej:
+Kluczowe założenia architektury cebulowej (rysunek \ref{fig:onion_architecture}):
 \begin{itemize}
 \item 
 Aplikacja zbudowana jest według niezależnego modelu obiektowego.
@@ -182,7 +182,8 @@ Z punktu widzenia systemu napisanego w~architekturze cebulowej, testowalność o
 
 \subsection{Architektura uporządkowana - \textit{The Clean Architecture}}
 \label{clean_architecture_opis}
-Cytowany już w~rozdziale \ref{czysty_kod} Uncle Bob opublikował w~2012 roku na swoim blogu propozycję usystematyzowania architektury systemowej \cite{website:cecil:blog}, która zainteresowała również autora tej pracy. Właśnie ten typ architektury zostanie wykorzystany przez autora w~części \ref{analiza_testow} do wykazania wzrostu testowalności aplikacji napisanej dla Androida w~"czystej architekturze" w~porównaniu do aplikacji napisanej w~sposób "tradycyjny", przedstawiony w~rozdziale \ref{opis_problemu}. Schemat przedstawiony jest na rysunku \ref{fig:clean_architecture}
+Cytowany już w~rozdziale \ref{czysty_kod} Uncle Bob opublikował w~2012 roku na swoim blogu propozycję usystematyzowania architektury systemowej \cite{website:cecil:blog}, która zainteresowała również autora tej pracy. Właśnie ten typ architektury zostanie wykorzystany przez autora w~części \ref{analiza_testow} do wykazania wzrostu testowalności aplikacji napisanej dla Androida w~architekturze uporządkowanej w~porównaniu do aplikacji napisanej w~sposób "tradycyjny", przedstawiony w~rozdziale \ref{opis_problemu}. Schemat architektury uporządkowanej przedstawiony jest na rysunku \ref{fig:clean_architecture}.
+\newpage
 
 \begin{figure}[!htb]
     \centering
@@ -224,8 +225,8 @@ Jeżeli struktura tworzonej aplikacji zostanie ułożona w~powyższy sposób –
 
 \section{Wybór rozwiązania}
 \label{wybor_rozwiazania}
-O~ile wybór \textit{Test Driven Development} jako techniki wspomagającej programowanie aplikacji okazał się dla autora naturalnym z punktu widzenia metodologii zwinnych (patrz \ref{wybor_tdd}, o tyle wybór architektury systemowej sprawił więcej kłopotu. 
+O~ile wybór \textit{Test Driven Development} jako techniki wspomagającej programowanie aplikacji okazał się dla autora naturalnym z punktu widzenia metodologii zwinnych (patrz sekcja \ref{wybor_tdd}), o tyle wybór architektury systemowej sprawił więcej kłopotu. 
 
-W bieżącym rozdziale przeanalizowano trzy próby usystematyzowania architektury systemu: architekturę cebulową \textit{(The Onion Architecture)}, architekturę portów i~adapterów \textit{Ports and Adapters Architecture} oraz architekturę uporządkowaną \textit{(The Clean Architecture)}. Wszystkie z~nich proponują uporządkowanie systemu w podobny sposób, różniąc się jedynie szczegółami. Autor zdecydował się na wybór ostatniej - \textit{The Clean Architecture} - ze względu na większą ilość materiałów i dokumentacji. Robert Cecil Martin, autor tej propozycji, oprócz artykułu umieszczonego na swoim blogu nawiązał do~tego tematu również w~swoich książkach \cite{bib:cecil:clean_code} \cite{bib:cecil:the_clean_coder} \cite{bib:cecil:agile} wyjaśniając kluczowe pojęcia w przyjaznym dla programistów języku. 
+W bieżącym rozdziale przeanalizowano trzy próby usystematyzowania architektury systemu: architekturę cebulową \textit{(The Onion Architecture)}, architekturę portów i~adapterów \textit{(Ports and Adapters Architecture)} oraz architekturę uporządkowaną \textit{(The Clean Architecture)}. Wszystkie z~nich proponują uporządkowanie systemu w podobny sposób, różniąc się jedynie szczegółami. Autor zdecydował się na wybór ostatniej z wymienionych - \textit{The Clean Architecture} - ze względu na większą ilość dostępnych materiałów i dokumentacji na jej temat. Robert Cecil Martin, autor tej propozycji, oprócz artykułu umieszczonego na swoim blogu nawiązał do~tego tematu również w~swoich książkach \cite{bib:cecil:clean_code} \cite{bib:cecil:the_clean_coder} \cite{bib:cecil:agile}, wyjaśniając kluczowe pojęcia w przyjaznym dla programistów języku. 
 
 Drugim kryterium wyboru była data publikacji propozycji - w porównianiu do pozostałych dwóch, \textit{The Clean Architecture} okazało się podejściem najświeższym.
