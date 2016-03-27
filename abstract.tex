@@ -1,30 +1,28 @@
 \chapter*{Abstrakt}
 \label{abstract}
 
+\begin{center}
+\textbf{TESTOWALNOŚĆ APLIKACJI MOBILNYCH NA PLATFORMĘ ANDROID}
+
+\textbf{STRESZCZENIE}
+\end{center}
+
+Jako system operacyjny dostępny bezpłatnie, Android zrzesza ogromną społeczność programistów piszących aplikacje, które poszerzają funkcjonalność urządzeń mobilnych. Dostarcza programistom bogate środowisko użytkownika pozwalając pisać oprogramowanie bez konieczności sięgania do niższych warstw systemu, włączając możliwość dostępu do Internetu, serwerów baz danych, drukarek i~innych urządzeń peryferyjnych. Okazuje się jednak, że temat automatycznego testowania opracowywanych aplikacji jest często pomijamy w~literaturze, a~stosowane powszechnie podejście do tworzenia nowych aplikacji nie pozwala na sprawne pisanie testów jednostkowych. W~konsekwencji programiści często korzystają z~testów integracyjnych, gdzie nakład pracy jest dużo większy. Wychodząc tym problemom naprzeciw, autor w~tej pracy dowodzi, że zastosowanie odpowiedniej architektury oraz odpowiedniego podejścia do pisania oprogramowania może ułatwić testowanie aplikacji napisanych dla tego systemu.  
+
+Poniższa praca zawiera analizę testowalności aplikacji na platformę Android. W~pierwszej części autor wprowadza i~wyjaśnia podstawowe pojęcia związane z~programowaniem na tę platformę oraz testowalnością oprogramowania. W~części drugiej szczegółowo opisuje proces projektowy, który znacząco ułatwia utrzymanie i~opracowywanie aplikacji Android i~porównuje wybrane rozwiązania architektoniczne w~kontekście automatycznego testowania. Otrzymane wyniki są bardzo obiecujące i~pozwalają na wyciągnięcie wielu ciekawych wniosków.
+
+\textbf{Słowa kluczowe:} testowalność, Android, The Clean Architecture, Test Driven Development, TDD, testy jednostkowe
+
+\begin{center}
 \textbf{TESTABILITY OF MOBILE APPLICATIONS FOR ANDROID}
 
-\vspace{20pt}
+\textbf{ABSTRACT}
+\end{center}
 
-\textbf{Author:} Rafał Sowiak
+As the operating system available for free, Android joins a~huge community of developers writing applications that extend the functionality of mobile devices. Android provides for them a~rich user environment, allowing to write software without having to reach into the lower layers of the system, including the ability to access the Internet, database servers, printers and other peripherals. However, it turns out that subject of automatic testing of Android applications is often omitted in the literature, and commonly used approach to develop new applications doesn't help for unit tests writing. As a~result, developers often use the integration test instead, where the workload is much greater. Going into the problem, the author demonstrates that using of appropriate architecture and approach to writing software can facilitate the testing of applications written for this system.
 
-\vspace{\stretch{2}}
-\textbf{Faculty:} WEEIA
+This publication presents an analysis of applications testability on Android platform. In the first part the author introduces and explains the basic concepts related to programming on the platform, as well as software testability. In the second part, describes in detail the design process, which significantly facilitates the maintenance and development of Android applications. Compares also the selected architectural solutions in the context of automated testing. The results are very promising and allow to draw many interesting conclusions.
 
-\vspace{\stretch{2}}
-\textbf{Institute:} DMCS
-
-\vspace{\stretch{2}}
-\textbf{Tags and key words:} testability, Android, Clean Architecture, Test Driven Development, TDD
-
-\vspace{\stretch{2}}
-\textbf{Abstract:} 
-\textit{The term "android" is mainly associated with the market of modern electronic devices. These include smartphones, tablets, netbooks, GPS receivers, watches, as well as televisions, refrigerators, washing machines and other equipment used now. As the operating system available for free, Android connects a huge community of developers writing applications which extend the functionality of these devices. Provides to developers a rich user environment, including access to the Internet, database servers, printers and other peripherals. Getting rid of the possibility of the use of unit testing at an early stage of the project because of poorly designed structure of the application, designers risk losing quality. And as a consequence - risk losing of customer confidence in the software. The aim of this study is to present an alternative approach to software architecture intended for system Android, as well as to present an alternative method of approach to the whole process of writing software, which would help in increasing the testability of software on the system.}
-
-\vspace{\stretch{2}}
-The observations of the author shows that it is very easy to write bad and untestable code for Android Operational System. However, project managers and programmers should know, that using of certain processes and methodologies may significantly improve testability of applications for Android.
-
-In the first part of the publication autor presents the current, widely used approach to application development for Android. The first chapter contains general information about Android: history of emergence and development of the system, analysis of the current popularity in the segment of portable devices, as well as a description of the possibilities it offers to developers. The second chapter focuses on testing. Will be reminded of the basic test concepts, the definition of testability and maintainability of software, conducted the analysis of the test areas and types of tests and the introduction of agile approaches in the verification process. In the third chapter the author describes the key issue of this publication, which is the problem of testability of applications written for Android. Reminds concepts of software and system architecture and describes the architecture currently used in Android applications. Then he exposes the difficulties encountered during testing of this type of architecture.
-
-Part two is a proposal how to solve the problem outlined in chapter three. In the fourth chapter the author proposes the use of technique \textit{Test Driven Development} in the development process and encourages the use of one of the three described concepts of the system architecture: \textit{The Clean Architecture} proposed initially by Robert Cecil Martin. Proposes also Agile approach when modifying existing applications. The fifth chapter is the analysis of testability based one of the ready-made applications, once written in standard architecture, and twice - using the \textit{The Clean Architecture} and \textit{TDD} approach.
+\textbf{Tags and key words:} testability, Android, The Clean Architecture, Test Driven Development, TDD, unit tests
 
 

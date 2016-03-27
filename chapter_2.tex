@@ -32,82 +32,20 @@ Kiedy produkt musi zostać wycofany z~rynku po wyroku sądowym & 1000000 PLN	\\ 
 
 Z zestawienia jasno wynika, że praca testerów nie zaczyna się dopiero gdy program już jest napisany przez programistów, a~zaczyna się już w~najwcześniejszej fazie projektu, na etapie projektowania.
 
-\section{Obszary testowe}
-\label{obszary_testowe}
-Z punktu widzenia projektu, idealnie byłoby mieć możliwość przetestowania każdej linijki kodu. Autor zdaje sobie sprawę, że w~wielu przypadkach jest to niemożliwe, a~nawet bezcelowe, więc dopuszcza się możliwość ograniczenia testowania do kluczowych elementów kodu źródłowego i~kluczowych funkcjonalności. Na przykład zwykle nie jest potrzebne testowanie \textit{setterów}, \textit{getterów}, czy funkcji należących do standardowych bibliotek, gdyż zapewne zostały przetestowane już podczas procesu ich tworzenia. 
-
-Według \cite{bib:android:testing:learning}, można wyróżnić trzy główne obszary testowania:
-
-\begin{itemize}
-\item{Cykle życia aktywności}
-
-Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle życia. Trzy główne pętle do przetestowania znajdują się na rysunku \ref{fig:sample_figure}:
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=10cm]{imgs/ch2_activity_lifecycle.png}
-    \caption{Cykl życia \textit{Activity}\cite{website:android:aktywnosci}}
-    \label{fig:sample_figure}
-\end{figure} 
-
-\newpage
-\item{Dostęp do baz danych i~do systemu plików}
-
-Należy sprawdzić, czy operacje dostępowe przeprowadzane są poprawnie, a~jeżeli nie, to czy również poprawnie działa obsługa błędów. Można to testować na dwa sposoby: albo na niskim poziomie, izolując warstwę użytkownika, albo bezpośrednio z~aplikacji. Do testowania na niskim poziomie można wykorzystywać dostarczane przez framework Androida w~pakiecie \texttt{android.test.mock} \textit{zaślepki}\footnote{Zaślepka (stub) - szkieletowa albo specjalna implementacja modułu używana podczas produkcji lub testów innego modułu, który tę zaślepkę wywołuje albo jest w~inny sposób od niej zależny. Zaślepka zastępuje wywoływany moduł. [wg. IEEE 610]}
-
-Według dokumentacji Android\cite{website:android:manual} możliwe są następujące opcje przechowywania danych:
-
-- \textit{Shared Preferences}, czyli zachowywanie podstawowych danych w~parach klucz - wartość,
-
-- pamięć wewnętrzna urządzenia - do zachowywania danych niepublicznych,
-
-- zewnętrzna karta pamięci - do zachowywania danych publicznych,
-
-- baza danych SQLite - do przechowywania danych w~prywatnej bazie danych,
-
-- zasoby sieciowe - jako baza danych współdzielona pomiędzy urządzeniami.
-
-Wszystkie te opcje korzystają ze wspólnego zestawu funkcji\footnote{Na przykład do obsługi plików używa się \textit{getFileDir(), getDir(), deleteFile()} itp.}, które tester powinien wziąć pod uwagę przy tworzeniu przypadków testowych.
-
-\item{Fizyczną charakterystykę urządzenia}
-
-Android został zaprojektowany do pracy na wielu różnych typach urządzeń, od telefonów do tabletów i~telewizorów. Programiści muszą tolerować pewną zmienność zachowań projektowanych funkcji i~zapewnić elastyczny interfejs użytkownika, który dostosowuje się do różnych konfiguracji ekranu czy sieci.
-
-Należy sprawdzić, czy aplikacja działa poprawnie na wszystkich urządzeniach, na których można ją uruchomić. To, że działa świetnie na smartfonie, nie znaczy że działa poprawnie na tablecie, a~to że działa na tablecie jednej firmy nie wyklucza awarii na tym samym urządzeniu wyprodukowanym przez innego producenta. Elementy, które należy testować w~tym zakresie, to:
-
-- możliwości sieciowe,
-
-- rozdzielczość ekranu,
-
-- gęstość ekranu,
-
-- rozmiar ekranu,
-
-- czułość sensorów,
-
-- klawiaturę i~inne urządzenia wejściowe,
-
-- lokalizację GPS,
-
-- zewnętrzne karty pamięci.
-
-Android framework dostarcza rozwiązań pozwalających dostosowywać pewne rzeczy automatycznie, ale nie zwalnia to projektantów przed wykonaniem zestawu niezbędnych testów również w~tym obszarze.
-
-\end{itemize}
-
 \section{Rodzaje testów}
-Proces testowania może zostać wprowadzony na każdym etapie tworzenia aplikacji, w~zależności od wybranej strategii testu. Jednakże, jak już autor wspomniał w~podrozdziale \ref{czy_testowanie_potrzebne}, najlepiej jest rozpoczynać testowanie tak szybko jak to jest możliwe, w~możliwie najwcześniejszym stadium projektu. Nawet jeżeli nie wszystkie wymagania systemowe zostały uzgodnione, a~proces pisania oprogramowania się jeszcze nie rozpoczął. Już sam etap tworzenia dokumentacji i~wymagań, czy to na poziomie klienta, systemowym, czy programowym, powinien zostać poddany testowaniu. Pozwala to już na początku uniknąć błędów mogących wpływać na rozwój projektu przez długi czas.
+Proces testowania może zostać wprowadzony na każdym etapie tworzenia aplikacji, w~zależności od wybranej strategii testu. Jednakże, jak już zostało wspomniane w~podrozdziale \ref{czy_testowanie_potrzebne}, najlepiej jest rozpoczynać testowanie tak szybko jak to jest możliwe, w~możliwie najwcześniejszym stadium projektu. Nawet jeżeli nie wszystkie wymagania systemowe zostały uzgodnione, a~proces pisania oprogramowania się jeszcze nie rozpoczął. Już sam etap tworzenia dokumentacji i~wymagań, czy to na poziomie klienta, systemowym, czy programowym, powinien zostać poddany testowaniu. Pozwala to już na początku uniknąć błędów mogących wpływać na rozwój projektu przez długi czas.
 
 Rozpoznaje się kilka poziomów testowania, w~zależności od modelu zarządzania projektem. Rozważając model V przedstawiony na schemacie \ref{fig:model_v}, wyróżnić można cztery główne  z~punktu widzenia testowalności obszary:
 
 \begin{itemize}
 \item
-testy jednostkowe (\textit{Unit tests})
+testy jednostkowe;
 \item
-testy integracyjne
+testy integracyjne;
 \item
-testy systemowe
+testy systemowe;
 \item
-testy akceptacyjne
+testy akceptacyjne.
 
 \end{itemize}
 
@@ -118,9 +56,10 @@ testy akceptacyjne
     \label{fig:model_v}
 \end{figure} 
 
+\newpage
 \subsection{Testy jednostkowe (modułowe)}
 
-Według \cite{bib:sylabus:foundation}, testy modułowe polegają na wyszukiwaniu błędów i~weryfikacji funkcjonalności oprogramowania (np. modułów, programów, obiektów, klas), które można testować oddzielnie. Testowanie może być wykonywane w~izolacji od reszty systemu, w~zależności od kontekstu cyklu rozwoju oprogramowania i~od samego systemu. Podczas testów można użyć zaślepek, sterowników testowych oraz symulatorów. 
+Według \cite{bib:sylabus:foundation}, testy modułowe polegają na wyszukiwaniu błędów i~weryfikacji funkcjonalności oprogramowania (np. modułów, klas), które można testować oddzielnie. Testowanie może być wykonywane w~izolacji od reszty systemu, w~zależności od kontekstu cyklu rozwoju oprogramowania i~od samego systemu. Podczas testów można użyć zaślepek, sterowników testowych oraz symulatorów. 
 
 Mogą one zawierać testy funkcjonalności oraz niektórych atrybutów niefunkcjonalnych, takich jak stopień wykorzystania zasobów (np. wycieków pamięci) lub odporności. Wlicza się w~nie również testy strukturalne - pokrycia linii kodu, decyzji lub gałęzi. Do projektowania przypadków testowych bardzo przydatna jest specyfikacja fumkcji. Wtedy jest możliwość zaprojektowania testów zanim zostanie napisany kod programu (tzw. "wytwarzanie sterowane testowaniem" - \textit{Test Driven Development}, opisane szerzej w~sekcji \ref{test_driven_development}). Testy modułowe zwykle wykonuje się mając dostęp do kodu źródłowego i~przy wsparciu środowiska rozwojowego (np. bibliotek do testów jednostkowych, narzędzi do debagowania). Testy jednostkowe w~praktyce zwykle angażują też programistę, który jest autorem kodu. Usterki są usuwane jak tylko zostaną wykryte, bez systemu formalnego nimi zarządzania.
 
@@ -132,33 +71,97 @@ Mogą one zawierać testy funkcjonalności oraz niektórych atrybutów niefunkcj
 
 Testy integracyjne służą do sprawdzania interfejsów pomiędzy modułami, interakcji z~innymi częściami systemu (takimi jak system operacyjny, system plików i~sprzęt) oraz zależności pomiędzy systemami.
 
-Wykonuje je się zwykle, jeżeli tylko jest możliwość przetestowania integracji gotowych już modułów, przetestowanych testami jednostkowymi. Pojęcie testowania integracyjnego można rozszerzyć również na testowanie integracji pomiędzy różnymi systemami, a~nawet produktami różnych producentów.\cite{bib:sylabus:foundation}
+Wykonuje je się zwykle, jeżeli tylko jest możliwość przetestowania integracji gotowych już modułów, przetestowanych testami jednostkowymi. Pojęcie testowania integracyjnego można rozszerzyć również na testowanie integracji pomiędzy różnymi systemami, a~nawet produktami różnych producentów \cite{bib:sylabus:foundation}.
 
 \subsection{Testy systemowe}
 
 Testy systemowe zajmują się zachowaniem produktu lub systemu. Zakres takich testów powinien być jasno określony w~głównym planie testów oraz w~planach testów poszczególnych poziomów. Testy systemowe mogą zawierać testy oparte na ryzyku lub wymaganiach, procesie biznesowym, przypadkach użycia lub wysokopoziomowych opisach słownych i~modelach zachowania systemu, interakcji z~systemem operacyjnym i~zasobami systemowymi.
 
-Dąży się do tego, aby środowisko testowe w~przypadku testów systemowych było maksymalnie zbliżone do środowiska docelowego, w~którym projektowana aplikacja ma działać. Optymalnie byłoby pokryć wszystkie możliwe konfiguracje sprzętowe, aczkolwiek z~wielu powodów, głównie finansowych, firmy skupiają się na najczęściej wykorzystywanych przez użytkowników urządzeniach.\cite{bib:sylabus:foundation} 
+Dąży się do tego, aby środowisko testowe w~przypadku testów systemowych było maksymalnie zbliżone do środowiska docelowego, w~którym projektowana aplikacja ma działać. Optymalnie byłoby pokryć wszystkie możliwe konfiguracje sprzętowe, aczkolwiek z~wielu powodów, głównie finansowych, firmy skupiają się na najczęściej wykorzystywanych przez użytkowników urządzeniach \cite{bib:sylabus:foundation}. 
 
 \subsection{Testy akceptacyjne}
 
 Celem testów akceptacyjnych jest nabranie zaufania do systemu, jego części lub pewnych atrybutów niefunkcjonalnych. Wyszukiwanie usterek nie jest głównym celem tego rodzaju testowania. Testy akceptacyjne mogą oceniać gotowość systemu do wdrożenia i~użycia, chociaż nie muszą być ostatnim poziomem testowania. Na przykład może po nich następować testowanie integracji systemów w~większej skali.
 
-Odpowiedzialność za testy akceptacyjne, w~przeciwieństwie do testów opisanych w~poprzednich paragrafach, leży po stronie klientów. Zwykle testy akceptacyjne dzieli się na dwa etapy: testy \textit{alfa} oraz \textit{beta}. Testy \textit{alfa} przeprowadzane są przez przyszłych użytkowników w~siedzibie producenta, natomiast \textit{beta} - w~środowisku docelowym. W~praktyce producenci oprogramowania przekazują darmowe wersje swoich aplikacji o~ograniczonych możliwościach, oczekując w~zamian od użytkowników raportowania błędów lub propozycji usprawnień, bądź uzyskując to raportowanie automatycznie, kiedy aplikacja sama wysyła do producenta informację o~zaistniałych defektach.\cite{bib:sylabus:foundation}
+Odpowiedzialność za testy akceptacyjne, w~przeciwieństwie do testów opisanych w~poprzednich paragrafach, leży po stronie klientów. Zwykle testy akceptacyjne dzieli się na dwa etapy: testy \textit{alfa} oraz \textit{beta}. Testy \textit{alfa} przeprowadzane są przez przyszłych użytkowników w~siedzibie producenta, natomiast \textit{beta} - w~środowisku docelowym. W~praktyce producenci oprogramowania przekazują darmowe wersje swoich aplikacji o~ograniczonych możliwościach, oczekując w~zamian od użytkowników raportowania błędów lub propozycji usprawnień, bądź uzyskując to raportowanie automatycznie, kiedy aplikacja sama wysyła do producenta informację o~zaistniałych defektach \cite{bib:sylabus:foundation}.
+
+\section{Idealna i~odwrócona piramida testowania}
+\label{piramida_testowania}
+Bazując na \cite{bib:android:testing:learning} można wywnioskować, że jeżeli aplikacja ma być przetestowana zaczynając od testów integracyjnych zamiast od testów jednostkowych, nakład pracy będzie zdecydowanie większy, niż gdy zastosowany zostanie schemat standardowy, czyli zaczynając od \textit{Unit Tests}, kontynuując poprzez testy integracyjne, następnie systemowe, a~kończąc na akceptacyjnych (etapów może być więcej). 
+
+Pozbawiając się możliwości zastosowania testów jednostkowych na wczesnym etapie projektu z~powodu źle zaprojektowanej struktury aplikacji, ryzykujemy utratę jakości, a~co za tym idzie - utratę zaufania klientów do oprogramowania. Idealna piramida testowania, spopularyzowana przez Mike’a Cohna \footnote{Mike Cohn jest jednym twórców metodologii tworzenia oprogramowania Scrum. Jest jednym z~założycieli Scrum Alliance oraz właścicielem Mountain Goat Software, firmy, która oferuje szkolenia na Scrum i~technik Agile \cite{website:wikipedia}.} \cite{bib:cohn:agile}, przedstawiona została na rysunku \ref{fig:idealna_piramida}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=7cm]{imgs/ch3_idealna_piramida.jpg}
+    \caption
+{Idealna piramida testowania według Mike'a Cohna \cite{bib:cohn:agile}.}
+    \label{fig:idealna_piramida}
+\end{figure} 
+
+\newpage
+Wynika z~tego, że idealnie byłoby, gdyby wszystkie etapy testów zostały zautomatyzowane (wszystkie, z~wyjątkiem manualnych testów akceptacyjnych, ale w~idealnym świecie powinno być ich tak mało, że ich automatyzacja nie miałaby większego sensu). Oczywiście piramida ta może przybierać różne formy, poziomów testowania może być więcej lub mniej, mogą być one zautomatyzowane lub nie, ale idea jest cały czas ta sama: najwięcej przypadków testowych powinno być na najniższym poziomie. Powinny być one również najprostsze do zaprojektowania. Im dalsza faza projektu, tym testy stają się bardziej pracochłonne, a~koszt usunięcia znalezionego błędu wyższy, do czego autor nawiązał już w~tabeli \ref{tab:koszty_bledu}.
+
+Analizując aktualną strukturę większości aplikacji androidowych, schemat ten przedstawia się tak, jak na rysunku \ref{fig:odwrocona_piramida}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=7cm]{imgs/ch3_odwrocona_piramida.jpg}
+    \caption
+{Podejście klasyczne do testów, czyli odwrócona piramida testowania (\textit{Ice Cream AntiPatern}) \cite{website:piramidatestow}.}
+    \label{fig:odwrocona_piramida}
+\end{figure} 
+
+Na rysunku \ref{fig:odwrocona_piramida} widać, że z~powodu zbyt dużego \textit{couplingu} unit testy zastąpione zostają testami integracyjnymi, a~najwięcej przypadków testowych wykonywanych jest na interfejsie użytkownika (w czym znacznie pomagają frameworki testowe pozwalające na zautomatyzowanie pewnych czynności, nagranie makr według specyfikacji lub \textit{„user stories”}) oraz testy manualne.
+
+Autor nie zaprzecza, że tym sposobem nie da się dobrze przetestować aplikacji, szczególnie jeżeli zastosujemy taktyki testowania opisane w~podrozdziale \ref{zwinne_testowanie}. Jak powszechnie wiadomo, testowanie gruntowne nie jest możliwe, jakiejkolwiek metody by nie użyto. Lecz ryzyko znalezienia błędu na dalszym etapie projektu jest w~tym przypadku znacznie większe niż w~przypadku oprogramowania o~usystematyzowanej strukturze, a~co za tym idzie – koszty jego usunięcia są również znacznie wyższe.
+
+Okazuje się, że strukturę aplikacji Android da się jednak przeprojektować tak, aby ułatwić pracę zarówno programistom jak i~testerom. Propozycja zmiany struktury aplikacji Android zaproponowana została w~rozdziale \ref{clean_architecture}
+
+\section{Przyczyny rezygnacji z~testów jednostkowych}
+\label{testy_jednostkowe_brak}
+Trudna w~testowaniu struktura aplikacji to jednak nie jedyna przyczyna niedostatecznej ilości testów jednostkowych, a~nawet ich braku w~procesie tworzenia aplikacji. Przyczyn takiej sytuacji może być wiele, a~do najważniejszych z~nich można zaliczyć:
+\begin{itemize}
+\item
+Niedostateczną znajomość języka programowania wśród programistów;
+
+Jeżeli programista został zmuszony przez sytuację do poznawania nowego języka programowania, to w~pierwszej kolejności chciałby, aby jego kod się kompilował, a~program zaczął działać. Jeżeli zaczyna pisać testy, to znaczy, że ma na to czas i~nie musi zagłębiać się w~techniki konfiguracji kompilatora, czy środowiska programistycznego. 
+
+\item
+Słabą znajomość narzędzi testowych;
+
+Jeżeli programista nie doskonali się w~temacie projektowania testów, nie poznaje narzędzi testowych, które mogą spowodować, że testowanie stanie się łatwe, szybko zniechęci się już przy pierwszej próbie napisania trudniejszego testu.
+
+\item
+Niską jakość kodu źródłowego;
+
+Kiepsko zaprojektowany kod i~nieoptymalnie zaprojektowana architektura systemowa powoduje, że nie ma możliwości w~rozsądnym czasie przygotować zestawu testów. To powoduje, że firmy rezygnują z~testów jednostkowych na rzecz testów integracyjnych i~systemowych, co pokazane zostało na rysunku \ref{fig:odwrocona_piramida}.
+
+\item
+Brak czasu na testy;
+
+W dzisiejszych czasach koszty projektów informatycznych są zwykle ograniczone. W~związku z~tym programiści starają się wykorzystywać cały swój czas aż do terminu oddania swojej części programu na "ulepszanie" kodu, co skutkuje brakiem czasu na testy jednostkowe.
+
+\item
+Przekonanie programistów o~własnej nieomylności.
+
+Człowiek jest omylny i~popełnia błędy, do czego nawiązano już w~rozdziale \ref{czy_testowanie_potrzebne}. Niektórzy programiści nie chcą jednak przyjąć tego do wiadomości i~upierają się przy stwierdzeniach, że testy do ich kawałka kodu źródłowego nie są potrzebne.
+\end{itemize}
 
 \section{Zwinne podejście do testowania}
-\subsection{Wytwarzanie sterowane testowaniem - \textit{Test Driven \newline Development}}
+\label{zwinne_testowanie}
+\subsection{Wytwarzanie sterowane testowaniem}
 \label{test_driven_development}
-Technika wytwarzania sterowanego zarządzaniem zyskuje coraz więcej popularności. Związane to jest pośrednio z~nowymi modelami zarządzania projektami informatycznymi opartymi na metodykach zwinnych, w~tym Agile\footnote{Agile software development – grupa metodyk wytwarzania oprogramowania opartego na programowaniu iteracyjno-przyrostowym, powstałe jako alternatywa do tradycyjnych metod typu \textit{waterfall\footnote{Iteracyjny model kaskadowy (ang. waterfall model) – jeden z~kilku rodzajów procesów tworzenia oprogramowania zdefiniowany w~inżynierii oprogramowania. Polega on na wykonywaniu podstawowych czynności jako odrębnych faz projektowych, w~porządku jeden po drugim. Każda czynność to kolejny schodek (kaskada). Jeśli któraś z~faz zwróci niesatysfakcjonujący produkt, należy się cofnąć wykonując kolejne iteracje aż do momentu kiedy otrzymano satysfakcjonujący produkt na końcu schodków. \textit{"Model kaskadowy", Wikipedia, 2014}}}. Najważniejszym założeniem metodyk zwinnych jest obserwacja, że wymagania odbiorcy (klienta) często ewoluują podczas trwania projektu. Oprogramowanie wytwarzane jest przy współpracy samozarządzalnych zespołów, których celem jest przeprowadzanie procesów wytwarzania oprogramowania. \textit{"Programowanie zwinne", Wikipedia, 2016}}. W~założeniu podejście takie pozwala:
+Technika wytwarzania sterowanego zarządzaniem (\textit{Test Driven Development}) zyskuje coraz więcej popularności. Związane to jest pośrednio z~nowymi modelami zarządzania projektami informatycznymi opartymi na metodykach zwinnych, w~tym Agile\footnote{Agile software development – grupa metodyk wytwarzania oprogramowania opartego na programowaniu iteracyjno-przyrostowym, powstałe jako alternatywa do tradycyjnych metod typu \textit{waterfall\footnote{Iteracyjny model kaskadowy (ang. waterfall model) – jeden z~kilku rodzajów procesów tworzenia oprogramowania zdefiniowany w~inżynierii oprogramowania. Polega on na wykonywaniu podstawowych czynności jako odrębnych faz projektowych, w~porządku jeden po drugim. Każda czynność to kolejny schodek (kaskada). Jeśli któraś z~faz zwróci niesatysfakcjonujący produkt, należy się cofnąć wykonując kolejne iteracje aż do momentu kiedy otrzymano satysfakcjonujący produkt na końcu schodków \cite{website:wikipedia}.}}. Najważniejszym założeniem metodyk zwinnych jest obserwacja, że wymagania odbiorcy (klienta) często ewoluują podczas trwania projektu. Oprogramowanie wytwarzane jest przy współpracy samozarządzalnych zespołów, których celem jest przeprowadzanie procesów wytwarzania oprogramowania \cite{website:wikipedia}.}. W~założeniu podejście takie pozwala:
 
 \begin{itemize}
-\item wyszukać więcej błędów na wcześniejszym etapie procesu developmentu;
+\item wyszukać więcej błędów na wcześniejszym etapie procesu programowania;
 \item świadomie zaimplementować zmiany wtedy, kiedy są potrzebne;
 \item wykonać testy regresywne bazując na wcześniej napisanych procedurach;
 \item przedłużyć żywotność kodu.
 \end{itemize}
 
-Jeżeli istnieją testy jednostkowe i~pokrywają znaczącą część kodu źródłowego, wtedy jasne jest, że więcej błędów zostanie znalezionych i~poprawionych. W~ten sam sposób przy podejściu \textit{Test Driven Development (TDD)} można wywnioskować, że skoro unit testy są już napisane, z~dużym prawdopodobieństwem pokrycie kodu będzie zadowalające. Co więcej, raz napisane testy można wykorzystywać do przeprowadzania testów regresywnych, aby się upewnić, czy zmiany w~oprogramowaniu zgodne są z~założeniami i~wymaganiami systemu.
+Jeżeli istnieją testy jednostkowe i~pokrywają znaczącą część kodu źródłowego (70~-~80\%), wtedy jasne jest, że~więcej błędów zostanie znalezionych i~poprawionych. W~ten sam sposób przy podejściu \textit{Test Driven Development (TDD)} można wywnioskować, że skoro unit testy są już napisane, z~dużym prawdopodobieństwem pokrycie kodu będzie zadowalające. Co więcej, raz napisane testy można wykorzystywać do przeprowadzania testów regresywnych, aby się upewnić, czy zmiany w~oprogramowaniu zgodne są z~założeniami i~wymaganiami systemu.
 
 Testy jednostkowe w~podejściu \textit{TDD} zapewniają, że jakość oprogramowania nie jest oparta na domysłach i~przekonaniu programistów, a~na rzetelnych raportach. Bez obaw można dokonywać modyfikacji jak zmiana serwera baz danych, zmiana modelu, czy interfejsu użytkownika. Jeżeli wszystkie testy zostaną sprawdzone pozytywnie - oprogramowanie będzie działać nadal bezbłędnie.
 
@@ -173,13 +176,13 @@ BDD do kolejna technika testowania mająca swoje korzenie w~metodykach zwinnych.
 BDD rozszerza TDD o~następujące elementy:
 \begin{itemize}
 \item
-Wprowadza zasadę "pięciu pytań \textit{Dlaczego}" dla każdego proponowanego przypadku użycia (\textit{user story}). w~ten sposób łatwiej jest ustalić rzeczywisty cel biznesowy.
+Wprowadza zasadę "pięciu pytań \textit{Dlaczego}" dla każdego proponowanego przypadku użycia (\textit{user story}). W~ten sposób łatwiej jest ustalić rzeczywisty cel biznesowy;
 
 \item
-Stosuje strategię myślenia "z zewnątrz do wewnątrz", czyli programowania tylko tego, co jest rzeczywiście potrzebne z~punktu widzenia biznesowego.
+Stosuje strategię myślenia "z zewnątrz do wewnątrz", czyli programowania tylko tego, co jest rzeczywiście potrzebne z~punktu widzenia biznesowego;
 
 \item
-Wprowadza jednoznaczny opis zachowania, tak aby z~tej samej dokumentacji lub notatki mogli korzystać zarówno programiści, jak i~testerzy i~eksperci systemowi.
+Wprowadza jednoznaczny opis zachowania, tak aby z~tej samej dokumentacji lub notatki mogli korzystać zarówno programiści, jak i~testerzy i~eksperci systemowi;
 
 \item
 Ten sposób działania wprowadzany jest od najwyższego (wymagania użytkownika) aż do najniższego (wymagania funkcjonalne) poziomu abstrakcji.
@@ -192,15 +195,15 @@ Główna różnica pomiędzy TDD a~BDD jest więc taka, że TDD odnosi się do t
 
 Wszystkie te elementy powinny doprowadzić do zwiększonej współpracy programistów, testerów oraz specjalistów i~ekspertów dziedzinowych. Zamiast terminu "testy jednostkowe", zwolennicy BDD wolą używać "specyfikacja zachowania klasy", a~zamiast "testy funkcjonalne" - "specyfikacja zachowania produktu".
 
-Stosowanie techniki \textit{Behaviour Driven Development} nie wymaga żadnych specjalnych narzędzi ani języków programowania. Jest to podejście czysto koncepcyjne.\cite{website:agile:guide}
+Stosowanie techniki \textit{Behaviour Driven Development} nie wymaga żadnych specjalnych narzędzi ani języków programowania. Jest to podejście czysto koncepcyjne \cite{website:agile:guide}.
 
 \subsection{Alternatywne techniki testowania}
 \label{alternatywne_metody_testowania}
-TDD i~BDD to nie jedyne strategie testowania, które można przyjąć zwiększając testowalność aplikacji androidowych. Warto wspomnieć również o~może nie tak popularnej, ale równie skutecznej strategii dotyczącej szczególnie testów akceptacyjnych, a~jest nią \textit{Acceptance Test-Driven Development} (ATDD). Jest to metodologia rozwoju opartego na komunikacji między klientami biznesowymi, programistami i~testerami. 
+TDD i~BDD to nie jedyne strategie testowania, które można przyjąć zwiększając testowalność aplikacji Androidowych. Warto wspomnieć również o~może nie tak popularnej, ale równie skutecznej strategii dotyczącej szczególnie testów akceptacyjnych, a~jest nią \textit{Acceptance Test-Driven Development} (ATDD). Jest to metodologia rozwoju opartego na komunikacji między klientami biznesowymi, programistami i~testerami. 
 
 ATDD jest ściśle związane z~Test-Driven Development. Nacisk na współpracę z~wymaganiami klienckimi i~systemowymi jest tutaj zdecydowanie większy niż w~przypadku TDD, a~wykorzystywana jest przede wszystkim przy tworzeniu testów akceptacyjnych.
 
-Analizując jeszcze głębiej metodyki zwinne, możemy doszukać się również podejść \textit{Example Driven Development} (EDD) oraz \textit{Story test-Driven Development} (SDD). Różnice między nimi a~\textit{TDD} są tak niewielkie, że autor pominie ich szczegółowy opis sygnalizując tylko, że zastosowanie takich taktyk testowania również może mieć wpływ na poprawienie testowalności aplikacji pod Androidem.  
+Analizując jeszcze głębiej metodyki zwinne, możemy doszukać się również podejść \textit{Example Driven Development} (EDD) oraz \textit{Story test-Driven Development} (SDD). Różnice między nimi a~\textit{TDD} są tak niewielkie, że pominięto ich szczegółowy opis sygnalizując tylko, że zastosowanie takich taktyk testowania również może mieć wpływ na poprawienie testowalności aplikacji pod Androidem.  
 
 %\section{Testowalność aplikacji androidowych}
 %Z obserwacji autora wynika, że bardzo łatwo jest napisać zły i~nietestowalny kod dla Androida. Warto jednak pamiętać, że zastosowanie procesów z~metodologii wymienionych w~poprzednich podrozdziałach zdecydowanie może podnieść testowalność aplikacji pisanych dla tego systemu. Techniki te znacznie pomagają programistom i~testerom w~zrozumieniu potrzeb klienta.
