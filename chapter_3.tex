@@ -53,7 +53,7 @@ Architektura Android przez wielu opisywana jest jako \textit{Java on Linux}, czy
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=14cm]{imgs/ch3_android_architecture_1.jpg}
+    \includegraphics[width=13cm]{imgs/ch3_android_architecture_1.jpg}
     \caption
 {Przegląd architektury Android \cite{website:android:przegladarchitektury}.}
     \label{fig:ch3_android_architecture_1}
@@ -65,18 +65,18 @@ Zarówno aplikacje jak i~opisywany \textit{framework} napisane są w~języku Jav
 
 Natywne elementy kodu Androida zawierają usługi systemowe, usługi sieciowe oraz różnego rodzaju biblioteki, między innymi \textit{WebKit} i~\textit{OpenSSL}. 
 
-Najniższą warstwą, a~zarazem podstawą systemu Android jest jądro Linuxa. Android dokonał licznych uzupełnień i~zmian w~jego źródłach, z~których niektóre mają swoje negatywne konsekwencje dla bezpieczeństwa. Sterowniki znajdujące się w~jądrze systemu zapewniają również dodatkowe funkcje, takie jak dostęp do kamery, sieci Wi-Fi oraz dostęp do innych urządzeń sieciowych. Szczególnie godny uwagi jest sterownik \textit{Binder}, który realizuje komunikację między procesami \cite{bib:hacker:handbook} (IPC\footnote{Inter-Process Communication}).
+Najniższą warstwą, a~zarazem podstawą systemu Android jest jądro Linuxa. Android dokonał licznych uzupełnień i~zmian w~jego źródłach, z~których niektóre mają swoje negatywne konsekwencje dla bezpieczeństwa. Przykładem jest luka \textit{Stagefright}, pozwalająca uzyskać dostęp do pamięci i urządzeń peryferyjnych smartfona przy pomocy specjalnie spreparowanej wiadomości MMS \cite{website:android:bezpieczenstwo}. Sterowniki znajdujące się w~jądrze systemu zapewniają również dodatkowe funkcje, takie jak dostęp do kamery, sieci Wi-Fi oraz dostęp do innych urządzeń sieciowych. Szczególnie godny uwagi jest sterownik \textit{Binder}, który realizuje komunikację między procesami \cite{bib:hacker:handbook} (IPC\footnote{Inter-Process Communication}).
 
 \section{Obszary testowe}
 \label{obszary_testowe}
-Z punktu widzenia projektu, idealnie byłoby mieć możliwość przetestowania każdej linijki kodu. Autor zdaje sobie sprawę, że w~wielu przypadkach jest to niemożliwe, a~nawet bezcelowe, więc dopuszcza się możliwość ograniczenia testowania do kluczowych elementów kodu źródłowego i~kluczowych funkcjonalności. Na przykład zwykle nie jest potrzebne testowanie \textit{setterów}, \textit{getterów}\footnote{\textit{Settery} i~\textit{gettery} - w~programowaniu metody służące do kontrolowania zmian wartości zmiennych}, czy funkcji należących do standardowych bibliotek, gdyż zapewne zostały przetestowane już podczas procesu ich tworzenia. 
+Z punktu widzenia projektu, idealnie byłoby mieć możliwość przetestowania każdej linii kodu. Autor zdaje sobie sprawę, że w~wielu przypadkach jest to niemożliwe, a~nawet bezcelowe, więc dopuszcza się możliwość ograniczenia testowania do kluczowych elementów kodu źródłowego i~kluczowych funkcjonalności. Na przykład zwykle nie jest potrzebne testowanie \textit{setterów}, \textit{getterów}\footnote{\textit{Settery} i~\textit{gettery} - w~programowaniu metody służące do kontrolowania zmian wartości zmiennych}, czy funkcji należących do standardowych bibliotek, gdyż zapewne zostały przetestowane już podczas procesu ich tworzenia. 
 
 Według \cite{bib:android:testing:learning}, można wyróżnić trzy główne obszary testowania:
 
 \begin{itemize}
 \item{Cykle życia aktywności;}
 
-Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle życia. Trzy główne pętle do przetestowania znajdują się na rysunku \ref{fig:sample_figure}:
+Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle życia. Trzy główne pętle do przetestowania znajdują się na rysunku \ref{fig:sample_figure}.
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=10cm]{imgs/ch2_activity_lifecycle.png}
@@ -84,7 +84,6 @@ Należy przetestować, czy aktywność przechodzi prawidłowo przez swoje cykle 
     \label{fig:sample_figure}
 \end{figure} 
 
-\newpage
 \item{Dostęp do baz danych i~do systemu plików;}
 
 Należy sprawdzić, czy operacje dostępowe przeprowadzane są poprawnie, a~jeżeli nie, to czy również poprawnie działa obsługa błędów. Można to testować na dwa sposoby: albo na niskim poziomie, izolując warstwę użytkownika, albo bezpośrednio z~aplikacji. Do testowania na niskim poziomie można wykorzystywać dostarczane przez framework Androida w~pakiecie \texttt{android.test.mock} \textit{zaślepki}\footnote{Zaślepka (stub) - szkieletowa albo specjalna implementacja modułu używana podczas produkcji lub testów innego modułu, który tę zaślepkę wywołuje albo jest w~inny sposób od niej zależny. Zaślepka zastępuje wywoływany moduł. [wg. IEEE 610]}
@@ -125,7 +124,7 @@ Należy sprawdzić, czy aplikacja działa poprawnie na wszystkich urządzeniach,
 
 - zewnętrzne karty pamięci.
 
-Android framework dostarcza rozwiązań pozwalających dostosowywać pewne rzeczy automatycznie, ale nie zwalnia to projektantów przed wykonaniem zestawu niezbędnych testów również w~tym obszarze.
+Android framework pewne parametry dostosowuje automatycznie, ale nie zwalnia to projektantów przed wykonaniem zestawu niezbędnych testów również w~tym obszarze.
 
 \end{itemize}
 
@@ -135,14 +134,14 @@ W większości przypadków aplikacje z~przeznaczeniem dla systemu Android pisane
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=8cm]{imgs/ch3_opis_problemu_1.jpg}
+    \includegraphics[width=7cm]{imgs/ch3_opis_problemu_1.jpg}
     \caption
 {Podejście „standardowe” przy tworzeniu aplikacji dla systemu Android.}
     \label{fig:opis_problemu}
 \end{figure} 
 
 \newpage
-Na najniższej warstwie położony jest Android SDK i~na niej budowane są kolejne warstwy. Każda z~kolejnych warstw oprogramowania korzysta z~warstwy poniżej, a~co za tym idzie, dziedziczy również zależności z~warstwy Android SDK. Analizując taką strukturę aplikacji dostępnych pod Androidem można zaobserwować, że w~wielu z~nich:
+Najniższa warstwa to Android SDK. Każda z~kolejnych warstw oprogramowania korzysta z~warstwy poniżej, a~co za tym idzie, dziedziczy również zależności z~warstwy Android SDK. Analizując taką strukturę aplikacji dostępnych pod Androidem można zaobserwować, że w~wielu z~nich:
 \begin{itemize}
 \item
 nie jest zachowana zasada pojedynczej odpowiedzialności;
@@ -157,10 +156,11 @@ elementy warstwy UI: Activity i~Fragmenty potrafią mieć tysiące linii kodu;
 \item
 w większości plików aplikacji na każdej warstwie istnieją odwołania do środowiska Android;
 \item
-i ostatnie, ale najważniejsze z~punktu widzenia tej pracy: problemy z~wprowadzeniem testów jednostkowych.
+problemy z~wprowadzeniem testów jednostkowych.
 \end{itemize}
 
-Spowodowane jest to dwoma czynnikami: pierwszy to trudność w~wyodrębnieniu obszarów testowych wymienionych w~części \ref{obszary_testowe} z~powodu zbyt dużego sprzężenia między warstwami (\textit{couplingu}), a~drugi – pracochłonność w~pisaniu testów. Jeżeli granica pomiędzy kolejnymi warstwami oprogramowania nie jest jasno wyznaczona, liczba testów do zaprojektowania rośnie drastycznie.
+Spowodowane jest to dwoma czynnikami: pierwszy to trudność w~wyodrębnieniu obszarów testowych wymienionych w~części \ref{obszary_testowe} z~powodu zbyt dużego sprzężenia między warstwami (\textit{couplingu}), a~drugi – pracochłonność w~pisaniu testów. Jeżeli granica pomiędzy kolejnymi warstwami oprogramowania nie jest jasno wyznaczona, liczba testów do zaprojektowania rośnie znacząco.
+
 
 \section{Trudności w~testowaniu aktualnej struktury \newline aplikacji}
 \label{testowanie_starej_struktury}
@@ -174,25 +174,26 @@ Weźmy dwie funkcjonalności przedstawione na rysunku \ref{fig:testowanie_klas}:
 {Różnice w~testowaniu klas osobno i~razem. \textit{"Integrated Tests are a~Scam"} - schemat autorstwa J.B. Rainsbergera  \cite{website:android:testowanieklas}.}
     \label{fig:testowanie_klas}
 \end{figure} 
-
+\newpage
 Testując te funkcjonalności razem (z powodu sprzężenia nie ma innego wyjścia) należy wykonać łącznie 8 testów, co zostało przedstawione na równaniu \ref{eq:test1}:
 \begin{equation}
 2*4=8 \label{eq:test1}
 \end{equation}
+
 Testy te równocześnie przestają być testami jednostkowymi, gdyż łączą w~sobie kilka funkcjonalności i~stają się przez to testami integracyjnymi. Testując natomiast te funkcjonalności osobno, trzeba wykonać łącznie 6 testów jednostkowych (równanie \ref{eq:test2}):
 \begin{equation}
 2+4=6 \label{eq:test2}
 \end{equation}
-W~tym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w~aplikacjach z~kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
+W~powyższym przykładzie oczywiście nie widać zbyt wielkiej optymalizacji, ale w~aplikacjach z~kodem, który dostarcza setki czy tysiące decyzji, różnica będzie znacząca.
 
 Również w~przypadku architektury aplikacji Android, jeżeli zachodzi konieczność testowania każdej klasy lub pojedynczej funkcji w~powiązaniu z~\textit{Android SDK}, liczba testów jednostkowych zauważalnie wzrośnie.
 
 \section{Pielęgnowalność aplikacji Android}
 \label{pielegnowalnosc_aplikacji}
-W realnym świecie niestety bardzo rzadko jest możliwość tworzenia aplikacji od początku. W~większości przypadków programiści muszą borykać się z~kodem, który ktoś już kiedyś napisał, a~dotyczy to w~zasadzie wszystkich większych projektów informatycznych. Przeanalizujmy jako przykład  aplikację \textit{Gmail}, największy program pocztowy wydawany przez firmę Google\footnote{Gmail – bezpłatny serwis webmail posługujący się technologią AJAX, stworzony i~rozwijany przez przedsiębiorstwo Google. W~lutym 2016 roku liczba jego użytkowników przekroczyła miliard \cite{website:wikipedia}.}. Wychodzą ciągle nowe wersje, ale trudno wyobrazić sobie sytuację, że któraś z~nich została po prostu napisana od nowa. W~takich przypadkach mamy do czynienia z~tzw. \textit{kodem zastanym}.
+W realnym świecie niestety bardzo rzadko istnieje możliwość tworzenia aplikacji od początku. W~większości przypadków programiści muszą borykać się z~kodem, który ktoś już kiedyś napisał, a~dotyczy to w~zasadzie wszystkich większych projektów informatycznych. Przeanalizujmy jako przykład  aplikację \textit{Gmail}, największy program pocztowy wydawany przez firmę Google\footnote{Gmail – bezpłatny serwis webmail posługujący się technologią AJAX, stworzony i~rozwijany przez przedsiębiorstwo Google. W~lutym 2016 roku liczba jego użytkowników przekroczyła miliard \cite{website:wikipedia}.}. Wychodzą ciągle nowe wersje, ale trudno wyobrazić sobie sytuację, że któraś z~nich została po prostu napisana od nowa. W~takich przypadkach mamy do czynienia z~tzw. \textit{kodem zastanym}.
 
-O ile kod pisany był w~sposób przejrzysty, dobrzy programiści są w~stanie dobudować nowe części aplikacji, nawet nie mając dokumentacji do starszej części. Wiele firm programistycznych stosuje podejście, że sam kod programu jest zarówno jego dokumentacją. Rozsądne nadawanie nazw zmiennym oraz umieszczanie rzeczowych komentarzy pozwala programistom zrozumieć swoich poprzedników, a~automatycznym narzędziom w~stylu \textit{JavaDoc\footnote{Javadoc – narzędzie automatycznie generujące dokumentację na podstawie zamieszczonych w~kodzie źródłowym znaczników w~komentarzach. Javadoc został stworzony specjalnie na potrzeby języka programowania Java przez firmę Sun Microsystems \cite{website:wikipedia}.}} wygenerować całkiem wyczerpującą dokumentację.
+O ile kod pisany był w~sposób przejrzysty, dobrzy programiści są w~stanie dobudować nowe części aplikacji, nawet nie mając dokumentacji do starszej części. Wiele firm programistycznych stosuje podejście, że sam kod programu jest zarówno jego dokumentacją. Rozsądne nadawanie nazw zmiennym oraz umieszczanie rzeczowych komentarzy pozwala programistom zrozumieć swoich poprzedników, a~automatycznym narzędziom, takim jak \textit{JavaDoc\footnote{Javadoc – narzędzie automatycznie generujące dokumentację na podstawie zamieszczonych w~kodzie źródłowym znaczników w~komentarzach. Javadoc został stworzony specjalnie na potrzeby języka programowania Java przez firmę Sun Microsystems \cite{website:wikipedia}.}} lub \textit{Doxygen\footnote{Doxygen – generator dokumentacji dla języków C++, C, Java, Objective-C, Python, IDL, Fortran i do pewnego stopnia dla PHP, C\#, D oraz ActionScript. Obsługuje następujące formaty wyjściowe: HTML, CHM, RTF, PDF, LaTeX, PostScript oraz strony man \cite{website:wikipedia}.}} wygenerować całkiem wyczerpującą dokumentację.
 
-Gorsza sytuacja jest z~testowaniem. Jeżeli produkt nie był tworzony z~zastosowaniem TDD, praca jaką należałoby wykonać przy pisaniu unit testów do gotowego kodu może być ogromna. Ponadto istnieje ryzyko, że tester chcąc sprostać wymaganiom osób zarządzających projektem będzie tak pisał testy jednostkowe, aby pokrywały jak największą część kodu, niekoniecznie przy tym wnosząc jakoś wartość w~sprawdzenie niezawodności aplikacji.
+Gorsza sytuacja jest z~testowaniem. Jeżeli produkt nie był tworzony dotychczas z~zastosowaniem techniki TDD, praca jaką należałoby wykonać przy pisaniu unit testów do gotowego kodu może być ogromna. Ponadto istnieje ryzyko, że tester chcąc sprostać wymaganiom osób zarządzających projektem będzie tak pisał testy jednostkowe, aby pokrywały jak największą część kodu, niekoniecznie przy tym wnosząc jakąś wartość w~sprawdzenie niezawodności aplikacji.
 
 %Jedno z~możliwych rozwiązań zaproponowane zostało w~rozdziale \ref{legacy_code}

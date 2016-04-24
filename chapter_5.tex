@@ -3,9 +3,9 @@
 
 \section{Wybór rozwiązania}
 \label{wybor_rozwiazania}
-O~ile wybór \textit{Test Driven Development} jako techniki wspomagającej programowanie aplikacji okazał się dla autora naturalnym z~punktu widzenia metodologii zwinnych (patrz sekcja \ref{wybor_tdd}), o~tyle wybór architektury systemowej sprawił więcej kłopotu. 
+O~ile wybór \textit{Test Driven Development} jako techniki wspomagającej programowanie aplikacji okazał się dla autora naturalnym z~punktu widzenia metodologii zwinnych, o~tyle wybór architektury systemowej okazał się bardziej skomplikowany. 
 
-W poprzednim rozdziale przeanalizowano trzy próby usystematyzowania architektury systemu: architekturę cebulową \textit{(The Onion Architecture)}, architekturę portów i~adapterów \textit{(Ports and Adapters Architecture)} oraz architekturę uporządkowaną \textit{(The Clean Architecture)}. Wszystkie z~nich proponują uporządkowanie systemu w~podobny sposób, różniąc się jedynie szczegółami. Autor zdecydował się na wybór ostatniej z~wymienionych - \textit{The Clean Architecture} - ze względu na większą ilość dostępnych materiałów i~dokumentacji na jej temat. Robert Cecil Martin, autor tej propozycji, oprócz artykułu umieszczonego na swoim blogu nawiązał do~tego tematu również w~swoich książkach \cite{bib:cecil:clean_code}, \cite{bib:cecil:the_clean_coder,} \cite{bib:cecil:agile}, wyjaśniając kluczowe pojęcia w~przyjaznym dla programistów języku. 
+W poprzednim rozdziale przeanalizowano trzy próby usystematyzowania architektury systemu: architekturę cebulową \textit{(The Onion Architecture)}, architekturę portów i~adapterów \textit{(Ports and Adapters Architecture)} oraz architekturę uporządkowaną \textit{(The Clean Architecture)}. Wszystkie z~nich proponują uporządkowanie systemu w~podobny sposób, różniąc się jedynie szczegółami. Autor zdecydował się na wybór ostatniej z~wymienionych - \textit{The Clean Architecture} - ze względu na większą ilość dostępnych materiałów i~dokumentacji na jej temat. Robert Cecil Martin, autor tej propozycji, oprócz artykułu umieszczonego na swoim blogu nawiązał do~tego tematu również w~swoich książkach \cite{bib:cecil:clean_code}, \cite{bib:cecil:the_clean_coder}, \cite{bib:cecil:agile}, wyjaśniając kluczowe pojęcia w~przyjaznym dla programistów języku. 
 
 Drugim kryterium wyboru była data publikacji propozycji - w~porównaniu do pozostałych dwóch, \textit{The Clean Architecture} okazało się podejściem najświeższym.
 
@@ -18,7 +18,7 @@ W części doświadczalnej badania ograniczono do analizy testowalności w~zakre
 \section{Opis aplikacji}
 \textit{JSON Web Token Authentication for Android} poświadcza prawdziwość użytkowników Androida i~iOS korzystając z~\textit{REST API} serwera \textit{Parse} oraz \textit{JSON\footnote{JSON, JavaScript Object Notation – lekki format wymiany danych komputerowych. JSON jest formatem tekstowym, bazującym na podzbiorze języka JavaScript \cite{website:wikipedia}.} Web Tokens (JWT)}. JWT to otwarta, według standardu przemysłowego RFC 7519 \cite{website:jwt:rfc7519}, metoda do uwierzytelniania stron w~środowisku aplikacji internetowych. Wykorzystywana jest do przekazywania tożsamości użytkowników między dostawcą a~odbiorcą usług internetowych, lub innego typu uwierzytelnień zgodnie z~logiką biznesową. 
 
-Serwer \textit{Parse} to wspólna platforma do przechowywania danych i~interakcji z~usługami internetowymi dla aplikacji mobilnych. Wielu programistów decyduje się na wykorzystanie tej sprawdzonej platformy, zamiast wymyślać własne rozwiązania w~tym zakresie. Zasadę działania autentykacji przedstawia rysunek \ref{fig:token}.
+Serwer \textit{Parse} to wspólna platforma do przechowywania danych i~interakcji z~usługami internetowymi dla aplikacji mobilnych. Wielu programistów decyduje się na wykorzystanie tej sprawdzonej platformy, rezygnując z wprowadzania własnego rozwiązania w~tym zakresie. Zasadę działania autentykacji przedstawia rysunek \ref{fig:token}.
 
 \begin{figure}[!htb]
     \centering
@@ -51,10 +51,10 @@ Schemat budowy aplikacji \textit{JSON Web Token Authentication for Android} w~we
 Aplikacja podzielona jest na moduł domeny i~moduł interfejsu użytkownika. W~celu przetestowania aplikacji, utworzono jeden test całkowicie zależny od środowiska Android, który w~zależności od kontekstu można nazwać integracyjnym, systemowym, bądź nawet końcowym. Dla potrzeb pracy traktowany jest jako test integracyjny, gdyż interesuje autora tylko wynik weryfikacji połączenia, bez zwracania uwagi na aspekty graficzne czy użytkowe związane z~docelowym urządzeniem. Test polega na zalogowaniu się do programu za pomocą przykładowych danych i~otrzymaniu wyniku, czy weryfikacja przebiegła pomyślnie. Poza tym przypadkiem nie stwierdzono żadnych innych testów, w~tym jednostkowych.
 
 \subsection{Budowa analizowanej aplikacji w~wersji poprawionej}
-Każde z~wymienionych w~rozdziale \ref{propozycja_rozwiazania} podejść do uporządkowania architektury systemowej można wykorzystać do polepszenia testowalności aplikacji tworzonych dla systemu Android. Analizując szczegółowo opisywane rozwiązania można dojść do wniosku, że ich idea jest taka sama, a~różnią się jedynie szczegółami. W~tym przypadku autor \textit{JSON Web Token Authentication for Android} zdecydował się na \textit{The Clean Architecture}, zaprezentowaną w~tej pracy w~rozdziale \ref{clean_architecture_opis}.
+Każde z~wymienionych w~rozdziale \ref{propozycja_rozwiazania} podejść do uporządkowania architektury systemowej można wykorzystać do polepszenia testowalności aplikacji tworzonych dla systemu Android. W~tym przypadku autor \textit{JSON Web Token Authentication for Android} zdecydował się na \textit{The Clean Architecture}, zaprezentowaną w~tej pracy w~rozdziale \ref{clean_architecture_opis}.
 
 \newpage
-Aplikacja w~wersji poprawionej nadal ma budowę modułową - tym razem moduły są trzy: moduł domeny, moduł danych i~moduł prezentacyjny. Zgodnie z~nowym podejściem przedstawionym na rysunku \ref{fig:clean_architecture}, można rozpoznać poszczególne warstwy uporządkowanej architektury (rysunek \ref{fig:app_cl}):
+Aplikacja w~wersji poprawionej nadal ma budowę modułową - tym razem moduły są trzy: moduł domeny, moduł danych i~moduł prezentacyjny. Zgodnie z~podejściem \textit{The Clean Architecture}, można rozpoznać poszczególne warstwy uporządkowanej architektury (rysunek \ref{fig:app_cl}):
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=12cm]{imgs/ch6_app_cl_diagram.png}
@@ -77,7 +77,7 @@ Warstwę \textit{Presenters}, również należącą do modułu domenowego i~odpo
 Moduły \textit{data} oraz \textit{presentation}, to najbardziej zewnętrzna warstwa, zależna od wszystkich wyżej opisanych. 
 \end{itemize}
 
-Zgodnie z~ideą uporządkowanej architektury, warstwa \textit{entities} nie posiada informacji o~warstwach \textit{use cases}, przypadki użytkownika nie wiedzą nic o~warstwie prezentacyjnej, a~ta nie ma danych na temat warstw zewnętrznych, takich jak wspomniane bazy danych. Kierunek wstrzykiwania zależności jest zawsze od warstwy zewnętrznej do warstwy wewnętrznej, co pokazuje rysunek \ref{fig:clean_architecture}.
+Zgodnie z~ideą uporządkowanej architektury, warstwa \textit{entities} nie posiada informacji o~warstwach \textit{use cases}, przypadki użytkownika nie wiedzą nic o~warstwie prezentacyjnej, a~ta nie ma danych na temat warstw zewnętrznych, takich jak wspomniane bazy danych. Kierunek wstrzykiwania zależności jest zawsze od warstwy zewnętrznej do warstwy wewnętrznej.
 
 \section{Przebieg doświadczenia}
 Podczas doświadczenia wykonano zaprojektowane przez autora aplikacji testy dla obu wersji programu, wykorzystując to samo środowisko testowe\footnote{Środowisko testowe (ang. test environment) - środowisko, w~skład którego wchodzi sprzęt, wyposażenie, symulatory, oprogramowanie oraz inne elementy wspierające, potrzebne do wykonania testu. [wg IEEE 610]}: Android Studio w~wersji 1.5.1, ten sam sprzęt komputerowy i~ten sam emulator: Nexus\_5\_API\_23.
@@ -162,7 +162,7 @@ W przypadku aplikacji w~wersji poprawionej, jak przedstawiają tabele \ref{tab:t
 \begin{equation}
 6+7 = 13 \label{eq:test3}
 \end{equation}
-W~przypadku aplikacji w~wersji pierwotnej - zgodnie z~wyjaśnieniem, które autor umieścił w~rozdziale \ref{testowanie_starej_struktury} - aby pokryć ten sam obszar funkcjonalności należałoby zaprojektować zgodnie z~równaniem \ref{eq:test4} 42 testy jednostkowe.
+W~przypadku aplikacji w~wersji pierwotnej - zgodnie z~wyjaśnieniem, które autor umieścił w~rozdziale \ref{testowanie_starej_struktury} - aby pokryć ten sam obszar funkcjonalności należałoby zaprojektować 42 testy jednostkowe (równanie \ref{eq:test4}).
 \begin{equation}
 6*7 = 42 \label{eq:test4}
 \end{equation}
@@ -175,7 +175,7 @@ Różnicę tę uwidoczniono na wykresie \ref{fig:app_ut_liczba}.
     \label{fig:app_ut_liczba}
 \end{figure} 
 
-Taka liczba testów musiała się również odbić na ich czasie wykonania, co w~przypadku badanej aplikacji przedstawia wykres \ref{fig:app_ut_czas}:
+Taka liczba testów musiała się również wpłynąć na ich czas wykonania, co w~przypadku badanej aplikacji przedstawia wykres \ref{fig:app_ut_czas}:
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=8cm]{imgs/ch6_app_ut_czas.png}

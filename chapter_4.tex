@@ -5,7 +5,7 @@
 \label{nowa_aplikacja}
 \subsection{Nowe podejście do architektury systemu}
 \label{clean_architecture}
-Okazuje się, że największą przeszkodą w~testowaniu aplikacji androidowych jest Android sam w~sobie. Im większy \textit{coupling} między warstwami, tym trudniej jest pisać testy jednostkowe. Rozważmy więc przekształcenie modelu aplikacji Android opisanego w~rozdziale \ref{standardowe_podejscie} tak jak to widać na rysunku \ref{fig:opis_rozwiazania}.
+Okazuje się, że największą przeszkodą w~testowaniu aplikacji androidowych jest Android sam w~sobie. Im większy \textit{coupling} między warstwami, tym trudniej jest pisać testy jednostkowe. Rozważmy więc przekształcenie modelu aplikacji Android opisanego w~rozdziale \ref{standardowe_podejscie} przedstawione na~rysunku \ref{fig:opis_rozwiazania}.
 
 \begin{figure}[!htb]
     \centering
@@ -98,7 +98,7 @@ Wprowadzić metodę ciągłej integracji w~procesie budowania kodu -  (\textit{C
 Jest to należąca do metodologii zwinnych praktyka polegająca na regularniej integracji zmian w~kodzie do bieżącego repozytorium. Warunkiem koniecznym umieszczenia kodu w~repozytorium jest upewnienie się, że dany kod działa;
 
 \item
-Przy projektowaniu nowych funkcjonalności używać metody TDD;
+Bezwzględnie pisać testy jednostkowe do nowych części oprogramowania zgodnie z~TDD, \textit{mockując} jeśli to możliwe wykorzystywane obiekty z~zastanego kodu;
 
 \item
 Skorzystać z~serwera CI (dobrym przykładem jest tutaj \textit{Jenkins}\footnote{http://jenkins-ci.org/}), który będzie wykonywał testy jednostkowe, do których istnieje przekonanie, że ich implementacja nie powinna się zmieniać. Należy pamiętać, że~testy automatyczne muszą również podlegać przeglądom;
@@ -113,9 +113,6 @@ Dodać metryki mierzenia kodu do CI. Ustawić poziom minimalny na 10-15\%;
 Użyć frameworka do podstawowych testów GUI już istniejącej aplikacji. Stworzyć testy opierając się na przypadkach użycia (ang. \textit{use cases)};
 
 \item
-Bezwzględnie pisać testy jednostkowe do nowych części oprogramowania zgodnie z~TDD, \textit{mockując} jeśli to możliwe wykorzystywane obiekty z~zastanego kodu;
-
-\item
 Wyizolować zastany kod, tak aby nikt z~programistów nie miał do niego dostępu, jeżeli naprawdę nie jest to niezbędne;
 
 \item
@@ -125,11 +122,11 @@ Usunąć niewykorzystywane i~nieużyteczne części kodu;
 Przepisać i~przetestować wyizolowany kod, aby zwiększyć metryki pokrycia do około 60-70\%. 
 \end{itemize}
 
-Najważniejsze więc jest wyizolować stary kod, przetestować aplikację za pomocą frameworka do testów GUI, usunąć ewentualne błędy nie pozwalające na poprawną pracę programu i~nie modyfikować wyizolowanego kodu podczas pisania nowych funkcjonalności. Nowe funkcje należy dodawać stosując już taktykę \textit{Test Driven Development}. Dopiero na końcu, jeżeli tworzone środowisko jest już stabilne, należy rozpocząć przebudowę starych części aplikacji, tak aby metryki pokrycia kodu rosły wraz z~upływem czasu. Przy wykonywaniu \textit{refaktoringu} Godfrey Nolan proponuje użyć narzędzia SonarQube\footnote{SonarQube - platforma do prowadzenia ciągłej inspekcji jakości kodu źródłowego, dostarczana na licencji \textit{open source}}.
+Najważniejsze więc jest wyizolować stary kod, przetestować aplikację za pomocą frameworka do testów GUI, usunąć ewentualne błędy nie pozwalające na poprawną pracę programu i~nie modyfikować wyizolowanego kodu podczas pisania nowych funkcjonalności. Nowe funkcje należy dodawać stosując już taktykę \textit{Test Driven Development}. Dopiero na końcu, jeżeli tworzone środowisko jest już stabilne, należy rozpocząć przebudowę starych części aplikacji, tak aby metryki pokrycia kodu rosły wraz z~upływem czasu. Przy wykonywaniu \textit{refaktoringu} Godfrey Nolan proponuje użyć narzędzia \textit{SonarQube\footnote{SonarQube - platforma do prowadzenia ciągłej inspekcji jakości kodu źródłowego, dostarczana na licencji \textit{open source}}}.
 
 \section{Różne podejścia do uporządkowania architektury}
 \subsection{Architektura cebulowa - \textit{The Onion Architecture}}
-Jeffrey Pallermo w~połowie 2008 roku opublikował na swoim blogu serię artykułów  \cite{website:architect:onion}, w~których zaproponował inne od klasycznego podejście do warstw w~aplikacji. Zauważył, że uzależnienie warstwy biznesowej od warstwy danych niekorzystnie wpływa na stabilność warstwy biznesowej, która z~założenia powinna być niezależna od wprowadzania nowych technologii do warstwy bazodanowej. Stare podejście tego nie zapewniało. w~większości przypadków warstwa biznesowa musiała być modyfikowana, a~przynajmniej rekompilowana podczas modyfikacji warstwy dostępu do danych.
+Jeffrey Pallermo w~połowie 2008 roku opublikował na swoim blogu serię artykułów  \cite{website:architect:onion}, w~których zaproponował inne od klasycznego podejście do warstw w~aplikacji. Zauważył, że uzależnienie warstwy biznesowej od warstwy danych niekorzystnie wpływa na stabilność warstwy biznesowej, która z~założenia powinna być niezależna od wprowadzania nowych technologii do warstwy bazodanowej. Stare podejście tego nie zapewniało. W~większości przypadków warstwa biznesowa musiała być modyfikowana, a~przynajmniej rekompilowana podczas modyfikacji warstwy dostępu do danych.
 
 W zaproponowanym przez Palermo modelu, im warstwy położone są w~architekturze głębiej, tym mniej podatne są na zmiany. Zależności mogą być zwrócone tylko w~jedną stronę - do wnętrza "cebuli". w~ten sposób w~centrum znajdzie się model domeny, a~na zewnątrz - warstwa bazodanowa. Jest to podejście nazywane \textit{odwróceniem zależności\footnote{Dependency Inversion Principle (DIP) - zasada mówiąca, że moduły wysokopoziomowe nie powinny zależeć od modułów niskopoziomowych. Obie grupy powinny zależeć od abstrakcji. Abstrakcje natomiast nie powinny zależeć od szczegółowych rozwiązań, tylko odwrotnie.}} i~wymaga od programistów zastosowania odpowiednich technik projektowych, między innymi \textit{wstrzykiwania zależności\footnote{Dependency Injection (DI) – wzorzec projektowy i~wzorzec architektury oprogramowania polegający na usuwaniu bezpośrednich zależności pomiędzy komponentami na rzecz architektury typu plug-in \cite{website:wikipedia}.}}.
 
@@ -137,7 +134,7 @@ Warstwy wewnętrzne definiują interfejsy, za pomocą których mogą komunikowa�
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=12cm]{imgs/ch4_onion_architecture_pl.jpg}
+    \includegraphics[width=11cm]{imgs/ch4_onion_architecture_pl.jpg}
     \caption
 {\textit{Onion architecture} według Jeffrey'a Palermo  \cite{website:architect:onion}.}
     \label{fig:onion_architecture}
@@ -187,7 +184,7 @@ Cytowany już w~rozdziale \ref{czysty_kod} Uncle Bob opublikował w~2012 roku na
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=13cm]{imgs/ch4_clean_architecture_pl.jpg}
+    \includegraphics[width=12cm]{imgs/ch4_clean_architecture_pl.jpg}
     \caption
 {Clean architecture of Android według Uncle Bob  \cite{website:cecil:blog}.}
     \label{fig:clean_architecture}
