@@ -30,7 +30,7 @@ Serwer \textit{Parse} to wspólna platforma do przechowywania danych i~interakcj
 
 Victor Albertos zdecydował się użyć wyżej wymienionego rozwiązania, aby zwiększyć pielęgnowalność swojej aplikacji: móc modyfikować logikę biznesową nie modyfikując oprogramowania po stronie klienta. Serwer \textit{Parse}, jako rozwiązanie uniwersalne, zapewniał takie podejście i~wpisywał się doskonale w~koncepcję autora \textit{JSON Web Token Authentication for Android}.
 
-\section{Zasada działania}
+\section{Zasada działania programu}
 Użytkownik loguje się z~urządzenia z~zainstalowanym systemem Android za pomocą swojej nazwy użytkownika i~hasła do serwera \textit{Parse}. Jeżeli nie posiada jeszcze konta na serwerze, może założyć je bezpośrednio z~używanego programu. Jeżeli użytkownik istnieje, od chwili zalogowania może korzystać z~dostępnych mu usług serwera, a~logując się z~wielu urządzeń korzysta z~wielosesyjności systemu.  Użytkownik może również akualizować swoje dane na serwerze.
 
 %\section{Analiza aplikacji pod względem testowalności}
@@ -84,7 +84,7 @@ Podczas doświadczenia wykonano zaprojektowane przez autora aplikacji testy dla 
 
 \section{Wyniki doświadczenia}
 \label{wyniki_doswiadczenia}
-\subsection{Wyniki dla testów jednostkowych}
+\subsection{Testy jednostkowe}
 W przypadku aplikacji w~wersji poprawionej testy jednostkowe istnieją dla warstw \textit{use cases} oraz \textit{presenters} Rezultat wykonania przedstawiają tabele \ref{tab:testy_jednostkowe_razem}, \ref{tab:testy_jednostkowe_usecases} i~\ref{tab:testy_jednostkowe_presenters}.
 \begin{table}[!htb]
 \centering
@@ -121,7 +121,7 @@ W przypadku aplikacji w~wersji poprawionej testy jednostkowe istnieją dla warst
 \begin{tabular}{|p{5.8cm}|p{3cm}|p{3cm}|p{3cm}|}
 \hline
 \textbf{Warstwa} & \textbf{Przetestowane klasy} & \textbf{Przetestowane funkcje} & \textbf{Pokrycie linii kodu} \\ \hline
-\textit{subscribers} & 100\% (3/3) & 80\% (8/10) & 91\% (22/24)	\\ \hline
+\textit{Subscribers} & 100\% (3/3) & 80\% (8/10) & 91\% (22/24)	\\ \hline
 \textit{GetUserPresenter} & 100\% (2/2) & 80\% (4/5) & 81\% (9/11)	\\ \hline
 \textit{LaunchPresenter} & 100\% (2/2) & 83\% (5/6) & 85\% (12/14)	\\ \hline
 \textit{LoginPresenter} & 100\% (2/2) & 80\% (4/5) & 81\% (9/11)	\\ \hline
